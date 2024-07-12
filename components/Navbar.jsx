@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import Searchbar from './Searchbar';
 
 const Navbar = () => {
-  const [ value, setValue ] = useState("")
+  const [value, setValue] = useState("")
 
 
   const setValueFn = (value) => {
@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div className='w-full shadow-2xl '>
 
-      <div className='container mx-auto'>
+      <div className='container mx-auto p-2 sm:p-0'>
         <div className='flex justify-between items-center min-h-16   '>
           <div> Best Vocabulary</div>
           <div>

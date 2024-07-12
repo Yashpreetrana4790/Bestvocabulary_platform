@@ -8,6 +8,8 @@ import 'primeicons/primeicons.css'; // PrimeIcons
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+import 'primeicons/primeicons.css';
+
 
 export const metadata = {
   title: "Create Next App",
