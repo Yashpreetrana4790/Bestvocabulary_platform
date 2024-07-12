@@ -1,7 +1,13 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import React from 'react';
+import 'primeflex/primeflex.css'; // Optional: PrimeFlex for grid system
+import 'primereact/resources/themes/saga-blue/theme.css'; // PrimeReact theme
+import 'primereact/resources/primereact.min.css'; // PrimeReact components
+import 'primeicons/primeicons.css'; // PrimeIcons
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +17,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body >
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
