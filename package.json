@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "lucid": "^2.21.0",
+    "lucide": "^0.408.0",
     "next": "14.2.5",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
@@ -18,6 +19,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/node": "20.14.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",
