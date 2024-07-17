@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Example CSS for blur effect */
+.blurred {
+  filter: blur(4px);
+  transition: filter 0.3s ease-in-out;
+}

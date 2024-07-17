@@ -1,24 +1,25 @@
+import Button from "@/components/Button"
 import Link from "next/link"
 
 
-export default function Component() {
+export default function Page() {
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <section className="w-full bg-gradient-to-r from-primary to-primary-foreground py-12 md:py-24 lg:py-32">
+      <section className="w-full  py-12 md:py-24 lg:py-32">
         <div className="container flex flex-col items-center justify-center gap-6 px-4 md:px-6 text-center">
-          <h1 className="text-4xl font-bold tracking-tighter text-primary-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="text-4xl font-bold tracking-tighter  sm:text-5xl md:text-6xl lg:text-7xl">
             Elevate Your English Vocabulary
           </h1>
-          <p className="max-w-[700px] text-lg text-primary-foreground/80 md:text-xl">
+          <p className="max-w-[700px] text-lg md:text-xl">
             Unlock the power of words with our comprehensive vocabulary learning platform. Discover new words, practice
             daily, and master the English language.
           </p>
           <Link
-            href="#"
-            className="inline-flex h-10 items-center justify-center rounded-md bg-black text-white  px-8 text-sm font-medium text-primary shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+            href="/words"
             prefetch={false}
           >
-            Start Learning
+            <Button label="Words Treasure">
+            </Button>
           </Link>
         </div>
       </section>
@@ -35,7 +36,6 @@ export default function Component() {
               </p>
             </div>
             <div className="flex flex-col items-center text-center gap-4 bg-gray-100  rounded-lg p-4">
-              {/* <BadgeCheck /> */}
               <h3 className="text-2xl font-bold">Vocabulary Quizzes</h3>
               <p className="text-muted-foreground">
                 Test your knowledge with our engaging vocabulary quizzes. Challenge yourself and see how much you've
@@ -43,7 +43,6 @@ export default function Component() {
               </p>
             </div>
             <div className="flex flex-col items-center text-center gap-4 bg-gray-100  rounded-lg p-4">
-              {/* <CircleUserRound /> */}
               <h3 className="text-2xl font-bold">Personalized Learning</h3>
               <p className="text-muted-foreground">
                 Tailor your learning experience with our personalized recommendations. We'll suggest words and exercises
@@ -65,7 +64,7 @@ export default function Component() {
 
           <div className="flex flex-col lg:flex-row w-full items-center">
             <div className="flex-1 p-4">
-              <div className="grid grid-cols-2 gap-4 w-full max-sm:place-content-center sm:place-items-start">
+              <div className="grid grid-cols-2 gap-4 w-full  place-content-center ">
                 <div className="bg-gray-100 rounded-xl p-12">Card 1</div>
                 <div className="bg-gray-100 rounded-xl p-12">Card 2</div>
                 <div className="bg-gray-100 rounded-xl p-12">Card 3</div>

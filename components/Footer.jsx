@@ -1,20 +1,26 @@
+import { sidebarLinks } from '@/constants'
+import Link from 'next/link'
 import React from 'react'
 
 const Footer = () => {
   return (
     <>
-      <footer className="bg-gray-900 text-gray-300 mt-auto py-4">
-        <div className="container mx-auto px-4">
+      <footer className="bg-black text-gray-300 mt-auto py-4">
+        <div className="container  px-4">
           <div className="flex justify-between items-center">
             <div>
-              <p>&copy; 2024 Best Vocabulary </p>
+              <p className='italic'>&copy; 2024 Best Vocabulary </p>
             </div>
             <div className='hidden md:block'>
               <ul className="flex space-x-4">
-                <li><a href="#" className="hover:text-gray-400">Home</a></li>
-                <li><a href="#" className="hover:text-gray-400">Words</a></li>
-                <li><a href="#" className="hover:text-gray-400">Trending Words</a></li>
-                <li><a href="#" className="hover:text-gray-400">Ask Ai</a></li>
+                {sidebarLinks?.map((x) => {
+                  return (
+                    <Link href={x.route}>
+
+                      <li key={x.id} className='text-white font-bold'>{x?.label}</li>
+                    </Link>
+                  )
+                })}
               </ul>
             </div>
           </div>
