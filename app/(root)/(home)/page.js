@@ -4,8 +4,7 @@ import Heros from "@/components/Header/Heros"
 import FeaturedCardGroup from "@/components/HomeStatic/FeaturedCardGroup"
 import Searchbar from "@/components/searchbar/Searchbar"
 import { filterItemsGrouped } from "@/constants"
-import { transformToGroupedStructure } from "@/utils/transformationArr"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 export default function Page() {
@@ -44,6 +43,7 @@ export default function Page() {
           options={filterItemsGrouped}
           selectOption={setDropdownValuefn}
           optionsvalue={dropdownValue}
+          dropdown
 
         />
         <FeaturedCardGroup />

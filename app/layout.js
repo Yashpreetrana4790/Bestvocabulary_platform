@@ -1,15 +1,13 @@
-import "./globals.css";
 
 import React from 'react';
 import 'primeflex/primeflex.css'; // Optional: PrimeFlex for grid system
 import 'primereact/resources/themes/saga-blue/theme.css'; // PrimeReact theme
 import 'primereact/resources/primereact.min.css'; // PrimeReact components
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import 'primeicons/primeicons.css';
 import Head from "next/head";
 import Script from "next/script";
 import 'primeicons/primeicons.css';
+import "./globals.css";
 import { Libre_Baskerville, Open_Sans, Playfair_Display } from "next/font/google";
 
 export const metadata = {
@@ -50,10 +48,7 @@ export default function RootLayout({ children }) {
 
       </Head>
       <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable}`}>
-
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );

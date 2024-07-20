@@ -9,6 +9,8 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import SidebarLearningStats from "@/components/graph/Sidebarlearningstat";
 import ThemeToggle from "@/components/ThemeMode/Theme";
 import ReusableSidebar from "@/components/sidebar/Reusablesidebar";
+import Heros from "@/components/Header/Heros";
+import Searchbar from "@/components/searchbar/Searchbar";
 
 const page = () => {
   const [visible, setVisible] = useState(false)
@@ -55,9 +57,8 @@ const page = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-4   basis-9/12    ">
-            <div class=" w-full px-4 min-w-[500px] mb-5 flex items-center justify-center">
-              <input type="text" placeholder="Write a sentence , word , synonym " class="bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-300 rounded-lg py-2 px-4 w-full pr-10 min-w-[200px]" />
-            </div>
+            <Heros heading={"Words & Words"} className="py-5 2xl:py-10" />
+          <Searchbar />
             <div className="grid gap-4 place-content-center">
               <WordCard />
               <WordCard />

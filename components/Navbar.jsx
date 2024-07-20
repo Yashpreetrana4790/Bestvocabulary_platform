@@ -21,7 +21,7 @@ const Navbar = () => {
         {
           label: 'Ask AI',
           icon: 'pi pi-sparkles',
-          url: '/'
+          url: '/admin/admindashboard'
         },
 
 
@@ -33,8 +33,8 @@ const Navbar = () => {
   return (
     <div className='w-full  navbar '>
 
-      <div className='container  p-4 sm:p-0'>
-        <div className='flex justify-between sm:mx-5 py-3 items-center min-h-16  mt-5 rounded-full px-3 bg-gray-200  '>
+      <div className='container  pt-3'>
+        <div className='flex justify-between sm:mx-5 py-3 items-center min-h-16  md:mt-5 rounded-full px-3 bg-gray-200  '>
           <Link href="/" className='text-xl  px-2 font-bold text-black font-playfair'> Best Vocabulary</Link>
           <div className='flex gap-4 items-center '>
 
