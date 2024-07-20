@@ -16,6 +16,11 @@ module.exports = {
         '2xl': '6rem',
       },
     },
+    fontFamily: {
+      playfair: ["var(--font-playfairdisplay)"],
+      libre: ["var(--font-libre)"],
+      opensans: ["var(--font-opensans)"],
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

@@ -20,18 +20,21 @@ export const sidebarLinks = [
 
 
 export const filterItems = {
-  ByGrades: {
-    elementary: [
-      { label: 'Basic Vocabulary', icon: 'pi pi-sparkles', value: 'basic' },
+  Bygrades: {
+    Pro: [
+      { label: 'Pro Vocabulary', icon: 'pi pi-sparkles', value: 'pro' },
+    ],
+    Elementary: [
+      {
+        label: 'Basic Vocabulary', icon: 'pi pi-star', value: 'basic'
+      },
       { label: 'Mathematics Vocabulary', icon: 'pi pi-chart-bar', value: 'mathematics' },
-      { label: 'Science Vocabulary', icon: 'pi pi-flask', value: 'science' },
-      { label: 'Language Vocabulary', icon: 'pi pi-flag-en', value: 'language' },
     ],
     MiddleSchool: [
       { label: 'Advanced Vocabulary', icon: 'pi pi-globe', value: 'advanced' },
       { label: 'History Vocabulary', icon: 'pi pi-hourglass', value: 'history' },
       { label: 'Geography Vocabulary', icon: 'pi pi-map-marker', value: 'geography' },
-      { label: 'Music Vocabulary', icon: 'pi pi-music', value: 'music' },
+      { label: 'Music Vocabulary', icon: 'pi pi-headphones', value: 'music' },
     ],
     HighSchool: [
       { label: 'Business Vocabulary', icon: 'pi pi-briefcase', value: 'business' },
@@ -47,33 +50,27 @@ export const filterItems = {
     ],
   },
   BySubjects: {
-    languageLiterature: [
+    LanguageLiterature: [
       { label: 'Literature Vocabulary', icon: 'pi pi-book-open', value: 'literature' },
       { label: 'Writing Vocabulary', icon: 'pi pi-pencil', value: 'writing' },
-      { label: 'Poetry Vocabulary', icon: 'pi pi-feather', value: 'poetry' },
+      { label: 'Poetry Vocabulary', icon: 'pi pi-lightbulb', value: 'poetry' },
     ],
     ScienceTechnology: [
-      { label: 'Technical Vocabulary', icon: 'pi pi-laptop', value: 'technical' },
-      { label: 'Computer Science Vocabulary', icon: 'pi pi-desktop', value: 'computer-science' },
-      { label: 'Engineering Vocabulary', icon: 'pi pi-tools', value: 'engineering' },
+      { label: 'Technical Vocabulary', icon: 'pi pi-desktop', value: 'technical' },
+      { label: 'Engineering Vocabulary', icon: 'pi  pi-spin pi-cog', value: 'engineering' },
     ],
     SocialSciences: [
       { label: 'Political Science Vocabulary', icon: 'pi pi-flag', value: 'political-science' },
-      { label: 'Psychology Vocabulary', icon: 'pi pi-brain', value: 'psychology' },
       { label: 'Sociology Vocabulary', icon: 'pi pi-users', value: 'sociology' },
-      // Add more social sciences categories
     ],
-    ArtsHumanities: [ 
+    ArtsHumanities: [
       { label: 'Art Vocabulary', icon: 'pi pi-palette', value: 'art' },
-      { label: 'Music Theory', icon: 'pi pi-music', value: 'music-theory' },
+      { label: 'Music Theory', icon: 'pi pi-headphones', value: 'music-theory' },
       { label: 'Philosophy Vocabulary', icon: 'pi pi-lightbulb', value: 'philosophy' },
-      // Add more arts and humanities categories
     ],
     ProfessionalVocational: [
       { label: 'Business Management', icon: 'pi pi-briefcase', value: 'business-management' },
-      { label: 'Medical Specialties', icon: 'pi pi-user-md', value: 'medical-specialties' },
-      { label: 'Legal System Vocabulary', icon: 'pi pi-balance-scale', value: 'legal-system' },
-      // Add more professional and vocational categories
+      { label: 'Medical Specialties', icon: 'pi pi-wave-pulse', value: 'medical-specialties' },
     ],
   },
 };

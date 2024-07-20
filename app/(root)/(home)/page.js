@@ -5,12 +5,12 @@ import Link from "next/link"
 export default function Page() {
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <section className="w-full  py-12 md:py-24 lg:py-32">
+      <section className="w-full  py-12 md:py-16 2xl:py-28">
         <div className="container flex flex-col items-center justify-center gap-6 px-4 md:px-6 text-center">
-          <h1 className="text-4xl font-bold tracking-tighter  sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="text-4xl font-bold tracking-tighter font-libre  sm:text-5xl md:text-6xl lg:text-7xl">
             Elevate Your English Vocabulary
           </h1>
-          <p className="max-w-[700px] text-lg md:text-xl">
+          <p className="max-w-[700px] text-lg md:text-md font-opensans">
             Unlock the power of words with our comprehensive vocabulary learning platform. Discover new words, practice
             daily, and master the English language.
           </p>
@@ -18,33 +18,33 @@ export default function Page() {
             href="/words"
             prefetch={false}
           >
-            <Button label="Words Treasure">
+            <Button label="Words Treasure" iconleft="pi pi-sparkles" iconright={"pi pi-arrow-up-right"}>
             </Button>
           </Link>
         </div>
       </section>
-      <section className="w-full py-12 md:py-24 lg:py-12">
+      <section className="w-full pb-12 md:pb-[60px] lg:pb-12">
         <div className="container mx-auto">
 
           <div className=" md:flex max-md:flex-col justify-center items-center gap-4">
             <div className="flex flex-col items-center text-center gap-4 bg-gray-100  rounded-lg p-4">
               {/* <CalendarDays /> */}
-              <h3 className="text-2xl font-bold">Daily Word Practice</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-2xl font-bold font-playfair">Daily Word Practice</h3>
+              <p className="text-muted-foreground font-opensans">
                 Improve your vocabulary with our daily word practice sessions. Learn new words, reinforce existing ones,
                 and track your progress.
               </p>
             </div>
             <div className="flex flex-col items-center text-center gap-4 bg-gray-100  rounded-lg p-4">
-              <h3 className="text-2xl font-bold">Vocabulary Quizzes</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-2xl font-bold font-playfair">Vocabulary Quizzes</h3>
+              <p className="text-muted-foreground font-opensans">
                 Test your knowledge with our engaging vocabulary quizzes. Challenge yourself and see how much you've
                 learned.
               </p>
             </div>
             <div className="flex flex-col items-center text-center gap-4 bg-gray-100  rounded-lg p-4">
-              <h3 className="text-2xl font-bold">Personalized Learning</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-2xl font-bold font-playfair">Performance Tracking</h3>
+              <p className="text-muted-foreground font-opensans">
                 Tailor your learning experience with our personalized recommendations. We'll suggest words and exercises
                 based on your strengths and weaknesses.
               </p>
