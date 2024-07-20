@@ -59,3 +59,32 @@
 .p-sidebar-content:hover::-webkit-scrollbar-thumb {
   background-color: #7f1d1d;
 }
+
+
+.navbar .p-menubar.p-component {
+  background: transparent;
+  font-weight: 700;
+  font-family: 'Open Sans ' serif;
+  color: #424242
+}
+
+.navbar .p-menubar.p-component:focus {
+  background: transparent;
+}
+
+.navbar .p-menubar.p-component:hover {
+  background: transparent;
+}
+
+.navbar .p-menubar .p-menuitem.p-highlight>.p-menuitem-content {
+  background: transparent;
+}
+
+.navbar .p-menubar .p-menuitem.p-highlight>.p-menuitem-content:hover {
+  background: transparent;
+}
+
+
+.searchbar .p-inputtext:enabled:focus{
+  box-shadow: none;
+}

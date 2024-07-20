@@ -12,10 +12,7 @@ export const sidebarLinks = [
     route: "/trendingwords",
     label: "Trending Words",
   },
-  {
-    route: "/dictionary",
-    label: "Dictionary",
-  }
+
 ];
 
 
