@@ -4,6 +4,7 @@ import React from 'react'
 
 const Footer = () => {
   console.log("test")
+  console.log("test")
   return (
     <>
       <footer className="bg-black text-gray-300 mt-auto py-4">
