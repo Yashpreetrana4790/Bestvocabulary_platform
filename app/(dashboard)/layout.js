@@ -1,5 +1,5 @@
-
-
+import AdminNavbar from "./components/AdminNavbar";
+import AdminSidebar from "./components/AdminSidebar";
 
 export const metadata = {
   title: "Best Vocabulary",
@@ -7,11 +7,14 @@ export const metadata = {
 };
 
 
-
 export default function AdminLayout({ children }) {
   return (
-    <div>
-      {children}
+    <div className='flex w-full '>
+      <AdminSidebar />
+      <main className='flex flex-col w-full'>
+        <AdminNavbar />
+        {children}
+      </main>
     </div>
   );
 }
