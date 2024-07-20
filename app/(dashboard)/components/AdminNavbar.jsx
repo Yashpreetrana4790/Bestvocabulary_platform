@@ -13,7 +13,6 @@ const AdminNavbar = () => {
           <FaSearch className="text-gray-500 mr-2" />
           <InputText placeholder="Search" className="border-none focus:outline-none bg-transparent" />
         </div>
-        <FaCog className="ml-4 text-xl cursor-pointer" />
         <FaUserCircle className="ml-4 text-2xl cursor-pointer" />
       </div>
     </div>

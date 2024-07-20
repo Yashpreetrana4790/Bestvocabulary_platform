@@ -8,7 +8,6 @@ const admindashboard = () => {
     { month: 'Feb', words: 150 },
     { month: 'Mar', words: 130 },
     { month: 'Apr', words: 180 },
-    // Add more data as needed
   ];
 
   return (
@@ -21,7 +20,6 @@ const admindashboard = () => {
         />
       </div>
       <div className='max-w-xl px-5' >
-
         <ChartCard
           monthlyWords={monthlyWords}
         />
