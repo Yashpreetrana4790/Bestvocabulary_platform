@@ -3,24 +3,16 @@ import Button from "@/components/Button"
 import Heros from "@/components/Header/Heros"
 import FeaturedCardGroup from "@/components/HomeStatic/FeaturedCardGroup"
 import Searchbar from "@/components/searchbar/Searchbar"
-import { useState } from "react";
+import { filterItemsGrouped } from "@/constants"
+import { transformToGroupedStructure } from "@/utils/transformationArr"
+import { useEffect, useState } from "react";
 
 
 export default function Page() {
   const [searchValue, setSearchValue] = useState('');
   const [dropdownValue, setDropdownValue] = useState('');
 
-  const dropdownOptions = [
-    { label: 'All', value: 'All' },
-    { label: 'Nouns', value: 'Nouns' },
-    { label: 'Verbs', value: 'Verbs' },
-    { label: 'Adjectives', value: 'Adjectives' },
-    { label: 'Adverbs', value: 'Adverbs' },
-    { label: 'Prepositions', value: 'Prepositions' },
-    { label: 'Conjunctions', value: 'Conjunctions' },
-    { label: 'Interjections', value: 'Interjections' },
-    { label: 'Phrasal Verbs', value: 'Phrasal Verbs' },
-  ]
+
 
   const handleSearch = (value) => {
     setSearchValue(value);
@@ -35,6 +27,9 @@ export default function Page() {
   };
 
 
+
+
+
   return (
     <>
       <div className="flex min-h-[100dvh] flex-col">
@@ -46,9 +41,10 @@ export default function Page() {
         <Searchbar
           value={searchValue}
           onSearch={handleSearch}
-          options={dropdownOptions}
+          options={filterItemsGrouped}
           selectOption={setDropdownValuefn}
           optionsvalue={dropdownValue}
+
         />
         <FeaturedCardGroup />
       </div>

@@ -51,7 +51,7 @@ const Navbar = () => {
               })}
 
             </div>
-            <Menubar model={items} className='text-bold lg:block hidden ' />
+            <Menubar model={items} className='text-bold lg:block hidden font-opensans font-bold text-gray-800' />
           </div>
 
           <div className='px-2'>
