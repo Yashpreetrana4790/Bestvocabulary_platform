@@ -10,7 +10,7 @@ import 'primeicons/primeicons.css';
 import Head from "next/head";
 import Script from "next/script";
 import 'primeicons/primeicons.css';
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 export const metadata = {

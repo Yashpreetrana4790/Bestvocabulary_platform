@@ -10,8 +10,8 @@ const Navbar = () => {
     <div className='w-full  '>
 
       <div className='container  p-4 sm:p-0'>
-        <div className='flex justify-between items-center min-h-16  mt-5 rounded-full px-3 bg-gray-200  '>
-          <Link href="/" className='text-xl  px-2 font-bold text-pink-800'> Best Vocabulary</Link>
+        <div className='flex justify-between sm:mx-5 py-3 items-center min-h-16  mt-5 rounded-full px-3 bg-gray-200  '>
+          <Link href="/" className='text-xl  px-2 font-bold text-black'> Best Vocabulary</Link>
           <div className=' md:flex hidden gap-5 '>
             {sidebarLinks?.map((x) => {
               return (

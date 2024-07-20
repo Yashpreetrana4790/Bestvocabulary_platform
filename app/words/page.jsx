@@ -49,16 +49,28 @@ const page = () => {
                     </p>
                     <h3 className="text-xl mb-2 font-semibold text-black">Filters</h3>
                     <div className="flex flex-col">
-                      {filterItems.map(item => (
-                        <button
-                          key={item.value}
-                          className={`flex items-center p-2 hover:bg-gray-100 ${activeFilter === item.value ? 'bg-gray-200' : ''}`}
-                          onClick={() => handleFilterChange({ value: item.value })}
-                        >
-                          <i className={`mr-2 ${item.icon}`} />
-                          <span className="text-sm">{item.label}</span>
-                        </button>
+                      {Object.keys(filterItems).map(category => (
+                        <div key={category}>
+                          <h3 className="text-lg font-semibold mt-4">{category}</h3>
+                          {Object.keys(filterItems[category]).map(subCategory => (
+                            <div key={subCategory} className="mt-2">
+                              <h4 className="text-base font-medium">{subCategory}</h4>
+                              {filterItems[category][subCategory].map(item => (
+                                <button
+                                  key={item.value}
+                                  className={`flex items-center p-2 hover:bg-gray-100 ${activeFilter === item.value ? 'bg-gray-200' : ''}`}
+                                  onClick={() => handleFilterChange({ value: item.value })}
+                                >
+                                  <i className={`mr-2 ${item.icon}`} />
+                                  <span className="text-sm">{item.label}</span>
+                                </button>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
                       ))}
+
+
                     </div>
                   </div>
                 </Sidebar>
