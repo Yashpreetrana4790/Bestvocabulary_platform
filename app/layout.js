@@ -10,7 +10,6 @@ import 'primeicons/primeicons.css';
 import Head from "next/head";
 import Script from "next/script";
 import 'primeicons/primeicons.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Libre_Baskerville, Open_Sans, Playfair_Display } from "next/font/google";
 
 export const metadata = {
