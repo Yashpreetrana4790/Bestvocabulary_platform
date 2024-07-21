@@ -1,11 +1,12 @@
 'use client'
 import React, { useState } from 'react';
 import Searchbar from '@/components/searchbar/Searchbar';
-import TrackingBeam from '@/components/TracingBeam';
-import { filterItemsGrouped } from '@/constants';
-import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Button } from 'primereact/button';
 import WordCard from '@/components/cards/WordCard';
+import { Tag } from 'primereact/tag';
+import ReTag from '@/components/Tag/Tag';
+import { filterItemsGrouped } from '@/constants';
+import { Carousel } from 'primereact/carousel';
 
 const Page = () => {
   const [activeFilter, setActiveFilter] = useState('');
@@ -45,6 +46,9 @@ const Page = () => {
               ))}
             </div>
             <div>
+              <Button icon="pi pi-sort-alpha-desc" className="p-button-rounded p-button-text text-black" />
+            </div>
+            <div>
 
             </div>
 
@@ -62,10 +66,13 @@ const Page = () => {
           <p className="text-sm text-center text-gray-700 font-merriweather">
             Discover and master words with our advanced search and filter options.
           </p>
+          <div className=''>
+            {/* <ReTag items={filterItemsGrouped} /> */}
+          </div>
           <Searchbar style="transform 2xl:translate-y-10 max-mg: mt-5 " />
         </header>
 
-        <div className='grid gap-4 place-content-center'>
+        <div className='grid md:grid-cols-2  lg:grid-cols-3 gap-4 place-content-center'>
           <WordCard />
           <WordCard />
           <WordCard />
