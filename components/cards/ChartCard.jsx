@@ -16,46 +16,24 @@ const ChartCard = ({ totalUsers, totalWords, monthlyWords }) => {
     ],
   } : null;
 
-  const monthlyWordsOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Month',
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Words',
-        },
-        beginAtZero: true,
-      },
-    },
-  };
 
   return (
 
 
     <div className="w-full">
       {totalUsers &&
-        <Card title="Total Users" className=" text-center font-playfair shadow-md border rounded-xl border-gray-200">
+        <Card title="Total Users" className=" text-center font-libre shadow-md border rounded-xl border-gray-200">
           <p className="text-4xl font-bold">{totalUsers}</p>
         </Card>
       }
 
       {totalWords &&
-        <Card title="Total Words" className=" text-center font-playfair shadow-md border rounded-xl border-gray-200">
+        <Card title="Total Words" className=" text-center font-libre fonti shadow-md border rounded-xl border-gray-200">
           <p className="text-4xl font-bold">{totalWords}</p>
         </Card>
       }
       {monthlyWordsData && (
-        <Card title="Monthly Words Added" className=" text-center font-playfair  shadow-md border rounded-xl border-gray-200">
+        <Card title="Monthly Words Added" className=" text-center font-libre  shadow-md border rounded-xl border-gray-200">
           <Chart type="line" data={monthlyWordsData} />
         </Card>
       )}

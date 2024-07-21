@@ -1,3 +1,4 @@
+import VocabularyChart from '@/components/cards/Categorcount';
 import ChartCard from '@/components/cards/ChartCard'
 import React from 'react'
 
@@ -12,7 +13,11 @@ const admindashboard = () => {
 
   return (
     <div className='w-full'>
+
       <div className=' flex flex-row w-full gap-5 p-5'>
+        <div className='max-w-xl px-5'>
+          <VocabularyChart />
+        </div>
         <ChartCard totalUsers={1500}
         />
         <ChartCard
@@ -24,6 +29,7 @@ const admindashboard = () => {
           monthlyWords={monthlyWords}
         />
       </div>
+
     </div>
   )
 }
