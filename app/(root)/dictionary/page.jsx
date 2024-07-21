@@ -22,7 +22,7 @@ const Page = () => {
 
 
   return (
-    <div className="flex mt-10 container mx-auto">
+    <div className="flex mt-10 container mx-auto dictionary">
 
 
       <aside className="w-1/4 p-4 bg-gray-100 rounded-xl divide-y-1 lg:block hidden">
@@ -65,7 +65,10 @@ const Page = () => {
           <Searchbar style="transform 2xl:translate-y-10 max-mg: mt-5 " />
         </header>
 
-        <div>
+        <div className='grid gap-4 place-content-center'>
+          <WordCard />
+          <WordCard />
+          <WordCard />
           <WordCard />
         </div>
 
