@@ -35,7 +35,7 @@ const Navbar = () => {
 
       <div className='container  pt-3'>
         <div className='flex justify-between sm:mx-5 py-3 items-center min-h-16  md:mt-5 rounded-full px-3 bg-gray-200  '>
-          <Link href="/" className='text-xl  px-2 font-bold text-black font-playfair'> Best Vocabulary</Link>
+          <Link href="/" className='text-2xl   px-2 font-bold text-black font-playfair'> Locofile</Link>
           <div className='flex gap-4 items-center '>
 
             <div className=' md:flex hidden gap-5 '>
