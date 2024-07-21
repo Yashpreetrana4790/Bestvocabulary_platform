@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="container  px-4">
           <div className="flex justify-between items-center">
             <div>
-              <p className='italic'>&copy; 2024 Locofile </p>
+              <p className='italic'>&copy; 2024 Logophile </p>
             </div>
             <div className='hidden md:block'>
               <ul className="flex space-x-4">
