@@ -51,14 +51,19 @@ const page = () => {
                   activeFilter={activeFilter}
                   handleFilterChange={handleFilterChange}
                 />
-                <Button icon="pi pi-filter-fill
-  w-full  min-w-[30px]" onClick={() => setVisible(true)}>Filters</Button>
+
+                <Button
+                  className="w-full min-w-[30px] p-button-text-only"
+                  icon={"pi pi-filter-fill"}
+                  onClick={() => setVisible(true)}
+
+                />
               </div>
             </div>
           </div>
           <div className="flex flex-col space-y-4   basis-9/12    ">
             <Heros heading={"Words & Words"} className="py-5 2xl:py-10" />
-          <Searchbar />
+            <Searchbar />
             <div className="grid gap-4 place-content-center">
               <WordCard />
               <WordCard />

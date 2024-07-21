@@ -20,6 +20,7 @@ module.exports = {
       playfair: ["var(--font-playfairdisplay)"],
       libre: ["var(--font-libre)"],
       opensans: ["var(--font-opensans)"],
+      merriweather: ["var(--font-merriweather)"],
     },
     extend: {
       backgroundImage: {

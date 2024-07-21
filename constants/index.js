@@ -9,8 +9,8 @@ export const sidebarLinks = [
     label: "Words",
   },
   {
-    route: "/trendingwords",
-    label: "Trending Words",
+    route: "/learn",
+    label: "Learn",
   },
 
 ];
@@ -163,13 +163,12 @@ export const filterItemsGrouped = [
   }
 ];
 
-
 export const AdminNavigation = [
-  { href: "/admin/admindashboard", label: "Dashboard" },
-  { href: "/admin/users", label: "Users" },
-  { href: "/admin/addword", label: "Add Word" },
-  { href: "/admin/quiz", label: "Quiz" },
-  { href: "/admin/quizresult", label: "Quiz Result" },
-  { href: "/admin/changepassword", label: "Change Password" },
-  { href: "/admin/logout", label: "Logout" }
+  { href: "/admin/admindashboard", label: "Dashboard", icon: "pi pi-fw pi-home" },
+  { href: "/admin/users", label: "Users", icon: "pi pi-fw pi-users" },
+  { href: "/admin/addword", label: "Add Word", icon: "pi pi-fw pi-plus" },
+  { href: "/admin/quiz", label: "Quiz", icon: "pi pi-fw pi-question-circle" },
+  { href: "/admin/quizresult", label: "Quiz Result", icon: "pi pi-fw pi-chart-bar" },
+  { href: "/admin/changepassword", label: "Change Password", icon: "pi pi-fw pi-key" },
+  { href: "/admin/logout", label: "Logout", icon: "pi pi-fw pi-power-off" }
 ];

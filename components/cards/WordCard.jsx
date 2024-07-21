@@ -1,25 +1,33 @@
-import Image from 'next/image'
 import React from 'react'
+
+import { Badge } from 'primereact/badge';
+
 const WordCard = () => {
   return (
     <>
 
-      <div className="max-w-xs rounded overflow-hidden shadow-lg">
-        <div className="px-4 py-4">
-          <div className="font-bold text-xl uppercase mb-2 text-center">
-            Logophile</div>
-          <div className='text-center mb-2'>
-            <span > ˈlɒɡ.ə.faɪl </span>
+      <div className="max-w-xs rounded overflow-hidden border shadow-lg">
+        <div className="px-4 py-4 ">
+          <div className=" flex items-center justify-between mb-2">
+            <p className='font-bold font-libre  text-xl   text-center'>
+
+              Logophile
+            </p>
+            <span className='flex gap-2'>
+
+              <span className='text-center mb-2'>
+                <span > ˈlɒɡ.ə.faɪl </span>
+              </span>
+              /
+              <Badge value="Easy" className='bg-emerald-400 rounded-xl mb-1.5' />
+            </span>
           </div>
-          <p className="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+
+          <p className="text-gray-700 text-base line-clamp-3">
+            "Logophile" refers to a person who loves words; specifically, someone who enjoys studying and exploring words and languages. The term is derived from Greek roots: "logo-" meaning "word" or "speech," and "-phile" meaning "lover of." Thus, a logophile is someone who has a passion for words, whether it involves their meanings, origins, usage, or etymology.
           </p>
         </div>
-        <div className="px-4 pt-2 pb-2 text-center">
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Walk</span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Travel</span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Itenerant</span>
-        </div>
+
       </div>
     </>
   )
