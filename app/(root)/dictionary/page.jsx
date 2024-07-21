@@ -25,7 +25,7 @@ const Page = () => {
     <div className="flex mt-10 container mx-auto">
 
 
-      <aside className="w-1/4 p-4 bg-gray-100 rounded-xl divide-y-1">
+      <aside className="w-1/4 p-4 bg-gray-100 rounded-xl divide-y-1 lg:block hidden">
 
         <h2 className="text-2xl mt-5 font-bold mb-4 font-libre text-red-900 text-center">A-Z Words</h2>
         <div className="mb-3 w-full sidebar-section" id="quick-practice-section">
@@ -62,7 +62,7 @@ const Page = () => {
           <p className="text-sm text-center text-gray-700 font-merriweather">
             Discover and master words with our advanced search and filter options.
           </p>
-          <Searchbar style="transform 2xl:translate-y-10" />
+          <Searchbar style="transform 2xl:translate-y-10 max-mg: mt-5 " />
         </header>
 
         <div>
