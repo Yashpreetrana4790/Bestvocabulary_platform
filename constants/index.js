@@ -163,3 +163,13 @@ export const filterItemsGrouped = [
   }
 ];
 
+
+export const AdminNavigation = [
+  { href: "/admin/admindashboard", label: "Dashboard" },
+  { href: "/admin/users", label: "Users" },
+  { href: "/admin/addword", label: "Add Word" },
+  { href: "/admin/quiz", label: "Quiz" },
+  { href: "/admin/quizresult", label: "Quiz Result" },
+  { href: "/admin/changepassword", label: "Change Password" },
+  { href: "/admin/logout", label: "Logout" }
+];

@@ -1,12 +1,21 @@
 'use client'
+import { AdminNavigation } from '@/constants';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
-
 const AdminSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+
+  const pathname = usePathname();
+
+  const isActive = (href) => {
+    return pathname === href;
+  };
+
+
   return (
-    <div className={`h-screen  bg-gray-200 shadow-lg ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300`}>
+    <div className={`h-screen  bg-gray-100  shadow-lg ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300`}>
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
         className={`p-3 focus:outline-none flex  w-full ${isCollapsed ? 'justify-center' : 'justify-end'}`}
@@ -19,36 +28,18 @@ const AdminSidebar = () => {
       </button>
       {
         !isCollapsed &&
-        <div className='w-full p-2 flex flex-col space-y-2'>
-          <div className='font-playfair  text-2xl text-red-900  p-2'>
-            Best Vocabulary
+        <div className='w-full p-2 flex flex-col space-y-2  bg-gray-100'>
+          <div>
+            {AdminNavigation?.map((link, index) => (
+              <div key={index} className={`p-2 w-full rounded-sm ${isActive(link.href) ? 'bg-black text-white ' : 'bg-gray-50'}`}>
+                <Link href={link.href}>
+                  <p className="font-opensans rounded-2xl  p-2 block">
+                    {link.label}
+                  </p>
+                </Link>
+              </div>
+            ))}
           </div>
-
-          <div className='p-2 w-full bg-gray-50 rounded-sm '>
-            <Link href="/admin/admindashboard" className='font-opensans  text-sm text-black p-2 bg-gray-50 ' prefetch={false}>Dashboard</Link>
-          </div>
-
-          <div className='p-2 w-full bg-gray-50 rounded-sm '>
-            <Link href="/admin/users" className='font-opensans  text-sm text-black p-2 bg-gray-50 ' prefetch={false}>Users</Link>
-          </div>
-
-          <div className='p-2 w-full bg-gray-50 rounded-sm '>
-            <Link href="/admin/addword" className='font-opensans  text-sm text-black p-2 bg-gray-50 ' prefetch={false}>Add Word</Link>
-          </div>
-
-          <div className='p-2 w-full bg-gray-50 rounded-sm '>
-            <Link href="/admin/quiz" className='font-opensans  text-sm text-black p-2 bg-gray-50 ' prefetch={false}>Quiz</Link>
-          </div>
-          <div className='p-2 w-full bg-gray-50 rounded-sm '>
-            <Link href="/admin/quizresult" className='font-opensans  text-sm text-black p-2 bg-gray-50 ' prefetch={false}>Quiz Result</Link>
-          </div>
-          <div className='p-2 w-full bg-gray-50 rounded-sm'  >
-            <Link href="/admin/changepassword" className='font-opensans  text-sm text-black p-2 bg-gray-50 ' prefetch={false}>Change Password</Link>
-          </div>
-          <div className='p-2 w-full bg-gray-50 rounded-sm '>
-            <Link href="/admin/logout" className='font-opensans  text-sm text-black p-2 bg-gray-50 ' prefetch={false}>Logout</Link>
-          </div>
-
         </div>
       }
     </div>

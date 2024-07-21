@@ -4,13 +4,14 @@ import React from 'react'
 
 const Footer = () => {
   console.log("test")
+  console.log("test")
   return (
     <>
       <footer className="bg-black text-gray-300 mt-auto py-4">
         <div className="container  px-4">
           <div className="flex justify-between items-center">
             <div>
-              <p className='italic'>&copy; 2024 Best Vocabulary </p>
+              <p className='italic'>&copy; 2024 Locofile </p>
             </div>
             <div className='hidden md:block'>
               <ul className="flex space-x-4">
