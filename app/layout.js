@@ -8,7 +8,7 @@ import Head from "next/head";
 import Script from "next/script";
 import 'primeicons/primeicons.css';
 import "./globals.css";
-import { Libre_Baskerville, Open_Sans, Playfair_Display } from "next/font/google";
+import { Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } from "next/font/google";
 
 export const metadata = {
   title: "Best Vocabulary",
@@ -36,6 +36,12 @@ const OpenSans = Open_Sans({
   variable: "--font-opensans",
 });
 
+const MerriWeather = Merriweather({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-merriweather",
+});
+
 
 
 
@@ -47,7 +53,7 @@ export default function RootLayout({ children }) {
         <Script rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/primeicons/primeicons.css" />
 
       </Head>
-      <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable}`}>
+      <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable} ${MerriWeather.variable}`}>
         {children}
       </body>
     </html>

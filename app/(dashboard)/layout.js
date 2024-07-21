@@ -1,5 +1,9 @@
 import AdminNavbar from "./components/AdminNavbar";
 import AdminSidebar from "./components/AdminSidebar";
+import 'primeflex/primeflex.css'; // Optional: PrimeFlex for grid system
+import 'primereact/resources/themes/saga-blue/theme.css'; // PrimeReact theme
+import 'primereact/resources/primereact.min.css'; // PrimeReact components
+import 'primeicons/primeicons.css';
 
 export const metadata = {
   title: "Best Vocabulary",

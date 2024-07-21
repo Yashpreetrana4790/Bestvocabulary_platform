@@ -6,7 +6,7 @@ import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import { Dropdown } from 'primereact/dropdown';
 
-const Searchbar = ({ value, onSearch, options, selectOption, optionsvalue, dropdown }) => {
+const Searchbar = ({ value, onSearch, options, selectOption, optionsvalue, dropdown, style }) => {
 
   const handleSearch = (event) => {
     onSearch(event.target.value);
@@ -31,7 +31,7 @@ const Searchbar = ({ value, onSearch, options, selectOption, optionsvalue, dropd
   return (
     <div className='max-sm:mx-3'>
 
-      <div className=" searchbar w-full max-w-2xl mx-auto gap-2  2xl:-translate-y-20 mb-5 flex items-center justify-center rounded-full px-3 py-2 border-2 border-gray-600">
+      <div className={` searchbar w-full max-w-2xl mx-auto gap-2  2xl:-translate-y-20 mb-5 flex items-center justify-center rounded-full px-3 py-2 border-2 border-gray-600${style}`}>
         <IconField iconPosition="left" className='w-full'>
           <InputIcon className="pi pi-search"> </InputIcon>
           <InputText iconPos="right" value={value} onChange={handleSearch} placeholder='Search' className="pl-5 w-full min-h-[40px] p-inputtext p-ml-2 p-inputtext-plain" />
