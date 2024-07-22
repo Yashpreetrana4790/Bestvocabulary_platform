@@ -55,7 +55,7 @@ const Navbar = () => {
           </div>
 
           <div className='px-2'>
-            <Button label="Login" icon="pi pi-user" type="secondary" />
+            <Button href="/login" label="Login" icon="pi pi-user" type="secondary" />
           </div>
         </div>
       </div>

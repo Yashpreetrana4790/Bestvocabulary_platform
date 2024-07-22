@@ -33,7 +33,7 @@ const Page = () => {
           <Button icon="pi pi-search " className=" w-full !text-center gap-2 ml-2  font-xl rounded-md bg-red-900 text-white p-2 ">Advance Search</Button>
         </div>
         <div className="mb-6">
-          <div className="flex items-center justify-center w-full">
+          <div className="flex flex-col items-center justify-center w-full">
             <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-2xl w-full">
               {Array.from({ length: 26 }, (_, index) => (
                 <button
@@ -45,13 +45,9 @@ const Page = () => {
                 </button>
               ))}
             </div>
-            <div>
-              <Button icon="pi pi-sort-alpha-desc" className="p-button-rounded p-button-text text-black" />
+            <div className='mt-2 w-full'>
+              <Button icon="pi pi-sort-alpha-down-alt" className=" w-full !text-center gap-2 ml-2  font-xl rounded-md bg-red-900 text-white p-2 " label="Sort Z-A Words  " />
             </div>
-            <div>
-
-            </div>
-
           </div>
         </div>
 
