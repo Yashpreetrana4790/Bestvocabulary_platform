@@ -1,8 +1,9 @@
+import { auth } from '@/auth';
 import VocabularyChart from '@/components/cards/Categorcount';
 import ChartCard from '@/components/cards/ChartCard'
 import React from 'react'
 
-const admindashboard = () => {
+const admindashboard = async () => {
 
   const monthlyWords = [
     { month: 'Jan', words: 120 },
@@ -11,6 +12,14 @@ const admindashboard = () => {
     { month: 'Apr', words: 180 },
   ];
 
+
+  const session = await auth()
+
+  if (!session) return null
+
+
+
+  console.log(session, "session man")
   return (
     <div className='w-full'>
 

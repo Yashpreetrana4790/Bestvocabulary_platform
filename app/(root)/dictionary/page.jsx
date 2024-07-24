@@ -1,11 +1,12 @@
 'use client'
 import React, { useState } from 'react';
 import Searchbar from '@/components/searchbar/Searchbar';
-import TrackingBeam from '@/components/TracingBeam';
-import { filterItemsGrouped } from '@/constants';
-import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Button } from 'primereact/button';
 import WordCard from '@/components/cards/WordCard';
+import { Tag } from 'primereact/tag';
+import ReTag from '@/components/Tag/Tag';
+import { filterItemsGrouped } from '@/constants';
+import { Carousel } from 'primereact/carousel';
 
 const Page = () => {
   const [activeFilter, setActiveFilter] = useState('');
@@ -32,7 +33,7 @@ const Page = () => {
           <Button icon="pi pi-search " className=" w-full !text-center gap-2 ml-2  font-xl rounded-md bg-red-900 text-white p-2 ">Advance Search</Button>
         </div>
         <div className="mb-6">
-          <div className="flex items-center justify-center w-full">
+          <div className="flex flex-col items-center justify-center w-full">
             <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-2xl w-full">
               {Array.from({ length: 26 }, (_, index) => (
                 <button
@@ -44,10 +45,9 @@ const Page = () => {
                 </button>
               ))}
             </div>
-            <div>
-
+            <div className='mt-2 w-full'>
+              <Button icon="pi pi-sort-alpha-down-alt" className=" w-full !text-center gap-2 ml-2  font-xl rounded-md bg-red-900 text-white p-2 " label="Sort Z-A Words  " />
             </div>
-
           </div>
         </div>
 
@@ -62,10 +62,13 @@ const Page = () => {
           <p className="text-sm text-center text-gray-700 font-merriweather">
             Discover and master words with our advanced search and filter options.
           </p>
+          <div className=''>
+            {/* <ReTag items={filterItemsGrouped} /> */}
+          </div>
           <Searchbar style="transform 2xl:translate-y-10 max-mg: mt-5 " />
         </header>
 
-        <div className='grid gap-4 place-content-center'>
+        <div className='grid md:grid-cols-2  lg:grid-cols-3 gap-4 place-content-center'>
           <WordCard />
           <WordCard />
           <WordCard />

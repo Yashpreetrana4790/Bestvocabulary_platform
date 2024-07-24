@@ -167,6 +167,8 @@ export const AdminNavigation = [
   { href: "/admin/admindashboard", label: "Dashboard", icon: "pi pi-fw pi-home" },
   { href: "/admin/users", label: "Users", icon: "pi pi-fw pi-users" },
   { href: "/admin/addword", label: "Add Word", icon: "pi pi-fw pi-plus" },
+  { href: "/admin/addidiom", label: "Add Idiom", icon: "pi pi-fw pi-plus" },
+  { href: "/admin/addphrase", label: "Add Phrase", icon: "pi pi-fw pi-plus" },
   { href: "/admin/quiz", label: "Quiz", icon: "pi pi-fw pi-question-circle" },
   { href: "/admin/quizresult", label: "Quiz Result", icon: "pi pi-fw pi-chart-bar" },
   { href: "/admin/changepassword", label: "Change Password", icon: "pi pi-fw pi-key" },
