@@ -1,8 +1,11 @@
 import React from 'react'
+import IdiomsPopup from '../../components/AddIdiomForm'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <IdiomsPopup />
+    </div>
   )
 }
 

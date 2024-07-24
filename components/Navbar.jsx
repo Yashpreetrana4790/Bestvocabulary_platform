@@ -54,9 +54,9 @@ const Navbar = () => {
             <Menubar model={items} className='text-bold lg:block hidden font-opensans font-bold text-gray-800' />
           </div>
 
-          <div className='px-2'>
-            <Button href="/login" label="Login" icon="pi pi-user" type="secondary" />
-          </div>
+          <Link href="/login" className='px-2'>
+            <Button label="Login" icon="pi pi-user" type="secondary" />
+          </Link>
         </div>
       </div>
     </div>

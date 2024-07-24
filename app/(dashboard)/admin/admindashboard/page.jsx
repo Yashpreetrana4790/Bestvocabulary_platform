@@ -15,7 +15,7 @@ const admindashboard = async () => {
 
   const session = await auth()
 
-  if (!session.user) return null
+  if (!session) return null
 
 
 

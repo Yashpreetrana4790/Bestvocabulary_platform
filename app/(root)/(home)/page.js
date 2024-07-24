@@ -1,4 +1,5 @@
 'use client'
+import ReButton from "@/components/Button"
 import Button from "@/components/Button"
 import Heros from "@/components/Header/Heros"
 import FeaturedCardGroup from "@/components/HomeStatic/FeaturedCardGroup"
@@ -36,7 +37,7 @@ export default function Page() {
           para=" Unlock the power of words with our comprehensive vocabulary learning platform.
         Discover new words, practice
           daily, and master the English language."
-          buttoncontent={<Button label="Words Treasure" iconleft="pi pi-sparkles" iconright={"pi pi-arrow-up-right"} />} />
+          buttoncontent={<ReButton label="Words Treasure" iconleft="pi pi-sparkles" iconright={"pi pi-arrow-up-right"} />} />
         <Searchbar
           value={searchValue}
           onSearch={handleSearch}

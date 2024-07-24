@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-const Button = ({ type, label, onClick, iconleft, iconright }) => {
+const ReButton = ({ type, label, onClick, iconleft, iconright, className }) => {
   // Determine button classes based on type prop
-  let buttonClasses = 'py-2 px-4 text-sm rounded-full text-white focus:outline-none focus:ring-2 shadow-2xl ';
+  let buttonClasses = `py-2 px-4 text-sm rounded-full text-white focus:outline-none focus:ring-2 shadow-2xl ${className}`;
 
   switch (type) {
     case 'primary':
@@ -13,9 +13,10 @@ const Button = ({ type, label, onClick, iconleft, iconright }) => {
     case 'secondary':
       buttonClasses += ' bg-black text-xl hover:bg-black rounded-full font-playfair ';
       break;
-    case 'danger':
-      buttonClasses += ' bg-red-500 text-xl hover:bg-red-600 rounded-full font-playfair';
+    case 'red':
+      buttonClasses += ' bg-red-900 text-xl hover:bg-red-600 rounded-full font-playfair';
       break;
+
     default:
       buttonClasses += ' bg-black text-xl text-white hover:bg-gray-800 rounded-full font-playfair ';
       break;
@@ -30,4 +31,4 @@ const Button = ({ type, label, onClick, iconleft, iconright }) => {
   );
 };
 
-export default Button;
+export default ReButton;
