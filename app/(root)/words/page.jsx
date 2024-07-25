@@ -64,7 +64,7 @@ const page = () => {
           <div className="flex flex-col space-y-4   basis-9/12    ">
             <Heros heading={"Words & Words"} className="py-5 2xl:py-10" />
             <Searchbar />
-            <div className="grid 3xl:grid-cols-3 sm:grid-cols-2 gap-4 place-content-center">
+            <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 place-content-center">
               <WordCard />
               <WordCard />
               <WordCard />
