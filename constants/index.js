@@ -12,6 +12,14 @@ export const sidebarLinks = [
     route: "/learn",
     label: "Learn",
   },
+  {
+    route: "/dictionary",
+    label: "Dictionary",
+  },
+  {
+    route: "/admin/admindashboard",
+    label: "Ask AI",
+  },
 
 ];
 
