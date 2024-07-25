@@ -17,7 +17,7 @@ const Navbar = async () => {
       <div className='container  pt-3'>
         <div className='flex justify-between sm:mx-5  py-3 items-center min-h-16  md:mt-5 rounded-full px-3 bg-gray-200  '>
           <div className='flex gap-1 items-center'>
-            <span className="pi pi-bars " style={{ fontSize: '1em', cursor: 'pointer' }} ></span>
+            <span className="pi pi-bars md:hidden block " style={{ fontSize: '1em', cursor: 'pointer' }} ></span>
             <Link href="/" className='text-2xl   px-2 font-bold text-red-900 font-playfair'> Logophile</Link>
           </div>
           <div className='flex gap-4 items-center '>
