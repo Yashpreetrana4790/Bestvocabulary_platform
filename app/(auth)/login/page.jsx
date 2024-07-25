@@ -8,7 +8,6 @@ const page = () => {
   return (
     <div>
       <LoginCompo />
-      {/* <LoginButton /> */}
     </div>
   )
 }

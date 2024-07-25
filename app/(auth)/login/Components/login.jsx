@@ -1,15 +1,18 @@
 import ReButton from '@/components/Button'
-import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import React from 'react'
+import { FcGoogle } from "react-icons/fc";
+import { signIn } from "@/auth"
 
 const LoginCompo = () => {
   return (
     <div className="flex h-screen">
-      <div className="hidden md:block md:w-1/2 bg-red-100">
-        Ramblwr
+      <div className="hidden md:block md:w-1/2 bg-gray-200 p-5">
+        <Link href="/" className='text-3xl px-5 font-semibold text-center mb-2  font-playfair text-black  '>
+          Lofofile
+
+        </Link>
         {/* <Image
           className="object-cover w-full h-full"
           src=""
@@ -47,14 +50,26 @@ const LoginCompo = () => {
               <span className="text-gray-800 mx-1 uppercase font-semibold">or</span>
               <div className="bg-gray-300 h-[1px] mt-1  w-full inline-block"></div>
             </div>
-            <div className='flex items-center '>
+            <div className='flex items-center mt-5 w-full '>
+              <form
+                action={async () => {
+                  "use server"
+                  await signIn("google", { redirectTo: "/" })
+                }}
+                className='w-full'
+              >
+                <button type="submit" className='flex w-full items-center justify-center gap-2 mt-4 p-2 border rounded-full'>
+                  <FcGoogle className='text-3xl' />
+                  Sign In with Google
 
-              <Button label="Register" icon="pi pi-user-plus" className="w-full mt-4 font-opensans" />
+                  {/* <button type="submit">Signin with Google</button> */}
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

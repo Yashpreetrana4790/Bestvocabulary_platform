@@ -1,5 +1,4 @@
 
-import { signIn } from "@/auth"
 
 export function LoginButton() {
   return (
