@@ -50,13 +50,13 @@ const LoginCompo = () => {
               <Link href="/register">Don't have any account</Link>
             </div>
           </form>
-          <div className=' mt-8'>
+          <div className=' mt-4'>
             <div className="flex items-center justify-center">
               <div className="bg-gray-300 h-[1px] mt-1   w-full inline-block"></div>
               <span className="text-gray-800 mx-1 uppercase font-semibold">or</span>
               <div className="bg-gray-300 h-[1px] mt-1  w-full inline-block"></div>
             </div>
-            <div className='flex items-center mt-5 w-full '>
+            <div className='flex items-center mt-1 w-full '>
               <form
                 action={async () => {
                   "use server"

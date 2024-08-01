@@ -50,23 +50,22 @@ const page = () => {
               <InputText type="password" id="password" name="password" className="mt-1 block w-full px-3 py-2 border rounded-full border-gray-300  shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
               <div className='flex justify-end font-xs underline decoration-red-900 my-1'>
 
-             
+
               </div>
             </div>
             <ReButton iconleft="fas fa-sign-in-alt" label="Login" type="secondary" className="w-full" />
 
             <div className='flex justify-center underline py-2 '>
               <Link href="/login">Already have any account</Link>
-
             </div>
           </form>
-          <div className=' mt-8'>
+          <div className=' mt-4'>
             <div className="flex items-center justify-center">
               <div className="bg-gray-300 h-[1px] mt-1   w-full inline-block"></div>
               <span className="text-gray-800 mx-1 uppercase font-semibold">or</span>
               <div className="bg-gray-300 h-[1px] mt-1  w-full inline-block"></div>
             </div>
-            <div className='flex items-center mt-5 w-full '>
+            <div className='flex items-center mt-4 w-full '>
               <form
                 action={async () => {
                   "use server"
@@ -77,8 +76,6 @@ const page = () => {
                 <button type="submit" className='flex w-full items-center justify-center gap-2 mt-4 p-2 border rounded-full'>
                   <FcGoogle className='text-3xl' />
                   Sign In with Google
-
-                  {/* <button type="submit">Signin with Google</button> */}
                 </button>
               </form>
             </div>
