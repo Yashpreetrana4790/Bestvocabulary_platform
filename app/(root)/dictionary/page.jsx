@@ -26,7 +26,7 @@ const Page = () => {
     <div className="flex mt-10 container mx-auto dictionary">
 
 
-      <aside className="w-1/3 p-4 bg-gray-100 rounded-xl divide-y-1 lg:block hidden">
+      <aside className="w-1/4 p-4 bg-gray-100 rounded-xl divide-y-1 lg:block hidden">
 
         <h2 className="text-2xl mt-5 font-bold mb-4 font-libre text-red-900 text-center">A-Z Words</h2>
         <div className="mb-3 w-full sidebar-section" id="quick-practice-section">

@@ -50,25 +50,25 @@ const page = () => {
             </h1>
             {/* <Searchbar /> */}
 
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 place-content-center">
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Legal</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Bussiness</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Phrases</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Idioms</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
-              <div className="rounded-full cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
+            <div className="flex flex-wrap justify-center gap-2">
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Advance</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Legal</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Bussiness</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Phrases</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Idioms</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
+              <div className="rounded-full text-center cursor-pointer px-[12px] text-sm text-gray-600 py-[3px] bg-gray-200 ">Basic words</div>
             </div>
             <div className="flex justify-end">
 
