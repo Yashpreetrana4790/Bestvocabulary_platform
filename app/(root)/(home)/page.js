@@ -38,15 +38,18 @@ export default function Page() {
         Discover new words, practice
           daily, and master the English language."
           buttoncontent={<ReButton label="Words Treasure" iconleft="pi pi-sparkles" iconright={"pi pi-arrow-up-right"} />} />
-        <Searchbar
-          value={searchValue}
-          onSearch={handleSearch}
-          options={filterItemsGrouped}
-          selectOption={setDropdownValuefn}
-          optionsvalue={dropdownValue}
-          dropdown
+        <div className="p-2">
 
-        />
+          <Searchbar
+            value={searchValue}
+            onSearch={handleSearch}
+            options={filterItemsGrouped}
+            selectOption={setDropdownValuefn}
+            optionsvalue={dropdownValue}
+            dropdown
+
+          />
+        </div>
         <FeaturedCardGroup />
       </div>
     </>

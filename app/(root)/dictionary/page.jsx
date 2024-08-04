@@ -26,7 +26,7 @@ const Page = () => {
     <div className="flex mt-10 container mx-auto dictionary">
 
 
-      <aside className="w-1/4 p-4 bg-gray-100 rounded-xl divide-y-1 lg:block hidden">
+      <aside className="min-w-[300px] p-4 bg-gray-100 rounded-xl divide-y-1 lg:block hidden">
 
         <h2 className="text-2xl mt-5 font-bold mb-4 font-libre text-red-900 text-center">A-Z Words</h2>
         <div className="mb-3 w-full sidebar-section" id="quick-practice-section">
@@ -57,7 +57,7 @@ const Page = () => {
       {/* Main Content */}
       <main className=" p-4">
         <header className="mb-8">
-          <h1 className="text-4xl font-bold text-center text-gray-800 mb-4 font-playfair">The Ultimate Dictionary</h1>
+          <h1 className="text-4xl font-bold text-center text-gray-800 mb-4 font-playfair w-full">The Ultimate Dictionary</h1>
           <p className="text-sm text-center text-gray-700 font-merriweather">
             Discover and master words with our advanced search and filter options.
           </p>
@@ -68,6 +68,15 @@ const Page = () => {
         </header>
 
         <div className='grid grid-cols-1 md:grid-cols-2  gap-4 place-content-center'>
+          <WordCard />
+          <WordCard />
+          <WordCard />
+          <WordCard />
+          <WordCard />
+          <WordCard />
+          <WordCard />
+          <WordCard />
+          <WordCard />
           <WordCard />
           <WordCard />
           <WordCard />
