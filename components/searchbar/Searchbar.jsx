@@ -30,10 +30,10 @@ const Searchbar = ({ value, onSearch, options, selectOption, optionsvalue, dropd
 
   return (
     <div className='flex justify-center items-center'>
-      <div className={` searchbar w-full max-w-2xl   gap-2  2xl:-translate-y-20 mb-5    rounded-full px-3 py-2 border-2 border-gray-600 ${style}`}>
-        <IconField iconPosition="left" className='w-full'>
+      <div className={` searchbar  flex w-full max-w-2xl   gap-2  2xl:-translate-y-20 mb-5    rounded-full px-3 py-2 border-2 border-gray-600 ${style}`}>
+        <IconField iconPosition="left" className='w-full flex items-center'>
           <InputIcon className="pi pi-search"> </InputIcon>
-          <InputText iconPos="right" value={value} onChange={handleSearch} placeholder='Search' className="pl-5 w-full min-h-[40px] p-inputtext p-ml-2 p-inputtext-plain" />
+          <InputText iconPos="right" value={value} onChange={handleSearch} placeholder='Search' className="pl-5 w-full min-h-[40px]  p-inputtext p-ml-2 p-inputtext-plain" />
         </IconField>
         {
           dropdown &&
