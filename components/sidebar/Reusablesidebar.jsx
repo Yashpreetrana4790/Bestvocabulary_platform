@@ -12,7 +12,7 @@ const ReusableSidebar = ({ visible, onHide, position, filterItems, activeFilter,
   return (
     <>
       <Sidebar visible={visible} onHide={onHide} position={position}>
-        <div className="sidebar-content">
+        <div className="sidebar-content w-full">
           <h2 className="text-2xl mb-4 font-bold text-red-900 font-playfair">Best Vocabulary</h2>
           <p className="text-gray-700 mb-4 font-opensans">
             Welcome to the ultimate platform for mastering English vocabulary!

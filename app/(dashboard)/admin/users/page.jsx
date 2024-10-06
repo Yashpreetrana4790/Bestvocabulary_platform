@@ -1,8 +1,14 @@
+import { Getalluser } from '@/app/utils/user.action'
+import UserCard from '@/components/cards/UserCard'
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const users = await Getalluser()
+  console.log(users)
   return (
-    <div>page</div>
+    <div className='m-5'>
+      <UserCard users={users} />
+    </div>
   )
 }
 

@@ -12,8 +12,6 @@ export default function Page() {
   const [searchValue, setSearchValue] = useState('');
   const [dropdownValue, setDropdownValue] = useState('');
 
-
-
   const handleSearch = (value) => {
     setSearchValue(value);
     // Perform search logic here based on the search value
@@ -25,10 +23,6 @@ export default function Page() {
     // Handle dropdown value change if needed
     console.log(`Dropdown value selected: '${value}'`);
   };
-
-
-
-
 
   return (
     <>

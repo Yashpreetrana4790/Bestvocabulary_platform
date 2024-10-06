@@ -9,10 +9,8 @@ const Mobile = () => {
     { label: 'Messages', icon: 'pi pi-envelope', href: '/messages' },
   ];
 
-  // Helper function to determine active state
   const isActive = (href) => {
-    // Add logic to determine if the link is active (example: using window.location.pathname)
-    return false; // Replace with actual logic
+    return false; 
   };
 
   return (

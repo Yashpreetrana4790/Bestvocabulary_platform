@@ -9,7 +9,6 @@ import Script from "next/script";
 import 'primeicons/primeicons.css';
 import "./globals.css";
 import { Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } from "next/font/google";
-import { SessionProvider } from "next-auth/react"
 
 export const metadata = {
   title: "Best Vocabulary",

@@ -56,7 +56,6 @@ const Navbar = async () => {
                   <Button label="Login" icon="pi pi-user" type="secondary" />
                 </Link>
             }
-
           </div>
         </div>
       </div>
