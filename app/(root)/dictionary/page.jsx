@@ -1,25 +1,9 @@
-'use client'
-import React, { useState } from 'react';
+import React from 'react';
 import Searchbar from '@/components/searchbar/Searchbar';
 import { Button } from 'primereact/button';
 import WordCard from '@/components/cards/WordCard';
-import { Tag } from 'primereact/tag';
-import ReTag from '@/components/Tag/Tag';
-import { filterItemsGrouped } from '@/constants';
-import { Carousel } from 'primereact/carousel';
 
 const Page = () => {
-  const [activeFilter, setActiveFilter] = useState('');
-  const [favorites, setFavorites] = useState([]);
-  const [selectedWord, setSelectedWord] = useState(null);
-
-  const levels = ['Beginner', 'Intermediate', 'Advanced'];
-  const themes = ['Business', 'Travel', 'Academic'];
-
-  const handleFilterChange = (filter) => {
-    setActiveFilter(filter);
-  };
-
 
 
   return (

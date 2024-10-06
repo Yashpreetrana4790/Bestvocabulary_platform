@@ -1,53 +1,178 @@
 "use client";
-import { levels } from '@/constants';
+import { levels, partofSpeech } from '@/constants';
+import { AddNewWord } from '@/utils/Addword/addword.action';
 import React, { useState } from 'react';
 
 // MeaningEntry Component
 const MeaningEntry = ({ index, meaning, handleChange, handleRemove }) => {
   return (
-    <div className='bg-gray-100 mt-5 rounded-md mb-4 p-4'>
-      <h3 className='font-semibold text-lg ml-[-8px]'>Meaning {index + 1}</h3>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-        {/* Input fields for meanings */}
-        {[
-          { label: 'Meaning Subtype', field: 'meaningsubtype', type: 'text' },
-          { label: 'Part of Speech', field: 'partOfSpeech', type: 'text' },
-          { label: 'Definition', field: 'definition', type: 'textarea' },
-          { label: 'Examples (comma-separated)', field: 'examples', type: 'text' },
-          { label: 'Synonyms (comma-separated)', field: 'synonyms', type: 'text' },
-          { label: 'Antonyms (comma-separated)', field: 'antonyms', type: 'text' },
-        ].map(({ label, field, type }) => (
-          <div className='w-full' key={field}>
-            <label htmlFor={`${field}-${index}`} className="block text-md font-medium my-2">{label}</label>
-            {type === 'textarea' ? (
-              <textarea
-                className='w-full p-2 focus:outline-none border border-gray-300 rounded'
-                id={`${field}-${index}`}
-                value={meaning[field]}
-                onChange={(e) => handleChange(index, field, e.target.value)}
-                placeholder={`Enter ${label}`}
-                rows={3}
-              />
-            ) : (
-              <input
-                className='w-full p-2 focus:outline-none border border-gray-300 rounded'
-                id={`${field}-${index}`}
-                type="text"
-                value={field === 'examples' || field === 'synonyms' || field === 'antonyms' ? meaning[field].join(', ') : meaning[field]}
-                onChange={(e) => handleChange(index, field, e.target.value.split(',').map(v => v.trim()))}
-                placeholder={`Enter ${label}`}
-              />
-            )}
-          </div>
-        ))}
+    <div className="border border-gray-300 p-4 rounded">
+      <div className="flex justify-between">
+        <h4 className="font-semibold">Meaning {index + 1}</h4>
+        <button
+          type="button"
+          className="text-red-500 hover:text-red-700"
+          onClick={() => handleRemove(index)}
+        >
+          Remove
+        </button>
       </div>
-      <button
-        type="button"
-        className='mt-3 text-red-600 hover:underline'
-        onClick={() => handleRemove(index)}
+      <input
+        type="text"
+        placeholder="Meaning Subtype"
+        value={meaning.meaningsubtype}
+        onChange={(e) => handleChange(index, 'meaningsubtype', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <select
+        className="w-full p-2 border border-gray-300 rounded my-2"
+        value={meaning.partOfSpeech}
+        onChange={(e) => handleChange(index, 'partOfSpeech', e.target.value)}
       >
-        Remove Meaning
-      </button>
+        <option value="">Choose Part of Speech</option>
+        {partofSpeech.map((level) => (
+          <option key={level} value={level}>
+            {level}
+          </option>
+        ))}
+      </select>
+      <input
+        type="text"
+        placeholder="Definition"
+        value={meaning.definition}
+        onChange={(e) => handleChange(index, 'definition', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Examples (comma separated)"
+        value={meaning.example} // Join the sentences back to a single string
+        onChange={(e) => handleChange(index, 'examples', e.target.value)} // Handle input change
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Synonyms (comma separated)"
+        value={meaning.synonyms.join(', ')}
+        onChange={(e) => handleChange(index, 'synonyms', e.target.value.split(',').map(item => item.trim()))}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Antonyms (comma separated)"
+        value={meaning.antonyms.join(', ')}
+        onChange={(e) => handleChange(index, 'antonyms', e.target.value.split(',').map(item => item.trim()))}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+    </div>
+  );
+};
+
+// IdiomEntry Component
+const IdiomEntry = ({ index, idiom, handleChange, handleRemove }) => {
+  return (
+    <div className="border border-gray-300 p-4 rounded">
+      <div className="flex justify-between">
+        <h4 className="font-semibold">Idiom {index + 1}</h4>
+        <button
+          type="button"
+          className="text-red-500 hover:text-red-700"
+          onClick={() => handleRemove(index)}
+        >
+          Remove
+        </button>
+      </div>
+      <input
+        type="text"
+        placeholder="Idiom"
+        value={idiom.idiom}
+        onChange={(e) => handleChange(index, 'idiom', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Definition"
+        value={idiom.definition}
+        onChange={(e) => handleChange(index, 'definition', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Examples (comma separated)"
+        value={idiom.examples.map(example => example.sentence).join(', ')}
+        onChange={(e) => handleChange(index, 'examples', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Synonyms (comma separated)"
+        value={idiom.synonyms.join(', ')}
+        onChange={(e) => handleChange(index, 'synonyms', e.target.value.split(',').map(item => item.trim()))}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Antonyms (comma separated)"
+        value={idiom.antonyms.join(', ')}
+        onChange={(e) => handleChange(index, 'antonyms', e.target.value.split(',').map(item => item.trim()))}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+    </div>
+  );
+};
+
+// PhraseEntry Component
+const PhraseEntry = ({ index, phrase, handleChange, handleRemove }) => {
+  return (
+    <div className="border border-gray-300 p-4 rounded">
+      <div className="flex justify-between">
+        <h4 className="font-semibold">Phrase {index + 1}</h4>
+        <button
+          type="button"
+          className="text-red-500 hover:text-red-700"
+          onClick={() => handleRemove(index)}
+        >
+          Remove
+        </button>
+      </div>
+      <input
+        type="text"
+        placeholder="Phrase"
+        value={phrase.phrase}
+        onChange={(e) => handleChange(index, 'phrase', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Definition"
+        value={phrase.definition}
+        onChange={(e) => handleChange(index, 'definition', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Examples (comma separated)"
+        value={phrase.examples.map(example => example.sentence).join(', ')}
+        onChange={(e) => {
+          const examplesArray = e.target.value.split(',').map(item => ({ sentence: item.trim() })).filter(item => item.sentence);
+          handleChange(index, 'examples', examplesArray);
+        }}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Synonyms (comma separated)"
+        value={phrase.synonyms.join(', ')}
+        onChange={(e) => handleChange(index, 'synonyms', e.target.value.split(',').map(item => item.trim()))}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
+      <input
+        type="text"
+        placeholder="Antonyms (comma separated)"
+        value={phrase.antonyms.join(', ')}
+        onChange={(e) => handleChange(index, 'antonyms', e.target.value.split(',').map(item => item.trim()))}
+        className="w-full p-2 border border-gray-300 rounded mt-2"
+      />
     </div>
   );
 };
@@ -67,7 +192,7 @@ const MeaningForm = ({ meanings, handleChange, handleAddMeaning, handleRemove })
       ))}
       <button
         type="button"
-        className='mt-3 bg-green-500 text-white p-2 rounded hover:bg-green-600'
+        className="mt-3 bg-green-500 text-white p-2 rounded hover:bg-green-600"
         onClick={handleAddMeaning}
       >
         + Add Meaning
@@ -76,21 +201,19 @@ const MeaningForm = ({ meanings, handleChange, handleAddMeaning, handleRemove })
   );
 };
 
-
-const YourPageComponent = () => {
+// Addword Component
+const Addword = () => {
   const [meanings, setMeanings] = useState([{ meaningsubtype: '', partOfSpeech: '', definition: '', examples: [], synonyms: [], antonyms: [] }]);
+  const [idioms, setIdioms] = useState([]);
+  const [phrases, setPhrases] = useState([]);
   const [word, setWord] = useState('');
   const [pronunciation, setPronunciation] = useState('');
   const [level, setLevel] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (index, field, value) => {
+  const handleMeaningChange = (index, field, value) => {
     const newMeanings = [...meanings];
     newMeanings[index][field] = value;
-    setMeanings(newMeanings);
-  };
-
-  const handleRemove = (index) => {
-    const newMeanings = meanings.filter((_, i) => i !== index);
     setMeanings(newMeanings);
   };
 
@@ -98,77 +221,181 @@ const YourPageComponent = () => {
     setMeanings([...meanings, { meaningsubtype: '', partOfSpeech: '', definition: '', examples: [], synonyms: [], antonyms: [] }]);
   };
 
+  const handleRemoveMeaning = (index) => {
+    const newMeanings = meanings.filter((_, i) => i !== index);
+    setMeanings(newMeanings);
+  };
 
-  const handleSubmit = (e) => {
+  const handleIdiomChange = (index, field, value) => {
+    const newIdioms = [...idioms];
+    newIdioms[index][field] = value; 
+    setIdioms(newIdioms);
+  };
+
+  const handleAddIdiom = () => {
+    setIdioms([...idioms, { idiom: '', definition: '', examples: [], synonyms: [], antonyms: [] }]);
+  };
+
+  const handleRemoveIdiom = (index) => {
+    const newIdioms = idioms.filter((_, i) => i !== index);
+    setIdioms(newIdioms);
+  };
+
+  const handlePhraseChange = (index, field, value) => {
+    const newPhrases = [...phrases];
+    newPhrases[index][field] = value; 
+    setPhrases(newPhrases);
+  };
+
+  const handleAddPhrase = () => {
+    setPhrases([...phrases, { phrase: '', definition: '', examples: [], synonyms: [], antonyms: [] }]);
+  };
+
+  const handleRemovePhrase = (index) => {
+    const newPhrases = phrases.filter((_, i) => i !== index);
+    setPhrases(newPhrases);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = {
+    setIsSubmitting(true);
+
+
+    const processedMeanings = meanings.map(meaning => {
+      // If examples is a string, split it and map to the desired format
+      if (typeof meaning.examples === 'string') {
+        const processedExamples = meaning.examples
+          .split(',') // Split by commas
+          .map(example => example.trim()) // Remove extra spaces
+          .filter(example => example) // Filter out any empty strings
+          .map(example => ({ sentence: example })); // Map each to an object
+  
+        return {
+          ...meaning,
+          examples: processedExamples // Replace the examples string with the array of objects
+        };
+      }
+      return meaning; // Return the meaning if no processing is needed
+    });
+
+    const data = {
       word,
       pronunciation,
       level,
-      meanings,
-
+      meanings : processedMeanings,
+      idioms,
+      phrases,
     };
-    console.log('Form submitted: ', JSON.stringify(formData));
+
+
+    console.log(data, "data", meanings, "meanings");
+
+    try {
+      await AddNewWord(data);
+      setWord('');
+      setPronunciation('');
+      setLevel('');
+      setMeanings([{ meaningsubtype: '', partOfSpeech: '', definition: '', examples: [], synonyms: [], antonyms: [] }]);
+      setIdioms([]);
+      setPhrases([]);
+    } catch (error) {
+      console.error('Error adding new word:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-        <div className='w-full'>
-          <label htmlFor="word" className="block text-md font-medium my-2 font-opensans text-gray-700">Word</label>
-          <input
-            className='w-full p-3 focus:outline-none border border-gray-300 rounded'
-            id="word"
-            type="text"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-            placeholder="Enter Word"
-          />
-        </div>
-
-        <div className='w-full'>
-          <label htmlFor="pronunciation1" className="block text-md font-medium my-2 font-opensans text-gray-700">Pronunciation</label>
-          <input
-            className='w-full p-3 focus:outline-none border border-gray-300 rounded'
-            id="pronunciation1"
-            type="text"
-            value={pronunciation}
-            onChange={(e) => setPronunciation(e.target.value)}
-            placeholder="Enter Pronunciation"
-          />
-        </div>
-        <div className='w-full'>
-          <label htmlFor="level" className="block text-md font-medium my-2 font-opensans text-gray-700">Level</label>
-          <select
-            className='w-full p-3 focus:outline-none border border-gray-300 rounded'
-            id="level"
-            required
-            value={level}
-            onChange={(e) => setLevel(e.target.value)}
-          >
-            <option value="" disabled>Select Level</option>
-            {levels.map(level => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label className="block">Word</label>
+        <input
+          type="text"
+          value={word}
+          onChange={(e) => setWord(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+          required
+        />
+      </div>
+      <div>
+        <label className="block">Pronunciation</label>
+        <input
+          type="text"
+          value={pronunciation}
+          onChange={(e) => setPronunciation(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+          required
+        />
+      </div>
+      <div>
+        <label className="block">Level</label>
+        <select
+          value={level}
+          onChange={(e) => setLevel(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+          required
+        >
+          <option value="">Select Level</option>
+          {levels.map((lvl) => (
+            <option key={lvl} value={lvl}>
+              {lvl}
+            </option>
+          ))}
+        </select>
       </div>
       <MeaningForm
         meanings={meanings}
-        handleChange={handleChange}
+        handleChange={handleMeaningChange}
         handleAddMeaning={handleAddMeaning}
-        handleRemove={handleRemove}
+        handleRemove={handleRemoveMeaning}
       />
+      <h3 className="text-xl font-bold">Idioms</h3>
+      <div className="space-y-4">
+        {idioms.map((idiom, index) => (
+          <IdiomEntry
+            key={index}
+            index={index}
+            idiom={idiom}
+            handleChange={handleIdiomChange}
+            handleRemove={handleRemoveIdiom}
+          />
+        ))}
+        <button
+          type="button"
+          className="mt-3 bg-green-500 text-white p-2 rounded hover:bg-green-600"
+          onClick={handleAddIdiom}
+        >
+          + Add Idiom
+        </button>
+      </div>
+      <h3 className="text-xl font-bold">Phrases</h3>
+      <div className="space-y-4">
+        {phrases.map((phrase, index) => (
+          <PhraseEntry
+            key={index}
+            index={index}
+            phrase={phrase}
+            handleChange={handlePhraseChange}
+            handleRemove={handleRemovePhrase}
+          />
+        ))}
+        <button
+          type="button"
+          className="mt-3 bg-green-500 text-white p-2 rounded hover:bg-green-600"
+          onClick={handleAddPhrase}
+        >
+          + Add Phrase
+        </button>
+      </div>
       <button
         type="submit"
-        className='mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600'
+        className={`mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+        disabled={isSubmitting}
       >
-        Submit
+        {isSubmitting ? 'Submitting...' : 'Add Word'}
       </button>
     </form>
   );
 };
 
-export default YourPageComponent;
+export default Addword;

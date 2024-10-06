@@ -182,3 +182,5 @@ export const AdminNavigation = [
 ];
 
 export const levels = ["Pro", "Elementary", "MiddleSchool", "HighSchool", "CollegeUniversity"];
+
+export const partofSpeech = ["Noun", "Verb", "Adjective", "Adverb", "Pronoun" , "Preposition", "Conjunction", "Interjection", "Other"];

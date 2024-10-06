@@ -1,6 +1,5 @@
 'use client'
 import ReButton from "@/components/Button"
-import Button from "@/components/Button"
 import Heros from "@/components/Header/Heros"
 import FeaturedCardGroup from "@/components/HomeStatic/FeaturedCardGroup"
 import Searchbar from "@/components/searchbar/Searchbar"
