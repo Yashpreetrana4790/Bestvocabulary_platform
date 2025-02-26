@@ -1,12 +1,6 @@
 
 import React from 'react';
-import 'primeflex/primeflex.css'; // Optional: PrimeFlex for grid system
-import 'primereact/resources/themes/saga-blue/theme.css'; // PrimeReact theme
-import 'primereact/resources/primereact.min.css'; // PrimeReact components
-import 'primeicons/primeicons.css';
 import Head from "next/head";
-import Script from "next/script";
-import 'primeicons/primeicons.css';
 import "./globals.css";
 import { Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } from "next/font/google";
 
@@ -49,14 +43,13 @@ const MerriWeather = Merriweather({
 export default function RootLayout({ children }) {
   return (
 
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <Head>
-        <Script rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/primeicons/primeicons.css" />
 
       </Head>
-        <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable} ${MerriWeather.variable}`}>
-          {children}
-        </body>
+      <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable} ${MerriWeather.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
