@@ -3,6 +3,7 @@ import React from 'react';
 import Head from "next/head";
 import "./globals.css";
 import { Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } from "next/font/google";
+import { ThemeProvider } from 'next-themes';
 
 export const metadata = {
   title: "Best Vocabulary",
@@ -44,11 +45,16 @@ export default function RootLayout({ children }) {
   return (
 
     <html lang="en" suppressHydrationWarning={true}>
-      <Head>
-
-      </Head>
       <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable} ${MerriWeather.variable}`}>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

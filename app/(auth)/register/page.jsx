@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function RegisterForm() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-muted  p-4">
       <div className="flex flex-col sm:flex-row bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-4xl">
         {/* Image Section */}
         <div className="w-full sm:w-1/2 relative hidden sm:flex justify-center items-center">
