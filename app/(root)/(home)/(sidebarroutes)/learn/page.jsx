@@ -1,5 +1,4 @@
 'use client'
-import * as React from "react"
 import wordlist from "@/word_list.json"
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
@@ -13,13 +12,13 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select"
-import { Separator } from "@/components/ui/separator"
+import { useState } from "react"
 
 
 const Learn = () => {
-  const [oneWord, setOneWord] = React.useState(null)
-  const [type, setType] = React.useState("word")
-  const [selectedLevel, setSelectedLevel] = React.useState("Beginner")
+  const [oneWord, setOneWord] = useState(null)
+  const [type, setType] = useState("word")
+  const [selectedLevel, setSelectedLevel] = useState("Beginner")
   const max = wordlist.length
 
   const handleGetRandomWord = () => {

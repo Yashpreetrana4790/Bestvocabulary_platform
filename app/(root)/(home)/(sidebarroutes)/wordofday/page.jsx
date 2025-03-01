@@ -1,17 +1,17 @@
 'use client'
-import * as React from "react"
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
 import wordlist from "@/word_list.json"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { capitalizeString } from "@/lib/helper"
 import { HighlightedHead } from "@/components/HighlightedHead"
+import { useEffect, useState } from "react"
 const page = () => {
-  const [oneWord, setoneWord] = React.useState(null)
+  const [oneWord, setoneWord] = useState(null)
 
 
   const max = 5000
-  React.useEffect(() => {
+  useEffect(() => {
     const num = getRandomInt(max)
     const oneWord = wordlist[num]
     setoneWord(oneWord)
