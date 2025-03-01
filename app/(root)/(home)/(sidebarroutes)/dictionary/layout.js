@@ -1,11 +1,15 @@
-import MainSidebar from "@/components/sidebar/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { WodSb } from "./components/WodSb";
 
 
-export default function DictionaryLayout({ children }) {
+export default function DictionaryRouteLayout({ children }) {
   return (
     <>
-      <MainSidebar />
+    <SidebarProvider>
+    
+      <WodSb />
       {children}
+    </SidebarProvider>
     </>
 
   );
