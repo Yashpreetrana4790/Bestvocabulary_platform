@@ -1,9 +1,16 @@
-import React from 'react'
+'use client'
+import { useEffect } from "react"
+import React from "react"
 
-const page = () => {
+export default function Home() {
+  useEffect(() => {
+    console.log("useEffect rendering on home page")
+
+  }, [])
+
   return (
-    <div>page</div>
+    <>
+      Home page
+    </>
   )
 }
-
-export default page
