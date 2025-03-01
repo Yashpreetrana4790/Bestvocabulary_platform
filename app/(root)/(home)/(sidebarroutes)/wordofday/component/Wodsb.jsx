@@ -24,7 +24,9 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar"
+import { Calendar } from "@/components/ui/calendar"
 
 // This is sample data.
 const data = {
@@ -164,8 +166,8 @@ export function WodSidebar({
       <SidebarHeader>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <Calendar calendars={data.calendars} />
+        <SidebarSeparator className="mx-0" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -14,17 +14,18 @@ import {
   SquareTerminal,
 } from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar"
+import { Calendar } from "@/components/ui/calendar"
+import InfoCard from "@/components/Cards/InfoCard"
+import word_facts from "@/word_facts.json"
 
 // This is sample data.
 const data = {
@@ -156,17 +157,35 @@ const data = {
   ],
 }
 
+
 export function WodSb({
   ...props
 }) {
+
+
+  const [oneFact, setOneFact] = React.useState('')
+
+
+
+  const max = word_facts.length
+  React.useEffect(() => {
+    const num = Math.floor(Math.random() * max)
+    setOneFact(word_facts[num])
+  }, [])
+
+
+  const onhandleNextFact = () => {
+    const num = Math.floor(Math.random() * max)
+    setOneFact(word_facts[num])
+  }
+
   return (
     <Sidebar collapsible="icon" {...props} className="mt-14 ">
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <InfoCard oneFact={oneFact} onhandleNextFact={onhandleNextFact} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

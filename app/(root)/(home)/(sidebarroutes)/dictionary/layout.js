@@ -5,11 +5,10 @@ import { WodSb } from "./components/WodSb";
 export default function DictionaryRouteLayout({ children }) {
   return (
     <>
-    <SidebarProvider>
-    
-      <WodSb />
-      {children}
-    </SidebarProvider>
+      <SidebarProvider>
+        <WodSb />
+        {children}
+      </SidebarProvider>
     </>
 
   );
