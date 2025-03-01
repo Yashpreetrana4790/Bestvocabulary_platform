@@ -1,7 +1,7 @@
 'use client'
 import * as React from "react"
 
-import { PageHeaderHeading, PageHeader, PageHeaderDescription, PageActions } from "@/components/page-header.jsx"
+import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
 import wordlist from "@/word_list.json"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { capitalizeString } from "@/lib/helper"
@@ -25,18 +25,18 @@ const page = () => {
       <PageHeader>
         <HighlightedHead />
         <PageHeaderHeading >
-          {capitalizeString(oneWord?.word)}
+          {capitalizeString(oneWord?.word || "Loading...")}
         </PageHeaderHeading>
         <PageHeaderDescription>
           <p className="text-lg font-medium mb-2"> {oneWord?.response?.pronunciation}</p>
         </PageHeaderDescription>
         <div>
-          <span className="p-2 rounded-2xl bg-secondary my-4 mx-10 ">{oneWord?.response?.meanings?.[0]?.subtitle}</span>
+          <span className="p-2 rounded-2xl bg-secondary my-4 mx-10 ">{oneWord?.response?.meanings?.[0]?.subtitle || "Loading..."}</span>
         </div>
         <div className="container">
           {oneWord?.response && (
             <div className="mt-4 text-center">
-              <p className="text-md">{oneWord.response.meanings?.[0]?.easyMeaning}</p>
+              <p className="text-md">{oneWord.response.meanings?.[0]?.easyMeaning || "Loading..."}</p>
             </div>
           )}
         </div>

@@ -9,7 +9,7 @@ export function HighlightedHead() {
     >
       <CalendarDays size={24} /> <Separator className="mx-2 h-4" orientation="vertical" />{" "}
       <span className="sm:hidden"> Word of the Day</span>
-      <span className="hidden sm:inline text-black">
+      <span className="hidden sm:inline text-black dark:text-white">
         Word of the Day
       </span>
       <Separator className="mx-2 h-4" orientation="vertical" />

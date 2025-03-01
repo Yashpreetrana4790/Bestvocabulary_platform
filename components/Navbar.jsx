@@ -65,12 +65,12 @@ export function Navbar() {
               Learn
             </Link>
             <Link
-              href="#"
+              href="/quiz"
               className={cn(
                 "hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
               )}
             >
-              GitHub
+              QuickQuiz 
             </Link>
           </nav>
         </div>
