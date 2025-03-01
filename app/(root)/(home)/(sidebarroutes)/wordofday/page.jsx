@@ -1,4 +1,5 @@
 'use client'
+import React from "react";
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
 import wordlist from "@/word_list.json"
