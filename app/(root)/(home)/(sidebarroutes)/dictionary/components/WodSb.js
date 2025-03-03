@@ -26,6 +26,8 @@ import {
 import { Calendar } from "@/components/ui/calendar"
 import InfoCard from "@/components/Cards/InfoCard"
 import word_facts from "@/word_facts.json"
+import { Alphabets } from "@/lib/helper"
+import { Toggle } from "@/components/ui/toggle"
 
 // This is sample data.
 const data = {
@@ -174,22 +176,29 @@ export function WodSb({
   }, [])
 
 
-  const onhandleNextFact = () => {
+  const handleAction = () => {
     const num = Math.floor(Math.random() * max)
     setOneFact(word_facts[num])
   }
 
   return (
     <Sidebar collapsible="icon" {...props} className="mt-14 ">
-      <SidebarHeader>
-        {/* <TeamSwitcher teams={data.teams} /> */}
+      <SidebarHeader className="my-3">
+        Dictionary Hub
       </SidebarHeader>
       <SidebarContent>
-        <InfoCard oneFact={oneFact} onhandleNextFact={onhandleNextFact} />
+        <div className="p-2 w-full">
+          <span class="grid grid-cols-5 gap-4 place-content-center ">
+            {Alphabets?.map((alphabet, index) => (
+              <Toggle variant="highlighted" key={index} className="border text-center p-1 rounded-lg">{alphabet}</Toggle>
+            ))
+            }
+          </span>
+        </div>
+        <div className="flex items-end ">
+          <InfoCard heading="💡 Facts About Words" desc={oneFact?.fact} handleAction={handleAction} buttonText="Next fact" />
+        </div>
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

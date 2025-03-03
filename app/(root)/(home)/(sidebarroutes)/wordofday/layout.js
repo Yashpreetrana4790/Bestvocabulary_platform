@@ -6,10 +6,13 @@ export default function WordofDayLayout({ children }) {
     <>
       <SidebarProvider>
         <WodSidebar />
-        <SidebarTrigger className="ml-150" />
-        <SidebarInset>
-          {children}
-        </SidebarInset>
+        <div className="flex flex-col">
+
+          <SidebarTrigger className="ml-150" />
+          <SidebarInset>
+            {children}
+          </SidebarInset>
+        </div>
       </SidebarProvider>
     </>
   )

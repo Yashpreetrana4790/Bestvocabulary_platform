@@ -1,6 +1,5 @@
-import { Sidebar } from "lucide-react";
-import { LearnSidebar } from "./components/LearnSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import LearnSidebar from "./components/LearnSidebar";
 
 
 export default function LearnRouteLayout({ children }) {
@@ -8,10 +7,13 @@ export default function LearnRouteLayout({ children }) {
     <>
       <SidebarProvider>
         <LearnSidebar />
-        <SidebarTrigger className="ml-150" />
-        <SidebarInset>
-          {children}
-        </SidebarInset>
+        <div className="flex flex-col">
+
+          <SidebarTrigger className="" />
+          <SidebarInset>
+            {children}
+          </SidebarInset>
+        </div>
       </SidebarProvider>
     </>
 

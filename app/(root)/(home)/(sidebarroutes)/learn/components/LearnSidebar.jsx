@@ -1,5 +1,4 @@
-"use client"
-
+'use client'
 import * as React from "react"
 
 
@@ -12,29 +11,43 @@ import {
   SidebarMenuButton,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import ToggleFilter from "@/components/ToggleFilter";
 
 
 
-export function LearnSidebar({
+const LearnSidebar = async ({
+  searchParams,
   ...props
-}) {
+}) => {
 
-
-
+  await console.log(searchParams?.get("difficulty"), "searchParams")
   return (
     <Sidebar collapsible="icon" {...props} className="mt-14 ">
       <SidebarHeader className="font-bold">
         Random Word Hunt
       </SidebarHeader>
-      <SidebarContent>
-        <ToggleGroup type="multiple">
-          <ToggleGroupItem value="a">Easy</ToggleGroupItem>
-          <ToggleGroupItem value="b">Medium</ToggleGroupItem>
-          <ToggleGroupItem value="c">Hard</ToggleGroupItem>
-        </ToggleGroup>
+      <SidebarContent  >
         <SidebarMenuButton>
-          Test
+
+
+          <ToggleFilter
+            options={[
+              { label: "Easy", value: "easy" },
+              { label: "Medium", value: "medium" },
+              { label: "Hard", value: "hard" }
+            ]}
+            paramKey="difficulty"
+          />
+        </SidebarMenuButton>
+        <SidebarMenuButton>
+          <ToggleFilter
+            options={[
+              { label: "Idioms", value: "idioms" },
+              { label: "Words", value: "words" },
+            ]}
+            type="single"
+            paramKey="difficulty"
+          />
         </SidebarMenuButton>
       </SidebarContent>
       <SidebarFooter>
@@ -43,3 +56,5 @@ export function LearnSidebar({
     </Sidebar>
   );
 }
+
+export default LearnSidebar

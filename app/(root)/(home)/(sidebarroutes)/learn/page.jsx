@@ -17,7 +17,7 @@ const Learn = () => {
   const max = wordlist.length
 
   const handleGetRandomWord = () => {
-    console.log("Random word")
+    
     const num = Math.floor(Math.random() * max)
     setOneWord(wordlist[num])
   }
