@@ -10,14 +10,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useState } from "react"
 
 
-const Learn = ({ searchParams }) => {
+const Learn = () => {
   const [oneWord, setOneWord] = useState(null)
   const [type, setType] = useState("word")
   const [selectedLevel, setSelectedLevel] = useState("Beginner")
   const max = wordlist.length
 
 
-  console.log(searchParams, "searchParams")
   const handleGetRandomWord = () => {
 
     const num = Math.floor(Math.random() * max)
