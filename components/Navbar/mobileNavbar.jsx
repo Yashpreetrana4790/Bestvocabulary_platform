@@ -55,13 +55,13 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0 ">
+      <SheetContent side="left" className="p-0 ">
         <MobileLink
           href="/"
           className=""
           onOpenChange={setOpen}
         >
-          <span className="font-bold text-xl">{siteConfig?.name}</span>
+          <span className="font-bold text-xl pl-2 mt-2">{siteConfig?.name}</span>
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh] pb-10 ">
           <div className="flex flex-col justify-between min-h-[calc(100vh-56px)] gap-10 ">
@@ -69,7 +69,7 @@ export function MobileNav() {
               {navbarlinks?.map(
                 (item) =>
                   item.href && (
-                    <MobileLink key={item.href} href={item.href} onOpenChange={setOpen} className={pathname === item.href ? "font-bold p-3 border bg-yellow-600 text-white mx-3 my-1 rounded-xl" : "p-3 my-1 mx-3"}>
+                    <MobileLink key={item.href} href={item.href} onOpenChange={setOpen} className={pathname === item.href ? "font-semibold p-3 border bg-amber-500 text-white  my-1 mx-1 rounded-xl" : "p-3 my-1  mx-1"}>
                       {item.name}
                     </MobileLink>
                   )

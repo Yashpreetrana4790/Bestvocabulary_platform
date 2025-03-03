@@ -7,25 +7,25 @@ const ToggleFilter = ({ options, paramKey, type = "multiple" }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // Get current values from URL and split them into an array
+  // Convert current values into a Set for easy toggling
   const currentValues = new Set(searchParams.get(paramKey)?.split(",") || []);
 
-  // Handle toggling of filters
   const handleToggle = (value) => {
     const newValues = new Set(currentValues);
 
     if (newValues.has(value)) {
-      newValues.delete(value); 
+      newValues.delete(value); // Remove value if already selected
     } else {
-      newValues.add(value); 
+      newValues.add(value); // Add value if not selected
     }
 
-    // Update the URL
-    const params = new URLSearchParams(searchParams);
+    // Clone search params to avoid mutation issues
+    const params = new URLSearchParams(searchParams.toString());
+
     if (newValues.size > 0) {
-      params.set(paramKey, Array.from(newValues).join(",")); 
+      params.set(paramKey, Array.from(newValues).join(",")); // Update the param
     } else {
-      params.delete(paramKey);
+      params.delete(paramKey); // Remove if empty
     }
 
     router.push(`?${params.toString()}`, { scroll: false });
@@ -37,9 +37,8 @@ const ToggleFilter = ({ options, paramKey, type = "multiple" }) => {
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          className={`rounded-xl border ${
-            currentValues.has(option.value) ? "bg-gray-300" : ""
-          }`}
+          className={`rounded-xl border ${currentValues.has(option.value) ? "bg-gray-300" : ""
+            }`}
           onClick={() => handleToggle(option.value)}
         >
           {option.label}

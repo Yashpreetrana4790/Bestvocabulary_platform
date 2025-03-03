@@ -1,4 +1,3 @@
-'use client'
 import * as React from "react"
 
 
@@ -15,12 +14,8 @@ import ToggleFilter from "@/components/ToggleFilter";
 
 
 
-const LearnSidebar = async ({
-  searchParams,
-  ...props
-}) => {
+const LearnSidebar = async ({ ...props }) => {
 
-  await console.log(searchParams?.get("difficulty"), "searchParams")
   return (
     <Sidebar collapsible="icon" {...props} className="mt-14 ">
       <SidebarHeader className="font-bold">
@@ -54,6 +49,7 @@ const LearnSidebar = async ({
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
+
   );
 }
 

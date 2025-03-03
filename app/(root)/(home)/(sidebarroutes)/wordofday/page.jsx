@@ -34,7 +34,7 @@ const Page = () => {
           <p className="text-lg font-medium mb-2">{oneWord?.response?.pronunciation}</p>
         </PageHeaderDescription>
         <div>
-          <span className="p-2 rounded-2xl bg-secondary my-4 mx-10">
+          <span className="hidden md:display p-2 rounded-2xl bg-secondary my-4 mx-10">
             {oneWord?.response?.meanings?.[0]?.subtitle || "Loading..."}
           </span>
         </div>

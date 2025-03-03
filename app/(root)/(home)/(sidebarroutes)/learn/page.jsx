@@ -1,6 +1,6 @@
 'use client'
 import wordlist from "@/word_list.json"
-import React from "react"
+import React, { Suspense } from "react"
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
 import { Shuffle } from "lucide-react"
@@ -10,14 +10,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useState } from "react"
 
 
-const Learn = () => {
+const Learn = ({ searchParams }) => {
   const [oneWord, setOneWord] = useState(null)
   const [type, setType] = useState("word")
   const [selectedLevel, setSelectedLevel] = useState("Beginner")
   const max = wordlist.length
 
+
+  console.log(searchParams, "searchParams")
   const handleGetRandomWord = () => {
-    
+
     const num = Math.floor(Math.random() * max)
     setOneWord(wordlist[num])
   }
@@ -31,6 +33,8 @@ const Learn = () => {
   }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
+      
     <div className="container mx-auto">
       {/* Random Search Button */}
       <div className="flex justify-center justify-items-center mt-10">
@@ -132,6 +136,8 @@ const Learn = () => {
         </div>
       )}
     </div>
+    </Suspense>
+
   )
 }
 
