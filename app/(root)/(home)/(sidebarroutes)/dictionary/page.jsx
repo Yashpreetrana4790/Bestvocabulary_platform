@@ -1,4 +1,4 @@
-import { SearchBar } from '@/components/Searchbar/Searchbar'
+import { SearchBar } from '@/components/Searchbar/Searchbar.jsx'
 import React from 'react'
 
 const page = () => {
