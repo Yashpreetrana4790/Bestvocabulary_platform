@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Image from "next/image"
 
 export function LoginForm({
   className,
@@ -77,7 +78,7 @@ export function LoginForm({
             </div>
           </form>
           <div className="relative hidden bg-muted md:block">
-            <img
+            <Image
               src="/student.png"
               alt="Image"
               className="p-4  object-fit dark:brightness-[0.2] dark:grayscale" />

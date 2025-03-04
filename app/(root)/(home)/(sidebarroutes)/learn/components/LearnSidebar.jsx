@@ -24,25 +24,30 @@ const LearnSidebar = async ({ ...props }) => {
       <SidebarContent  >
         <SidebarMenuButton>
 
+          <React.Suspense fallback={<div>Loading...</div>}>
 
-          <ToggleFilter
-            options={[
-              { label: "Easy", value: "easy" },
-              { label: "Medium", value: "medium" },
-              { label: "Hard", value: "hard" }
-            ]}
-            paramKey="difficulty"
-          />
+            <ToggleFilter
+              options={[
+                { label: "Easy", value: "easy" },
+                { label: "Medium", value: "medium" },
+                { label: "Hard", value: "hard" }
+              ]}
+              paramKey="difficulty"
+            />
+          </React.Suspense>
         </SidebarMenuButton>
         <SidebarMenuButton>
-          <ToggleFilter
-            options={[
-              { label: "Idioms", value: "idioms" },
-              { label: "Words", value: "words" },
-            ]}
-            type="single"
-            paramKey="difficulty"
-          />
+          <React.Suspense fallback={<div>Loading...</div>}>
+
+            <ToggleFilter
+              options={[
+                { label: "Idioms", value: "idioms" },
+                { label: "Words", value: "words" },
+              ]}
+              type="single"
+              paramKey="difficulty"
+            />
+          </React.Suspense>
         </SidebarMenuButton>
       </SidebarContent>
       <SidebarFooter>

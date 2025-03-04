@@ -1,33 +1,33 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const ToggleFilter = ({ options, paramKey, type = "multiple" }) => {
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
 
-  // Convert current values into a Set for easy toggling
-  const currentValues = new Set(searchParams.get(paramKey)?.split(",") || []);
+  // Ensure paramKey is fetching the right values
+  const currentValues = new Set(params.get(paramKey)?.split(",") || []);
 
-  const handleToggle = (value) => {
-    const newValues = new Set(currentValues);
+  const handleButtonClick = (value) => {
+    const updatedValues = new Set(currentValues);
 
-    if (newValues.has(value)) {
-      newValues.delete(value); // Remove value if already selected
+    if (updatedValues.has(value)) {
+      updatedValues.delete(value);
     } else {
-      newValues.add(value); // Add value if not selected
+      updatedValues.add(value);
     }
 
-    // Clone search params to avoid mutation issues
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (newValues.size > 0) {
-      params.set(paramKey, Array.from(newValues).join(",")); // Update the param
+    // Update query parameters correctly
+    if (updatedValues.size > 0) {
+      params.set(paramKey, Array.from(updatedValues).join(",")); // Correct category grouping
     } else {
-      params.delete(paramKey); // Remove if empty
+      params.delete(paramKey);
     }
 
+    // Ensure URL is correctly structured
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
@@ -37,9 +37,9 @@ const ToggleFilter = ({ options, paramKey, type = "multiple" }) => {
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          className={`rounded-xl border ${currentValues.has(option.value) ? "bg-gray-300" : ""
+          className={`rounded-xl border ${currentValues.has(option.value) ? "bg-gray-300 font-bold" : ""
             }`}
-          onClick={() => handleToggle(option.value)}
+          onClick={() => handleButtonClick(option.value)}
         >
           {option.label}
         </ToggleGroupItem>

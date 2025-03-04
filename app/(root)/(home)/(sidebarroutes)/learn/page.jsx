@@ -1,6 +1,6 @@
 'use client'
 import wordlist from "@/word_list.json"
-import React, { Suspense } from "react"
+import React from "react"
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
 import { Shuffle } from "lucide-react"
