@@ -5,8 +5,7 @@ export default function HomeLayout({ children }) {
   return (
     <>
       <Navbar />
-      
-        {children}
+      {children}
     </>
 
   );
