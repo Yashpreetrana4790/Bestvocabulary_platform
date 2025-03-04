@@ -1,8 +1,11 @@
+import SearchBar from '@/components/Searchbar/Searchbar'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <SearchBar />
+    </div>
   )
 }
 

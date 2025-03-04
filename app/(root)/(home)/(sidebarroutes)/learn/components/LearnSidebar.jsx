@@ -17,7 +17,7 @@ import ToggleFilter from "@/components/ToggleFilter";
 const LearnSidebar = async ({ ...props }) => {
 
   return (
-    <Sidebar collapsible="icon" {...props} className="mt-14 ">
+    <Sidebar  collapsible="icon" {...props} className="mt-14 ">
       <SidebarHeader className="font-bold">
         Random Word Hunt
       </SidebarHeader>

@@ -8,7 +8,6 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { Calendar } from "@/components/ui/calendar"
 import InfoCard from "@/components/Cards/InfoCard"
 import word_facts from "@/word_facts.json"
 import { Alphabets } from "@/lib/helper"
@@ -38,13 +37,13 @@ export function WodSb({
   }
 
   return (
-    <Sidebar collapsible="icon" {...props} className="mt-14 ">
+    <Sidebar side="right" collapsible="icon" {...props} className="mt-14 ">
       <SidebarHeader className="my-3">
         Dictionary Hub
       </SidebarHeader>
       <SidebarContent>
         <div className="p-2 w-full">
-          <span class="grid grid-cols-5 gap-4 place-content-center ">
+          <span class="grid grid-cols-5 gap-2 place-content-center ">
             {Alphabets?.map((alphabet, index) => (
               <Toggle variant="highlighted" key={index} className="border text-center p-1 rounded-lg">{alphabet}</Toggle>
             ))

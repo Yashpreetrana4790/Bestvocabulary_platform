@@ -1,4 +1,7 @@
 'use client'
+
+import Herobanner from "@/components/HomePageComponents/Herobanner"
+import NewLight from "@/components/HomePageComponents/NewLight"
 import { useEffect } from "react"
 import React from "react"
 
@@ -10,7 +13,9 @@ export default function Home() {
 
   return (
     <>
-      Home page
+      <Herobanner />
+      <NewLight />
+
     </>
   )
 }

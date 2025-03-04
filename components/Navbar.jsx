@@ -26,7 +26,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="px-4 flex h-14 w-full items-center ">
+      <div className="px-4 lg:px-14 flex h-14 w-full items-center ">
         {/* <MainNav /> */}
         <MobileNav />
         <div className="mr-4 hidden md:flex">

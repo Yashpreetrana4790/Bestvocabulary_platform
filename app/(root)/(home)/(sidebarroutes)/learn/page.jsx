@@ -54,11 +54,13 @@ const Learn = () => {
             <p className="text-lg font-medium mb-2"> {oneWord?.response?.pronunciation}</p>
           </PageHeaderDescription>
           <div>
-            <span className="p-2 rounded-2xl bg-secondary my-4 mx-10 ">{oneWord?.response?.meanings?.[0]?.subtitle || "Loading..."}</span>
+            <p className="p-2 rounded-2xl  underline underline-offset-2 decoration-pink-500 text-center mx-10  leading-8">
+              {oneWord?.response?.meanings[0].subtitle}
+            </p>
           </div>
           <div className="container">
             {oneWord?.response && (
-              <div className="mt-4 text-center">
+              <div className=" text-center">
                 <p className="text-md">{oneWord.response.meanings?.[0]?.easyMeaning || "Loading..."}</p>
               </div>
             )}
@@ -97,15 +99,15 @@ const Learn = () => {
           </PageHeaderDescription>
 
           {oneWord?.response?.meanings?.[0]?.subtitle && (
-            <div>
-              <span className="p-2 rounded-2xl bg-secondary text-center my-4 mx-10">
-                {oneWord.response.meanings[0].subtitle}
+            <>
+              <span className="p-2 rounded-2xl  underline underline-offset-2 decoration-pink-500 text-center my-4 mx-10  leading-8">
+                {oneWord?.response?.meanings[0].subtitle}
               </span>
-            </div>
+            </>
           )}
 
           {oneWord?.response?.meanings?.[0]?.easyMeaning && (
-            <div className="container mt-4 text-center">
+            <div className=" mt-1 text-center">
               <p className="text-md">{oneWord.response.meanings[0].easyMeaning}</p>
             </div>
           )}

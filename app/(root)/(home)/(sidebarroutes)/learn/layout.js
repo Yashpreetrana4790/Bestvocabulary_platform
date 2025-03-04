@@ -1,5 +1,6 @@
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import LearnSidebar from "./components/LearnSidebar";
+import { LeftSidebar } from "../dictionary/components/LeftSidebar";
 
 
 export default function LearnRouteLayout({ children }) {
@@ -7,13 +8,14 @@ export default function LearnRouteLayout({ children }) {
     <>
       <SidebarProvider>
         <LearnSidebar />
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
 
-          <SidebarTrigger className="" />
+          <SidebarTrigger className="ml-2" />
           <SidebarInset>
             {children}
           </SidebarInset>
         </div>
+        asd
       </SidebarProvider>
     </>
 

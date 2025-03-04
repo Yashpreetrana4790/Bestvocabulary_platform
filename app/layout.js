@@ -2,7 +2,7 @@
 import React from 'react';
 
 import "./globals.css";
-import { Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } from "next/font/google";
+import { Inter, Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from 'next-themes';
 
 export const metadata = {
@@ -37,6 +37,10 @@ const MerriWeather = Merriweather({
   variable: "--font-merriweather",
 });
 
+const InterFont = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 
 
@@ -45,7 +49,7 @@ export default function RootLayout({ children }) {
   return (
 
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable} ${MerriWeather.variable}`}>
+      <body className={`${playfairDisplay.variable} ${LibreBaskerville.variable} ${OpenSans.variable} ${MerriWeather.variable} ${InterFont.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

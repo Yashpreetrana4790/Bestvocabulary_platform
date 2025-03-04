@@ -169,36 +169,11 @@ const data = {
 export function WodSidebar({
   ...props
 }) {
-  const [date, setDate] = React.useState()
 
   return (
-    <Sidebar collapsible="icon" {...props} className="mt-14 ">
-      <SidebarHeader>
-      </SidebarHeader>
+    <Sidebar collapsible="icon" {...props} className="mt-14 md:block hidden ">
       <SidebarContent className="min-w-2xl">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "w-[240px] justify-start text-left font-normal",
-                !date && "text-muted-foreground"
-              )}
-            >
-              <CalendarIcon />
-              {date ? format(date, "PPP") : <span>Pick a date</span>}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-full font-normal" align="start">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              className="w-full"
-            />
-          </PopoverContent>
-        </Popover>
-        <SidebarSeparator className="mx-0" />
+
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
