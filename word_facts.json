@@ -1,0 +1,802 @@
+[
+    {
+        "id": 41,
+        "fact": "The word 'quarantine' comes from the Italian 'quaranta giorni,' meaning 'forty days.'"
+    },
+    {
+        "id": 42,
+        "fact": "The word 'robot' comes from a Czech word meaning 'forced labor.'"
+    },
+    {
+        "id": 43,
+        "fact": "The word 'whiskey' comes from the Old Irish 'uisce beatha,' meaning 'water of life.'"
+    },
+    {
+        "id": 44,
+        "fact": "The word 'nightmare' originally referred to a female spirit who suffocated sleepers."
+    },
+    {
+        "id": 45,
+        "fact": "The word 'cliché' comes from the sound of a printing plate, which was used to reproduce commonly used phrases."
+    },
+    {
+        "id": 46,
+        "fact": "The word 'avocado' comes from a Nahuatl word meaning 'testicle.'"
+    },
+    {
+        "id": 47,
+        "fact": "The word 'sincere' comes from the Latin 'sine cera,' meaning 'without wax,' referring to unadulterated honey."
+    },
+    {
+        "id": 48,
+        "fact": "The word 'trivia' comes from the Latin 'trivium,' meaning 'a place where three roads meet.'"
+    },
+    {
+        "id": 49,
+        "fact": "The word 'hazard' comes from the Arabic 'al-zahr,' meaning 'the dice.'"
+    },
+    {
+        "id": 50,
+        "fact": "The word 'lethargy' comes from the Greek 'Lethe,' the river of forgetfulness in mythology."
+    },
+    {
+        "id": 51,
+        "fact": "The word 'sarcasm' comes from the Greek 'sarkasmos,' meaning 'to tear flesh like dogs.'"
+    },
+    {
+        "id": 52,
+        "fact": "The word 'alphabet' comes from the first two letters of the Greek alphabet, alpha and beta."
+    },
+    {
+        "id": 53,
+        "fact": "The word 'daisy' comes from the Old English 'dægeseage,' meaning 'day's eye.'"
+    },
+    {
+        "id": 54,
+        "fact": "The word 'window' comes from the Old Norse 'vindauga,' meaning 'wind eye.'"
+    },
+    {
+        "id": 55,
+        "fact": "The word 'muscle' comes from the Latin 'musculus,' meaning 'little mouse.'"
+    },
+    {
+        "id": 56,
+        "fact": "The word 'salary' comes from the Latin 'salarium,' meaning 'salt money.'"
+    },
+    {
+        "id": 57,
+        "fact": "The word 'candidate' comes from the Latin 'candidatus,' meaning 'clothed in white.'"
+    },
+    {
+        "id": 58,
+        "fact": "The word 'lunatic' comes from the Latin 'lunaticus,' meaning 'moonstruck.'"
+    },
+    {
+        "id": 59,
+        "fact": "The word 'disaster' comes from the Italian 'disastro,' meaning 'bad star.'"
+    },
+    {
+        "id": 60,
+        "fact": "The word 'pandemonium' comes from John Milton's 'Paradise Lost,' where it is the capital of Hell."
+    },
+    {
+        "id": 61,
+        "fact": "The word 'clue' comes from the Greek 'klyo,' meaning 'a ball of thread.'"
+    },
+    {
+        "id": 62,
+        "fact": "The word 'tragedy' comes from the Greek 'tragodia,' meaning 'goat song.'"
+    },
+    {
+        "id": 63,
+        "fact": "The word 'quixotic' comes from the character Don Quixote in the novel by Miguel de Cervantes."
+    },
+    {
+        "id": 64,
+        "fact": "The word 'malaria' comes from the Italian 'mala aria,' meaning 'bad air.'"
+    },
+    {
+        "id": 65,
+        "fact": "The word 'vaccine' comes from the Latin 'vacca,' meaning 'cow.'"
+    },
+    {
+        "id": 66,
+        "fact": "The word 'assassin' comes from the Arabic 'hashshashin,' meaning 'hashish users.'"
+    },
+    {
+        "id": 67,
+        "fact": "The word 'alcohol' comes from the Arabic 'al-kuḥl,' meaning 'the kohl.'"
+    },
+    {
+        "id": 68,
+        "fact": "The word 'checkmate' comes from the Persian 'shah mat,' meaning 'the king is dead.'"
+    },
+    {
+        "id": 69,
+        "fact": "The word 'bikini' comes from the Bikini Atoll, where nuclear tests were conducted."
+    },
+    {
+        "id": 70,
+        "fact": "The word 'tuxedo' comes from Tuxedo Park, a village in New York."
+    },
+    {
+        "id": 71,
+        "fact": "The word 'jeans' comes from the city of Genoa in Italy, where the fabric was first made."
+    },
+    {
+        "id": 72,
+        "fact": "The word 'denim' comes from the French 'serge de Nîmes,' meaning 'serge from Nîmes.'"
+    },
+    {
+        "id": 73,
+        "fact": "The word 'shampoo' comes from the Hindi 'chāmpo,' meaning 'to press.'"
+    },
+    {
+        "id": 74,
+        "fact": "The word 'bungalow' comes from the Hindi 'banglā,' meaning 'Bengali.'"
+    },
+    {
+        "id": 75,
+        "fact": "The word 'juggernaut' comes from the Hindi 'Jagannath,' meaning 'lord of the world.'"
+    },
+    {
+        "id": 76,
+        "fact": "The word 'pajamas' comes from the Hindi 'pāyjāma,' meaning 'leg clothing.'"
+    },
+    {
+        "id": 77,
+        "fact": "The word 'thug' comes from the Hindi 'thag,' meaning 'swindler.'"
+    },
+    {
+        "id": 78,
+        "fact": "The word 'loot' comes from the Hindi 'lūṭ,' meaning 'to plunder.'"
+    },
+    {
+        "id": 79,
+        "fact": "The word 'veranda' comes from the Hindi 'varaṇḍā,' meaning 'porch.'"
+    },
+    {
+        "id": 80,
+        "fact": "The word 'guru' comes from the Hindi 'guru,' meaning 'teacher.'"
+    },
+    {
+        "id": 81,
+        "fact": "The word 'yoga' comes from the Sanskrit 'yoga,' meaning 'union.'"
+    },
+    {
+        "id": 82,
+        "fact": "The word 'karma' comes from the Sanskrit 'karma,' meaning 'action.'"
+    },
+    {
+        "id": 83,
+        "fact": "The word 'nirvana' comes from the Sanskrit 'nirvāṇa,' meaning 'blowing out.'"
+    },
+    {
+        "id": 84,
+        "fact": "The word 'avatar' comes from the Sanskrit 'avatāra,' meaning 'descent.'"
+    },
+    {
+        "id": 85,
+        "fact": "The word 'jungle' comes from the Hindi 'jangal,' meaning 'forest.'"
+    },
+    {
+        "id": 86,
+        "fact": "The word 'bandana' comes from the Hindi 'bāndhnū,' meaning 'to tie.'"
+    },
+    {
+        "id": 87,
+        "fact": "The word 'chutney' comes from the Hindi 'caṭnī,' meaning 'to lick.'"
+    },
+    {
+        "id": 88,
+        "fact": "The word 'bangle' comes from the Hindi 'baṅglī,' meaning 'glass bracelet.'"
+    },
+    {
+        "id": 89,
+        "fact": "The word 'cashmere' comes from the region of Kashmir in India."
+    },
+    {
+        "id": 90,
+        "fact": "The word 'cot' comes from the Hindi 'khāṭ,' meaning 'bed.'"
+    },
+    {
+        "id": 91,
+        "fact": "The word 'dungarees' comes from the Hindi 'dūṅgrī,' meaning 'coarse cloth.'"
+    },
+    {
+        "id": 92,
+        "fact": "The word 'gingham' comes from the Malay 'genggang,' meaning 'striped.'"
+    },
+    {
+        "id": 93,
+        "fact": "The word 'mango' comes from the Tamil 'māṅgāy.'"
+    },
+    {
+        "id": 94,
+        "fact": "The word 'pepper' comes from the Sanskrit 'pippali.'"
+    },
+    {
+        "id": 95,
+        "fact": "The word 'sugar' comes from the Sanskrit 'śarkarā.'"
+    },
+    {
+        "id": 96,
+        "fact": "The word 'ginger' comes from the Sanskrit 'śṛṅgavera.'"
+    },
+    {
+        "id": 97,
+        "fact": "The word 'orange' comes from the Sanskrit 'nāraṅga.'"
+    },
+    {
+        "id": 98,
+        "fact": "The word 'candy' comes from the Sanskrit 'khaṇḍa,' meaning 'piece.'"
+    },
+    {
+        "id": 99,
+        "fact": "The word 'jackal' comes from the Persian 'shaghāl.'"
+    },
+    {
+        "id": 100,
+        "fact": "The word 'cheetah' comes from the Hindi 'cītā,' meaning 'spotted one.'"
+    },
+    {
+        "id": 101,
+        "fact": "The word 'quarantine' comes from the Italian 'quaranta giorni,' meaning 'forty days.'"
+    },
+    {
+        "id": 102,
+        "fact": "The word 'robot' comes from a Czech word meaning 'forced labor.'"
+    },
+    {
+        "id": 103,
+        "fact": "The word 'whiskey' comes from the Old Irish 'uisce beatha,' meaning 'water of life.'"
+    },
+    {
+        "id": 104,
+        "fact": "The word 'nightmare' originally referred to a female spirit who suffocated sleepers."
+    },
+    {
+        "id": 105,
+        "fact": "The word 'cliché' comes from the sound of a printing plate, which was used to reproduce commonly used phrases."
+    },
+    {
+        "id": 106,
+        "fact": "The word 'avocado' comes from a Nahuatl word meaning 'testicle.'"
+    },
+    {
+        "id": 107,
+        "fact": "The word 'sincere' comes from the Latin 'sine cera,' meaning 'without wax,' referring to unadulterated honey."
+    },
+    {
+        "id": 108,
+        "fact": "The word 'trivia' comes from the Latin 'trivium,' meaning 'a place where three roads meet.'"
+    },
+    {
+        "id": 109,
+        "fact": "The word 'hazard' comes from the Arabic 'al-zahr,' meaning 'the dice.'"
+    },
+    {
+        "id": 110,
+        "fact": "The word 'lethargy' comes from the Greek 'Lethe,' the river of forgetfulness in mythology."
+    },
+    {
+        "id": 111,
+        "fact": "The word 'sarcasm' comes from the Greek 'sarkasmos,' meaning 'to tear flesh like dogs.'"
+    },
+    {
+        "id": 112,
+        "fact": "The word 'alphabet' comes from the first two letters of the Greek alphabet, alpha and beta."
+    },
+    {
+        "id": 113,
+        "fact": "The word 'daisy' comes from the Old English 'dægeseage,' meaning 'day's eye.'"
+    },
+    {
+        "id": 114,
+        "fact": "The word 'window' comes from the Old Norse 'vindauga,' meaning 'wind eye.'"
+    },
+    {
+        "id": 115,
+        "fact": "The word 'muscle' comes from the Latin 'musculus,' meaning 'little mouse.'"
+    },
+    {
+        "id": 116,
+        "fact": "The word 'salary' comes from the Latin 'salarium,' meaning 'salt money.'"
+    },
+    {
+        "id": 117,
+        "fact": "The word 'candidate' comes from the Latin 'candidatus,' meaning 'clothed in white.'"
+    },
+    {
+        "id": 118,
+        "fact": "The word 'lunatic' comes from the Latin 'lunaticus,' meaning 'moonstruck.'"
+    },
+    {
+        "id": 119,
+        "fact": "The word 'disaster' comes from the Italian 'disastro,' meaning 'bad star.'"
+    },
+    {
+        "id": 120,
+        "fact": "The word 'pandemonium' comes from John Milton's 'Paradise Lost,' where it is the capital of Hell."
+    },
+    {
+        "id": 121,
+        "fact": "The word 'clue' comes from the Greek 'klyo,' meaning 'a ball of thread.'"
+    },
+    {
+        "id": 122,
+        "fact": "The word 'tragedy' comes from the Greek 'tragodia,' meaning 'goat song.'"
+    },
+    {
+        "id": 123,
+        "fact": "The word 'quixotic' comes from the character Don Quixote in the novel by Miguel de Cervantes."
+    },
+    {
+        "id": 124,
+        "fact": "The word 'malaria' comes from the Italian 'mala aria,' meaning 'bad air.'"
+    },
+    {
+        "id": 125,
+        "fact": "The word 'vaccine' comes from the Latin 'vacca,' meaning 'cow.'"
+    },
+    {
+        "id": 126,
+        "fact": "The word 'assassin' comes from the Arabic 'hashshashin,' meaning 'hashish users.'"
+    },
+    {
+        "id": 127,
+        "fact": "The word 'alcohol' comes from the Arabic 'al-kuḥl,' meaning 'the kohl.'"
+    },
+    {
+        "id": 128,
+        "fact": "The word 'checkmate' comes from the Persian 'shah mat,' meaning 'the king is dead.'"
+    },
+    {
+        "id": 129,
+        "fact": "The word 'bikini' comes from the Bikini Atoll, where nuclear tests were conducted."
+    },
+    {
+        "id": 130,
+        "fact": "The word 'tuxedo' comes from Tuxedo Park, a village in New York."
+    },
+    {
+        "id": 131,
+        "fact": "The word 'jeans' comes from the city of Genoa in Italy, where the fabric was first made."
+    },
+    {
+        "id": 132,
+        "fact": "The word 'denim' comes from the French 'serge de Nîmes,' meaning 'serge from Nîmes.'"
+    },
+    {
+        "id": 133,
+        "fact": "The word 'shampoo' comes from the Hindi 'chāmpo,' meaning 'to press.'"
+    },
+    {
+        "id": 134,
+        "fact": "The word 'bungalow' comes from the Hindi 'banglā,' meaning 'Bengali.'"
+    },
+    {
+        "id": 135,
+        "fact": "The word 'juggernaut' comes from the Hindi 'Jagannath,' meaning 'lord of the world.'"
+    },
+    {
+        "id": 136,
+        "fact": "The word 'pajamas' comes from the Hindi 'pāyjāma,' meaning 'leg clothing.'"
+    },
+    {
+        "id": 137,
+        "fact": "The word 'thug' comes from the Hindi 'thag,' meaning 'swindler.'"
+    },
+    {
+        "id": 138,
+        "fact": "The word 'loot' comes from the Hindi 'lūṭ,' meaning 'to plunder.'"
+    },
+    {
+        "id": 139,
+        "fact": "The word 'veranda' comes from the Hindi 'varaṇḍā,' meaning 'porch.'"
+    },
+    {
+        "id": 140,
+        "fact": "The word 'guru' comes from the Hindi 'guru,' meaning 'teacher.'"
+    },
+    {
+        "id": 141,
+        "fact": "The word 'yoga' comes from the Sanskrit 'yoga,' meaning 'union.'"
+    },
+    {
+        "id": 142,
+        "fact": "The word 'karma' comes from the Sanskrit 'karma,' meaning 'action.'"
+    },
+    {
+        "id": 143,
+        "fact": "The word 'nirvana' comes from the Sanskrit 'nirvāṇa,' meaning 'blowing out.'"
+    },
+    {
+        "id": 144,
+        "fact": "The word 'avatar' comes from the Sanskrit 'avatāra,' meaning 'descent.'"
+    },
+    {
+        "id": 145,
+        "fact": "The word 'jungle' comes from the Hindi 'jangal,' meaning 'forest.'"
+    },
+    {
+        "id": 146,
+        "fact": "The word 'bandana' comes from the Hindi 'bāndhnū,' meaning 'to tie.'"
+    },
+    {
+        "id": 147,
+        "fact": "The word 'chutney' comes from the Hindi 'caṭnī,' meaning 'to lick.'"
+    },
+    {
+        "id": 148,
+        "fact": "The word 'bangle' comes from the Hindi 'baṅglī,' meaning 'glass bracelet.'"
+    },
+    {
+        "id": 149,
+        "fact": "The word 'cashmere' comes from the region of Kashmir in India."
+    },
+    {
+        "id": 150,
+        "fact": "The word 'cot' comes from the Hindi 'khāṭ,' meaning 'bed.'"
+    },
+    {
+        "id": 151,
+        "fact": "The word 'dungarees' comes from the Hindi 'dūṅgrī,' meaning 'coarse cloth.'"
+    },
+    {
+        "id": 152,
+        "fact": "The word 'gingham' comes from the Malay 'genggang,' meaning 'striped.'"
+    },
+    {
+        "id": 153,
+        "fact": "The word 'mango' comes from the Tamil 'māṅgāy.'"
+    },
+    {
+        "id": 154,
+        "fact": "The word 'pepper' comes from the Sanskrit 'pippali.'"
+    },
+    {
+        "id": 155,
+        "fact": "The word 'sugar' comes from the Sanskrit 'śarkarā.'"
+    },
+    {
+        "id": 156,
+        "fact": "The word 'ginger' comes from the Sanskrit 'śṛṅgavera.'"
+    },
+    {
+        "id": 157,
+        "fact": "The word 'orange' comes from the Sanskrit 'nāraṅga.'"
+    },
+    {
+        "id": 158,
+        "fact": "The word 'candy' comes from the Sanskrit 'khaṇḍa,' meaning 'piece.'"
+    },
+    {
+        "id": 159,
+        "fact": "The word 'jackal' comes from the Persian 'shaghāl.'"
+    },
+    {
+        "id": 160,
+        "fact": "The word 'cheetah' comes from the Hindi 'cītā,' meaning 'spotted one.'"
+    },
+    {
+        "id": 161,
+        "fact": "The word 'alphabet' comes from the first two letters of the Greek alphabet, alpha and beta."
+    },
+    {
+        "id": 162,
+        "fact": "The word 'daisy' comes from the Old English 'dægeseage,' meaning 'day's eye.'"
+    },
+    {
+        "id": 163,
+        "fact": "The word 'window' comes from the Old Norse 'vindauga,' meaning 'wind eye.'"
+    },
+    {
+        "id": 164,
+        "fact": "The word 'muscle' comes from the Latin 'musculus,' meaning 'little mouse.'"
+    },
+    {
+        "id": 165,
+        "fact": "The word 'salary' comes from the Latin 'salarium,' meaning 'salt money.'"
+    },
+    {
+        "id": 166,
+        "fact": "The word 'candidate' comes from the Latin 'candidatus,' meaning 'clothed in white.'"
+    },
+    {
+        "id": 167,
+        "fact": "The word 'lunatic' comes from the Latin 'lunaticus,' meaning 'moonstruck.'"
+    },
+    {
+        "id": 168,
+        "fact": "The word 'disaster' comes from the Italian 'disastro,' meaning 'bad star.'"
+    },
+    {
+        "id": 169,
+        "fact": "The word 'pandemonium' comes from John Milton's 'Paradise Lost,' where it is the capital of Hell."
+    },
+    {
+        "id": 170,
+        "fact": "The word 'clue' comes from the Greek 'klyo,' meaning 'a ball of thread.'"
+    },
+    {
+        "id": 171,
+        "fact": "The word 'tragedy' comes from the Greek 'tragodia,' meaning 'goat song.'"
+    },
+    {
+        "id": 172,
+        "fact": "The word 'quixotic' comes from the character Don Quixote in the novel by Miguel de Cervantes."
+    },
+    {
+        "id": 173,
+        "fact": "The word 'malaria' comes from the Italian 'mala aria,' meaning 'bad air.'"
+    },
+    {
+        "id": 174,
+        "fact": "The word 'vaccine' comes from the Latin 'vacca,' meaning 'cow.'"
+    },
+    {
+        "id": 175,
+        "fact": "The word 'assassin' comes from the Arabic 'hashshashin,' meaning 'hashish users.'"
+    },
+    {
+        "id": 176,
+        "fact": "The word 'alcohol' comes from the Arabic 'al-kuḥl,' meaning 'the kohl.'"
+    },
+    {
+        "id": 177,
+        "fact": "The word 'checkmate' comes from the Persian 'shah mat,' meaning 'the king is dead.'"
+    },
+    {
+        "id": 178,
+        "fact": "The word 'bikini' comes from the Bikini Atoll, where nuclear tests were conducted."
+    },
+    {
+        "id": 179,
+        "fact": "The word 'tuxedo' comes from Tuxedo Park, a village in New York."
+    },
+    {
+        "id": 180,
+        "fact": "The word 'jeans' comes from the city of Genoa in Italy, where the fabric was first made."
+    },
+    {
+        "id": 181,
+        "fact": "The word 'denim' comes from the French 'serge de Nîmes,' meaning 'serge from Nîmes.'"
+    },
+    {
+        "id": 182,
+        "fact": "The word 'shampoo' comes from the Hindi 'chāmpo,' meaning 'to press.'"
+    },
+    {
+        "id": 183,
+        "fact": "The word 'bungalow' comes from the Hindi 'banglā,' meaning 'Bengali.'"
+    },
+    {
+        "id": 184,
+        "fact": "The word 'juggernaut' comes from the Hindi 'Jagannath,' meaning 'lord of the world.'"
+    },
+    {
+        "id": 185,
+        "fact": "The word 'pajamas' comes from the Hindi 'pāyjāma,' meaning 'leg clothing.'"
+    },
+    {
+        "id": 186,
+        "fact": "The word 'thug' comes from the Hindi 'thag,' meaning 'swindler.'"
+    },
+    {
+        "id": 187,
+        "fact": "The word 'loot' comes from the Hindi 'lūṭ,' meaning 'to plunder.'"
+    },
+    {
+        "id": 188,
+        "fact": "The word 'veranda' comes from the Hindi 'varaṇḍā,' meaning 'porch.'"
+    },
+    {
+        "id": 189,
+        "fact": "The word 'guru' comes from the Hindi 'guru,' meaning 'teacher.'"
+    },
+    {
+        "id": 190,
+        "fact": "The word 'yoga' comes from the Sanskrit 'yoga,' meaning 'union.'"
+    },
+    {
+        "id": 191,
+        "fact": "The word 'karma' comes from the Sanskrit 'karma,' meaning 'action.'"
+    },
+    {
+        "id": 192,
+        "fact": "The word 'nirvana' comes from the Sanskrit 'nirvāṇa,' meaning 'blowing out.'"
+    },
+    {
+        "id": 193,
+        "fact": "The word 'avatar' comes from the Sanskrit 'avatāra,' meaning 'descent.'"
+    },
+    {
+        "id": 194,
+        "fact": "The word 'jungle' comes from the Hindi 'jangal,' meaning 'forest.'"
+    },
+    {
+        "id": 195,
+        "fact": "The word 'bandana' comes from the Hindi 'bāndhnū,' meaning 'to tie.'"
+    },
+    {
+        "id": 196,
+        "fact": "The word 'chutney' comes from the Hindi 'caṭnī,' meaning 'to lick.'"
+    },
+    {
+        "id": 197,
+        "fact": "The word 'bangle' comes from the Hindi 'baṅglī,' meaning 'glass bracelet.'"
+    },
+    {
+        "id": 198,
+        "fact": "The word 'cashmere' comes from the region of Kashmir in India."
+    },
+    {
+        "id": 199,
+        "fact": "The word 'cot' comes from the Hindi 'khāṭ,' meaning 'bed.'"
+    },
+    {
+        "id": 200,
+        "fact": "The word 'dungarees' comes from the Hindi 'dūṅgrī,' meaning 'coarse cloth.'"
+    },
+    {
+        "id": 1,
+        "fact": "The longest word in a major dictionary is 'pneumonoultramicroscopicsilicovolcanoconiosis' (a lung disease)."
+    },
+    {
+        "id": 2,
+        "fact": "The shortest complete sentence in English is 'I am.'"
+    },
+    {
+        "id": 3,
+        "fact": "'Uncopyrightable' is the longest word without repeating any letter."
+    },
+    {
+        "id": 4,
+        "fact": "The most common English word is 'the.'"
+    },
+    {
+        "id": 5,
+        "fact": "The least used letter in English is 'Z.'"
+    },
+    {
+        "id": 6,
+        "fact": "The letter 'E' is the most frequently used in the English language."
+    },
+    {
+        "id": 7,
+        "fact": "The longest word typed using only the left hand on a QWERTY keyboard is 'stewardesses.'"
+    },
+    {
+        "id": 8,
+        "fact": "The longest word typed using only the right hand is 'lollipop.'"
+    },
+    {
+        "id": 9,
+        "fact": "The longest English word without a vowel is 'rhythms.'"
+    },
+    {
+        "id": 10,
+        "fact": "'Queue' is pronounced the same way even if you remove the last four letters!"
+    },
+    {
+        "id": 11,
+        "fact": "'Dreamt' is the only English word that ends with 'mt.'"
+    },
+    {
+        "id": 12,
+        "fact": "'Bookkeeper' is the only English word with three consecutive double letters (oo, kk, ee)."
+    },
+    {
+        "id": 13,
+        "fact": "The dot above 'i' and 'j' is called a 'tittle.'"
+    },
+    {
+        "id": 14,
+        "fact": "There is no word that rhymes perfectly with 'orange,' 'silver,' or 'month.'"
+    },
+    {
+        "id": 15,
+        "fact": "A pangram is a sentence that contains every letter of the alphabet, like 'The quick brown fox jumps over the lazy dog.'"
+    },
+    {
+        "id": 16,
+        "fact": "'Facetious' and 'abstemious' are two words that contain all vowels in order."
+    },
+    {
+        "id": 17,
+        "fact": "'Palindrome' words read the same forward and backward, like 'madam' and 'racecar.'"
+    },
+    {
+        "id": 18,
+        "fact": "The English word with the most definitions is 'set.'"
+    },
+    {
+        "id": 19,
+        "fact": "'Girl' used to mean 'a young person' regardless of gender."
+    },
+    {
+        "id": 20,
+        "fact": "'Nice' originally meant 'ignorant' or 'foolish' in Old English."
+    },
+    {
+        "id": 21,
+        "fact": "The word 'alphabet' comes from the first two Greek letters: alpha and beta."
+    },
+    {
+        "id": 22,
+        "fact": "The fear of long words is called 'hippopotomonstrosesquippedaliophobia.'"
+    },
+    {
+        "id": 23,
+        "fact": "The word 'mortgage' comes from a French term meaning 'death pledge.'"
+    },
+    {
+        "id": 24,
+        "fact": "The term 'spam' for unwanted emails comes from a Monty Python sketch."
+    },
+    {
+        "id": 25,
+        "fact": "The word 'hello' became a common greeting only after the invention of the telephone."
+    },
+    {
+        "id": 26,
+        "fact": "Shakespeare invented over 1,700 words, including 'bedroom' and 'gloomy.'"
+    },
+    {
+        "id": 27,
+        "fact": "The word 'muscle' comes from a Latin word meaning 'little mouse,' because flexed muscles look like mice under the skin."
+    },
+    {
+        "id": 28,
+        "fact": "The longest one-syllable word in English is 'screeched.'"
+    },
+    {
+        "id": 29,
+        "fact": "The English language borrows words from over 350 different languages."
+    },
+    {
+        "id": 30,
+        "fact": "There is no word that rhymes perfectly with 'wolf.'"
+    },
+    {
+        "id": 31,
+        "fact": "The word 'emoji' comes from Japanese words meaning 'picture' and 'character.'"
+    },
+    {
+        "id": 32,
+        "fact": "The letter 'A' doesn't appear in the English number system until 'thousand.'"
+    },
+    {
+        "id": 33,
+        "fact": "The longest palindrome in English is 'tattarrattat,' meaning a knock on a door."
+    },
+    {
+        "id": 34,
+        "fact": "The word 'news' comes from 'new' and was originally plural."
+    },
+    {
+        "id": 35,
+        "fact": "The phrase 'long time no see' comes from literal translations of Chinese and Native American languages."
+    },
+    {
+        "id": 36,
+        "fact": "The word 'goodbye' comes from 'God be with you.'"
+    },
+    {
+        "id": 37,
+        "fact": "The word 'clue' originally meant a ball of yarn, referring to the story of Theseus in the labyrinth."
+    },
+    {
+        "id": 38,
+        "fact": "'Oxford comma' is the name for the comma before 'and' in a list, and it sparks many debates."
+    },
+    {
+        "id": 39,
+        "fact": "The word 'salary' comes from the Latin word for salt, as Roman soldiers were paid in salt."
+    },
+    {
+        "id": 40,
+        "fact": "The word 'pencil' comes from the Latin 'penicillus,' meaning 'little tail.'"
+    }
+]

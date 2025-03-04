@@ -1,6 +1,17 @@
 "use client"
 
 import * as React from "react"
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import {
   AudioWaveform,
   BookOpen,
@@ -14,17 +25,16 @@ import {
   SquareTerminal,
 } from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar"
+
 
 // This is sample data.
 const data = {
@@ -159,13 +169,36 @@ const data = {
 export function WodSidebar({
   ...props
 }) {
+  const [date, setDate] = React.useState()
+
   return (
     <Sidebar collapsible="icon" {...props} className="mt-14 ">
       <SidebarHeader>
       </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+      <SidebarContent className="min-w-2xl">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={"outline"}
+              className={cn(
+                "w-[240px] justify-start text-left font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon />
+              {date ? format(date, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-full font-normal" align="start">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              className="w-full"
+            />
+          </PopoverContent>
+        </Popover>
+        <SidebarSeparator className="mx-0" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -7,12 +7,6 @@ import { Shuffle } from "lucide-react"
 import { capitalizeString } from "@/lib/helper"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from "@/components/ui/select"
 import { useState } from "react"
 
 
@@ -22,56 +16,28 @@ const Learn = () => {
   const [selectedLevel, setSelectedLevel] = useState("Beginner")
   const max = wordlist.length
 
+
   const handleGetRandomWord = () => {
-    console.log("Random word")
+
     const num = Math.floor(Math.random() * max)
     setOneWord(wordlist[num])
   }
 
-  React.useEffect(() => {
-    handleGetRandomWord()
-  }, [])
+
 
   const handleSelect = (level) => {
     setSelectedLevel(level)
   }
 
   return (
+
     <div className="container mx-auto">
-      <div className="flex my-5 gap-2 mb-5 w-full justify-between">
-        <div>
-          <Select>
-            <SelectTrigger className="rounded-2xl px-4 py-1">
-              Beginner
-            </SelectTrigger>
-            <SelectContent sideOffset={8} className="rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
-              <SelectItem disabled className="opacity-50 cursor-default">Select Level</SelectItem>
-              <SelectItem onValueChange={() => handleSelect("Beginner")}>Beginner</SelectItem>
-              <SelectItem onValueChange={() => handleSelect("Intermediate")}>Intermediate</SelectItem>
-              <SelectItem onValueChange={() => handleSelect("Advanced")}>Advanced</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="flex gap-4">
-
-          <Button className="rounded-2xl px-4 py-1" onClick={() => setType("word")}>
-            Learn Idiom
-          </Button>
-          <Button className="rounded-2xl px-4 py-1" onClick={() => setType("phrase")}>
-            Learn Phrases and Idioms
-          </Button>
-        </div>
-      </div>
-
       {/* Random Search Button */}
-      <div className="flex justify-center justify-items-center">
-
+      <div className="flex justify-center justify-items-center mt-10">
 
         <Button
-          className="flex items-center gap-2 bg-gray-600 px-4 py-4 mb-10 rounded-2xl text-md text-white dark:text-black"
+          className="flex items-center gap-2  px-4 py-4  rounded-2xl text-md text-white dark:text-black"
           onClick={handleGetRandomWord}
-          size="xl"
         >
           Random Search <Shuffle className="inline-block" />
         </Button>
@@ -80,7 +46,7 @@ const Learn = () => {
 
       {/* Conditionally render content for words or phrases */}
       {type === "word" ? (
-        <PageHeader>
+        <PageHeader className="py-10">
           <PageHeaderHeading >
             {capitalizeString(oneWord?.word || "Loading...")}
           </PageHeaderHeading>
@@ -166,6 +132,7 @@ const Learn = () => {
         </div>
       )}
     </div>
+
   )
 }
 
