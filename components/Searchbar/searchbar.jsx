@@ -2,6 +2,7 @@ import { Search } from 'lucide-react'
 import React from 'react'
 
 const SearchBar = () => {
+  console.log("c")
   return (
     <>
 
