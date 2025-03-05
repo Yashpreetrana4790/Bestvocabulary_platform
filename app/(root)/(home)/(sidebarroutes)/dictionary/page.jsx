@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from '@/components/Searchbar/SearchBar';
+import SearchBar from '@/components/SearchBar/SearchBar';
 
 const Page = () => {
   return (
