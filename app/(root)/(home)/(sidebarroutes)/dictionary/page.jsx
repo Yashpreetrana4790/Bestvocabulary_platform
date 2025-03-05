@@ -1,14 +1,12 @@
-import { searchBar } from '@/components/searchbar/searchBar'
+import React from 'react';
+import { SearchBar } from '@/components/searchbar/searchBar';
 
-import React from 'react'
-
-const page = () => {
+const Page = () => {
   return (
-    
     <div>
-      <searchBar />
+      <SearchBar />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;
