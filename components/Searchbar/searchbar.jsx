@@ -1,8 +1,7 @@
 import { Search } from 'lucide-react'
 import React from 'react'
 
-export const SearchBar = () => {
-  console.log("c")
+export const searchBar = () => {
   return (
     <>
 

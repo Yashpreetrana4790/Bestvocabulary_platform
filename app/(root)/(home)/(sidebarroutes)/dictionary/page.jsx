@@ -1,11 +1,12 @@
-import { SearchBar } from '@/components/Searchbar/SearchBar'
+import { searchBar } from '@/components/searchbar/searchBar'
 
 import React from 'react'
 
 const page = () => {
   return (
+    
     <div>
-      <SearchBar />
+      <searchBar />
     </div>
   )
 }
