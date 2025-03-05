@@ -69,8 +69,9 @@ module.exports = {
 					DEFAULT: 'hsl(var(--muted))',
 					foreground: 'hsl(var(--muted-foreground))'
 				},
-				customBlue :{
-					DEFAULT:	'#A0C0FF'
+				customBlue: {
+					DEFAULT: '#A0C0FF',
+					dark: '#19213D'
 				},
 				accent: {
 					DEFAULT: 'hsl(var(--accent))',
