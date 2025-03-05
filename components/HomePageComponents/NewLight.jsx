@@ -30,6 +30,7 @@ const NewLight = () => {
 
           />
 
+
           {/* Dark mode image */}
           <Image
             width={400}

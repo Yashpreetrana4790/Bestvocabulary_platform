@@ -19,12 +19,13 @@ const Herobanner = () => {
             Word Treasure
           </Button>
         </div>
-        <div className="flex items-center justify-center px-10">
+        <div className="flex items-center justify-center px-5">
           <Image
             width={400}
             height={400}
             alt="student"
-            src="/student.png"
+            className='my-5'
+            src="/std.svg"
           />
 
         </div>
