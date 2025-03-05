@@ -11,3 +11,5 @@ export const SearchBar = () => {
     </div>
   );
 };
+
+export default SearchBar; // ✅ Default export
