@@ -1,4 +1,5 @@
 import { SearchBar } from '@/components/Searchbar/SearchBar'
+
 import React from 'react'
 
 const page = () => {
