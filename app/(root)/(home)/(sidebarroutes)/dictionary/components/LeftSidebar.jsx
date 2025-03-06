@@ -137,24 +137,31 @@ const data = {
       ],
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+
 }
+
+const items = [
+
+  {
+    id: "difficulty-level",
+    title: "Difficulty Level",
+    items: [
+      { id: "beginner", title: "Beginner", url: "#beginner" },
+      { id: "intermediate", title: "Intermediate", url: "#intermediate" },
+      { id: "advanced", title: "Advanced", url: "#advanced" },
+    ],
+  },
+  {
+    id: "word-length",
+    title: "Word Length",
+    items: [
+      { id: "short", title: "Short (1-4 letters)", url: "#short" },
+      { id: "medium", title: "Medium (5-8 letters)", url: "#medium" },
+      { id: "long", title: "Long (9+ letters)", url: "#long" },
+    ],
+  },
+];
+
 
 export function LeftSidebar({ ...props }) {
   return (
@@ -163,8 +170,7 @@ export function LeftSidebar({ ...props }) {
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain items={items} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -12,6 +12,7 @@ export default function DictionaryRouteLayout({ children }) {
         <div className="w-full  ">
           {children}
         </div>
+
         <LeftSidebar />
       </SidebarProvider>
     </>

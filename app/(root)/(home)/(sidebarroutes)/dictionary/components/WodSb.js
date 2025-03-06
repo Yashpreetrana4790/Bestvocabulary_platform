@@ -43,7 +43,7 @@ export function WodSb({
       </SidebarHeader>
       <SidebarContent>
         <div className="p-2 w-full">
-          <span class="grid grid-cols-5 gap-2 place-content-center ">
+          <span className="grid grid-cols-5 gap-2 place-content-center ">
             {Alphabets?.map((alphabet, index) => (
               <Toggle variant="highlighted" key={index} className="border text-center p-1 rounded-lg">{alphabet}</Toggle>
             ))
