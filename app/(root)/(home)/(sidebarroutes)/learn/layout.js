@@ -15,7 +15,7 @@ export default function LearnRouteLayout({ children }) {
             {children}
           </SidebarInset>
         </div>
-        asd
+
       </SidebarProvider>
     </>
 
