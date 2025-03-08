@@ -1,5 +1,6 @@
 import { ArrowUpNarrowWide, HeartPulse } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 
 const WordCard = ({ wordsdata }) => {
@@ -14,7 +15,7 @@ const WordCard = ({ wordsdata }) => {
   };
 
   return (
-    <div className="rounded-xl flex flex-col bg-white dark:bg-stone-900 outline outline-1 outline-gray-400 p-4">
+    <Link href={`/word/${ wordsdata?.word}`} className="rounded-xl flex flex-col bg-white dark:bg-stone-900 outline outline-1 outline-gray-400 p-4">
       <div className="flex justify-between flex-wrap">
         <h2 className="text-[28px] font-merriweather font-semibold">
           {wordsdata?.word}
@@ -66,7 +67,7 @@ const WordCard = ({ wordsdata }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

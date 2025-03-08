@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { MobileNav } from "./Navbar/mobileNavbar"
 import { navbarlinks } from "@/lib/helper"
-
+import TokenCredit from "./TokenCredit"
 
 export function Navbar() {
   const pathname = usePathname()
@@ -52,7 +52,9 @@ export function Navbar() {
             ))}
           </nav>
         </div>
+
         <div className="flex flex-1 items-center  space-x-2 justify-end">
+          <TokenCredit />
           <nav className="flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -70,8 +72,10 @@ export function Navbar() {
                 <DropdownMenuItem>Subscription</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <div className="px-1">
 
-            <ModeToggle />
+              <ModeToggle />
+            </div>
 
           </nav>
         </div>

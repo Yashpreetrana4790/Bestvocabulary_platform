@@ -165,7 +165,7 @@ const items = [
 
 export function LeftSidebar({ ...props }) {
   return (
-    <Sidebar collapsible="icon" {...props} className="md:block hidden">
+    <Sidebar collapsible="icon" {...props} className="md:block hidden mt-14">
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>

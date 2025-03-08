@@ -7,12 +7,10 @@ export default function DictionaryRouteLayout({ children }) {
   return (
     <>
       <SidebarProvider>
-
         <WodSb />
-        <div className="w-full  ">
+        <div className="w-full">
           {children}
         </div>
-
         <LeftSidebar />
       </SidebarProvider>
     </>

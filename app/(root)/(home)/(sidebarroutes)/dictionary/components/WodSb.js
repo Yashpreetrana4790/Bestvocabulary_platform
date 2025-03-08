@@ -37,7 +37,7 @@ export function WodSb({
   }
 
   return (
-    <Sidebar side="right" collapsible="icon" {...props} className="mt-14 ">
+    <Sidebar side="right" collapsible="icon" {...props} className="mt-10   ">
       <SidebarHeader className="my-3">
         Dictionary Hub
       </SidebarHeader>
