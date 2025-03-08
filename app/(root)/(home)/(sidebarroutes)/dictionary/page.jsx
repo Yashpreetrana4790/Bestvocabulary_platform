@@ -5,11 +5,9 @@ import word_list from "@/word_list.json"
 
 
 
-console.log(word_list, "word_facts>>")
 const wordslist = word_list.slice(0, 11)
 
 const Page = () => {
-  console.log(wordslist[0]?.response?.meanings[0], "wd")
   return (
     <div>
       <SearchBar />
