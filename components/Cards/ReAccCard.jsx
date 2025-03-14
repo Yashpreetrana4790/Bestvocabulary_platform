@@ -20,7 +20,7 @@ const ReAccCard = ({ heading, list }) => {
               <div key={index} className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <p>{index + 1}.</p>
-                  <p>{item}</p>
+                  {typeof item === "string" ? item : item.sentence}  
                 </div>
               </div>
             ))}

@@ -2,11 +2,10 @@
 import React from "react";
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
-import wordlist from "@/word_list.json"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { capitalizeString } from "@/lib/helper"
 import { HighlightedHead } from "@/components/HighlightedHead"
 import { useEffect, useState } from "react"
+import { capitalizeString } from "@/lib/otherutil";
 
 const Page = () => {
   const [oneWord, setOneWord] = useState(null)
@@ -15,8 +14,8 @@ const Page = () => {
 
   useEffect(() => {
     const num = getRandomInt(max)
-    const word = wordlist[num]
-    setOneWord(word)
+    // const word = wordlist[num]
+    // setOneWord(word)
   }, [])
 
   function getRandomInt(max) {
