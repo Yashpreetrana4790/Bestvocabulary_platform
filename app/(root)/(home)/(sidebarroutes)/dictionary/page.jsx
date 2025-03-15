@@ -28,7 +28,7 @@ const Page = async ({ searchParams }) => {
           wordslist?.words.length > 0 && (
 
             wordslist?.words?.map((word) => (
-              <WordCard key={word.id} wordsdata={word} />
+              <WordCard key={word?.id} wordsdata={word} />
             ))
           )}
 
