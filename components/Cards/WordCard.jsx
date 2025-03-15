@@ -37,7 +37,7 @@ const WordCard = ({ wordsdata }) => {
           {wordsdata?.meanings?.[0]?.subtitle}
         </p>
 
-        <div className="border-t border-b border-black border-dotted py-2 flex flex-wrap gap-2">
+        <div className="border-t border-b border-black border-dotted dark:border-white py-2 flex flex-wrap gap-2">
           <span className="rounded-full px-2  text-sm bg-[#C5E8FF] text-black">
             Idiom  <span className="rounded-full p-[0.5px] w-5 bg-[#AAC5FE]"></span>
           </span>
