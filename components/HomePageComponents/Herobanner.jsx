@@ -6,7 +6,7 @@ import Image from "next/image"
 const Herobanner = () => {
   return (
     <>
-      <div className="max:md:flex max:sm:flex-col lg:flex items-center justify-between px-4 md:px-16 py-20 md:py-20 gap-2">
+      <div className="max:md:flex max:sm:flex-col lg:flex items-center justify-between px-4 md:px-[164px] py-20 md:py-24 gap-2">
         <div className="flex flex-col items-center justify-center lg:items-start">
           <h1 className="font-playfair text-[26px] mb-4  max-lg:text-center font-normal dark:text-customBlue text-customBlue-dark">
             BE THE MASTER OF WORDS
