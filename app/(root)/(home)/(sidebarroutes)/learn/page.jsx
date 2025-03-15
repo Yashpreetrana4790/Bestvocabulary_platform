@@ -1,26 +1,25 @@
 'use client'
-import wordlist from "@/word_list.json"
 import React from "react"
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
 import { Shuffle } from "lucide-react"
-import { capitalizeString } from "@/lib/helper"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useState } from "react"
+import { capitalizeString } from "@/lib/otherutil"
 
 
 const Learn = () => {
   const [oneWord, setOneWord] = useState(null)
   const [type, setType] = useState("word")
   const [selectedLevel, setSelectedLevel] = useState("Beginner")
-  const max = wordlist.length
+  // const max = wordlist.length
 
 
   const handleGetRandomWord = () => {
 
-    const num = Math.floor(Math.random() * max)
-    setOneWord(wordlist[num])
+    // const num = Math.floor(Math.random() * max)
+    // setOneWord(wordlist[num])
   }
 
 

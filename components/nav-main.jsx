@@ -21,6 +21,10 @@ import {
 export function NavMain({
   items
 }) {
+
+  const filterUpdate = (subItem) => {
+    console.log("subItem  ", subItem);
+  }
   return (
     (<SidebarGroup>
       <SidebarGroupLabel>Filters</SidebarGroupLabel>
@@ -45,7 +49,7 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <a href={subItem.url} onClick={() => filterUpdate(subItem)}>
                           <span>{subItem.title}</span>
                         </a>
                       </SidebarMenuSubButton>
