@@ -38,25 +38,27 @@ export function WodSb({
   }
 
   return (
-    <Sidebar side="right" collapsible="icon" {...props} className="mt-10   ">
-      <SidebarHeader className="my-3">
-        Dictionary Hub
-      </SidebarHeader>
-      <SidebarContent>
-        <div className="p-2 w-full">
-          <span className="grid grid-cols-5 gap-2 place-content-center ">
-            {Alphabets?.map((alphabet, index) => (
-              <div key={index} className={`border text-center cursor-pointer p-1 rounded-lg ${searchParams.get("startsWith") === alphabet ? "bg-gray-500 text-white" : ""}`}
-                onClick={() => handleStartWith(alphabet)} >{alphabet}</div>
-            ))
-            }
-          </span>
-        </div>
-        <div className="flex items-end ">
-          {/* <InfoCard heading="💡 Facts About Words" desc={oneFact?.fact} handleAction={handleAction} buttonText="Next fact" /> */}
-        </div>
-      </SidebarContent>
-      <SidebarRail />
-    </Sidebar>
+    <React.Suspense>
+      <Sidebar side="right" collapsible="icon" {...props} className="mt-10   ">
+        <SidebarHeader className="my-3">
+          Dictionary Hub
+        </SidebarHeader>
+        <SidebarContent>
+          <div className="p-2 w-full">
+            <span className="grid grid-cols-5 gap-2 place-content-center ">
+              {Alphabets?.map((alphabet, index) => (
+                <div key={index} className={`border text-center cursor-pointer p-1 rounded-lg ${searchParams.get("startsWith") === alphabet ? "bg-gray-500 text-white" : ""}`}
+                  onClick={() => handleStartWith(alphabet)} >{alphabet}</div>
+              ))
+              }
+            </span>
+          </div>
+          <div className="flex items-end ">
+            {/* <InfoCard heading="💡 Facts About Words" desc={oneFact?.fact} handleAction={handleAction} buttonText="Next fact" /> */}
+          </div>
+        </SidebarContent>
+        <SidebarRail />
+      </Sidebar>
+    </React.Suspense>
   );
 }
