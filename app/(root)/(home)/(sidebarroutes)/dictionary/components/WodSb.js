@@ -1,5 +1,5 @@
-"use client"
 
+'use client'
 import * as React from "react"
 
 import {
@@ -9,9 +9,9 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import InfoCard from "@/components/Cards/InfoCard"
-import word_facts from "@/word_facts.json"
-import { Alphabets } from "@/lib/helper"
-import { Toggle } from "@/components/ui/toggle"
+import { Alphabets, formUrlQuery, removeKeysFromQuery } from "@/lib/helper"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 
 
@@ -19,42 +19,46 @@ export function WodSb({
   ...props
 }) {
 
-
-  const [oneFact, setOneFact] = React.useState('')
-
-
-
-  const max = word_facts.length
-  React.useEffect(() => {
-    const num = Math.floor(Math.random() * max)
-    setOneFact(word_facts[num])
-  }, [])
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
 
-  const handleAction = () => {
-    const num = Math.floor(Math.random() * max)
-    setOneFact(word_facts[num])
+
+
+
+
+  const handleStartWith = (alphabet) => {
+    if (searchParams.get("startsWith") === alphabet) {
+      const newUrl = removeKeysFromQuery({ params: searchParams.toString(), KeysToRemove: ["startsWith"] })
+      router.push(newUrl, { scroll: false })
+      return
+    }
+    const newUrl = formUrlQuery({ params: searchParams.toString(), key: "startsWith", value: alphabet })
+    router.push(newUrl, { scroll: false })
   }
 
   return (
-    <Sidebar side="right" collapsible="icon" {...props} className="mt-10   ">
-      <SidebarHeader className="my-3">
-        Dictionary Hub
-      </SidebarHeader>
-      <SidebarContent>
-        <div className="p-2 w-full">
-          <span className="grid grid-cols-5 gap-2 place-content-center ">
-            {Alphabets?.map((alphabet, index) => (
-              <Toggle variant="highlighted" key={index} className="border text-center p-1 rounded-lg">{alphabet}</Toggle>
-            ))
-            }
-          </span>
-        </div>
-        <div className="flex items-end ">
-          <InfoCard heading="💡 Facts About Words" desc={oneFact?.fact} handleAction={handleAction} buttonText="Next fact" />
-        </div>
-      </SidebarContent>
-      <SidebarRail />
-    </Sidebar>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <Sidebar side="right" collapsible="icon" {...props} className="mt-10   ">
+        <SidebarHeader className="my-3">
+          Dictionary Hub
+        </SidebarHeader>
+        <SidebarContent>
+          <div className="p-2 w-full">
+            <span className="grid grid-cols-5 gap-2 place-content-center ">
+              {Alphabets?.map((alphabet, index) => (
+                <div key={index} className={`border text-center cursor-pointer p-1 rounded-lg ${searchParams.get("startsWith") === alphabet ? "bg-gray-500 text-white" : ""}`}
+                  onClick={() => handleStartWith(alphabet)} >{alphabet}</div>
+              ))
+              }
+            </span>
+          </div>
+          <div className="flex items-end ">
+            {/* <InfoCard heading="💡 Facts About Words" desc={oneFact?.fact} handleAction={handleAction} buttonText="Next fact" /> */}
+          </div>
+        </SidebarContent>
+        <SidebarRail />
+      </Sidebar>
+    </React.Suspense>
   );
 }

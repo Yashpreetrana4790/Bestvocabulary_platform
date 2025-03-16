@@ -1,26 +1,16 @@
-'use client'
+
 import React from "react";
 
 import { PageHeaderHeading, PageHeader, PageHeaderDescription } from "@/components/page-header.jsx"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { HighlightedHead } from "@/components/HighlightedHead"
-import { useEffect, useState } from "react"
+
 import { capitalizeString } from "@/lib/otherutil";
+import { getWordOfDay } from "@/services/wordOfDay";
 
-const Page = () => {
-  const [oneWord, setOneWord] = useState(null)
+const Page = async () => {
 
-  const max = 5000
-
-  useEffect(() => {
-    const num = getRandomInt(max)
-    // const word = wordlist[num]
-    // setOneWord(word)
-  }, [])
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max)
-  }
+  const oneWord = await getWordOfDay();
 
   return (
     <div>
@@ -30,17 +20,17 @@ const Page = () => {
           {capitalizeString(oneWord?.word || "Loading...")}
         </PageHeaderHeading>
         <PageHeaderDescription>
-          <p className="text-lg font-medium mb-2">{oneWord?.response?.pronunciation}</p>
+          <p className="text-lg font-medium mb-2">{oneWord?.pronunciation}</p>
         </PageHeaderDescription>
         <div>
           <span className="hidden md:display p-2 rounded-2xl bg-secondary my-4 mx-10">
-            {oneWord?.response?.meanings?.[0]?.subtitle || "Loading..."}
+            {oneWord?.meanings[0]?.subtitle || "Loading..."}
           </span>
         </div>
         <div className="container">
-          {oneWord?.response && (
+          {oneWord && (
             <div className="mt-4 text-center">
-              <p className="text-md">{oneWord.response.meanings?.[0]?.easyMeaning || "Loading..."}</p>
+              <p className="text-md">{oneWord.meanings?.[0]?.easyMeaning || "Loading..."}</p>
             </div>
           )}
         </div>
@@ -51,7 +41,7 @@ const Page = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {oneWord?.response?.meanings?.map((meaning, index) => (
+            {oneWord?.meanings?.map((meaning, index) => (
               <div key={index} className="mb-2">
                 {meaning?.common_usage?.map((usage, idx) => (
                   <div key={idx}>

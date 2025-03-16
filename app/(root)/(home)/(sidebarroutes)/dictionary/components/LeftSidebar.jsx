@@ -2,20 +2,13 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
   BookOpen,
   Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
   Settings2,
   SquareTerminal,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import {
@@ -25,6 +18,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import Image from "next/image"
 
 // This is sample data.
 const data = {
@@ -33,21 +27,21 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
+  userlevel: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      name: "Beginner",
+      logo: "/easy.png",
+      plan: "Start with the basics",
     },
     {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
+      name: "Intermediate",
+      logo: "/medium.png",
+      plan: " Scale up to the next level",
     },
     {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
+      name: "Hard",
+      logo: "/hard.png",
+      plan: " Master the art of words",
     },
   ],
   navMain: [
@@ -143,21 +137,27 @@ const data = {
 const items = [
 
   {
-    id: "difficulty-level",
+    id: "difficulty",
     title: "Difficulty Level",
     items: [
-      { id: "beginner", title: "Beginner", url: "#beginner" },
-      { id: "intermediate", title: "Intermediate", url: "#intermediate" },
-      { id: "advanced", title: "Advanced", url: "#advanced" },
+      { id: "Beginner", title: "Beginner", },
+      { id: "Intermediate", title: "Intermediate", },
+      { id: "Advanced", title: "Advanced", },
     ],
   },
   {
-    id: "word-length",
+    id: "length",
     title: "Word Length",
     items: [
-      { id: "short", title: "Short (1-4 letters)", url: "#short" },
-      { id: "medium", title: "Medium (5-8 letters)", url: "#medium" },
-      { id: "long", title: "Long (9+ letters)", url: "#long" },
+      {
+        id: "short", title: "Short (1-4 letters)",
+      },
+      {
+        id: "medium", title: "Medium (5-8 letters)",
+      },
+      {
+        id: "long", title: "Long (9+ letters)",
+      },
     ],
   },
 ];
@@ -167,7 +167,7 @@ export function LeftSidebar({ ...props }) {
   return (
     <Sidebar collapsible="icon" {...props} className="md:block hidden mt-14">
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher userlevel={data.userlevel} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={items} />
