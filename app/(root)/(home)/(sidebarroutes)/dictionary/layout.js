@@ -1,17 +1,23 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { WodSb } from "./components/WodSb";
 import { LeftSidebar } from "./components/LeftSidebar";
+import { Suspense } from "react";
 
 
 export default function DictionaryRouteLayout({ children }) {
   return (
     <>
       <SidebarProvider>
-        <WodSb />
+        <Suspense>
+          <WodSb />
+        </Suspense>
         <div className="w-full">
           {children}
         </div>
-        <LeftSidebar />
+        <Suspense>
+
+          <LeftSidebar />
+        </Suspense>
       </SidebarProvider>
     </>
 

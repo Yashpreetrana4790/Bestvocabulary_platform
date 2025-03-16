@@ -2,7 +2,7 @@
 import { formUrlQuery, removeKeysFromQuery } from '@/lib/helper';
 import { Search } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 export const SearchBar = ({ route }) => {
 
@@ -40,14 +40,16 @@ export const SearchBar = ({ route }) => {
 
 
   return (
-    <div className='flex items-center justify-center px-2 pt-5 pb-5  object-cover dark:bg-transparent bg-bottom  bg-zinc-200 '>
-      <div className='max-w-3xl w-full border rounded-xl relative'>
-        <input type="text" placeholder='Search' className='w-full p-3 rounded-xl'
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Search className='absolute top-3 right-3 ml-2' />
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className='flex items-center justify-center px-2 pt-5 pb-5  object-cover dark:bg-transparent bg-bottom  bg-zinc-200 '>
+        <div className='max-w-3xl w-full border rounded-xl relative'>
+          <input type="text" placeholder='Search' className='w-full p-3 rounded-xl'
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Search className='absolute top-3 right-3 ml-2' />
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 

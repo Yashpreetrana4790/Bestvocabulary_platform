@@ -4,7 +4,7 @@ import Pagination from '@/components/Common/Pagination';
 import SearchBar from '@/components/search-bar';
 import { getWords } from '@/services/wordapis';
 import Image from 'next/image';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 
 
@@ -19,8 +19,9 @@ const Page = async ({ searchParams }) => {
     startsWith: searchParams.startsWith
   });
 
+
   return (
-    <div>
+    <Suspense>
       <SearchBar route="/dictionary" />
 
       <div className="p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
@@ -47,7 +48,7 @@ const Page = async ({ searchParams }) => {
           pageNumber={searchParams.page ? +searchParams.page : 1}
           totalpage={wordslist?.total} />
       }
-    </div>
+    </Suspense>
   );
 };
 

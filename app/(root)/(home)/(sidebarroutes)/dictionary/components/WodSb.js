@@ -38,7 +38,7 @@ export function WodSb({
   }
 
   return (
-    <React.Suspense>
+    <React.Suspense fallback={<div>Loading...</div>}>
       <Sidebar side="right" collapsible="icon" {...props} className="mt-10   ">
         <SidebarHeader className="my-3">
           Dictionary Hub

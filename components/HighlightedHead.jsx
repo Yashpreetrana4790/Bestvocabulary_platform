@@ -3,6 +3,12 @@ import { Separator } from "@radix-ui/react-dropdown-menu"
 import { CalendarDays } from "lucide-react"
 
 export function HighlightedHead() {
+  const today = new Date();
+  const formattedDate = new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(today);
   return (
     <div
       className="inline-flex items-center rounded-lg bg-muted px-3 py-2 text-sm font-medium"
@@ -13,7 +19,7 @@ export function HighlightedHead() {
         Word of the Day
       </span>
       <Separator className="mx-2 h-4" orientation="vertical" />
-      <span className="text-primary italic">    23 feb 2024</span>
+      <span className="text-primary italic">   {formattedDate}</span>
     </div>
   )
 }
