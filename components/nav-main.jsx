@@ -38,11 +38,11 @@ export function NavMain({
     const newUrl = formUrlQuery({ params: searchParams.toString(), key: itemId, value: subItem })
     router.push(newUrl, { scroll: false })
   }
-  
+
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
 
-      (<SidebarGroup>
+      <SidebarGroup>
         <SidebarGroupLabel>Filters</SidebarGroupLabel>
         <SidebarMenu>
           {items.map((item) => (
@@ -64,13 +64,11 @@ export function NavMain({
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
-                          <Button onClick={() => filterUpdate(subItem?.id, item?.id)}
-                            className={`text-black border-outlinne bg-transparent ${subItem?.id === searchParams.get(item?.id) ? "bg-gray-500 text-white" : ""}`}
-                          >
-                            <span>{subItem.title}</span>
-                          </Button>
-                        </SidebarMenuSubButton>
+                        <Button variant="primary" onClick={() => filterUpdate(subItem?.id, item?.id)}
+                          className={`text-black  dark:text-white ${subItem?.id === searchParams.get(item?.id) ? "bg-gray-500 text-white" : ""}`}
+                        >
+                          {subItem.title}
+                        </Button>
                       </SidebarMenuSubItem>
                     ))}
                   </SidebarMenuSub>
@@ -79,7 +77,7 @@ export function NavMain({
             </Collapsible>
           ))}
         </SidebarMenu>
-      </SidebarGroup>)
+      </SidebarGroup>
     </React.Suspense>
   );
 }

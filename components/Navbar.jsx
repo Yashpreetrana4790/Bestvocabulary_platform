@@ -54,12 +54,14 @@ export function Navbar() {
         </div>
 
         <div className="flex flex-1 items-center  space-x-2 justify-end">
-          <TokenCredit />
+          {/* <TokenCredit /> */}
           <nav className="flex items-center">
+            <div></div>
+
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src="/std.svg" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>

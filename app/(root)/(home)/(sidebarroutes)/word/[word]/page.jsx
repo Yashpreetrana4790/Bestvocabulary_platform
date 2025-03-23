@@ -1,17 +1,16 @@
 import React from 'react'
-import { PageHeaderDescription, PageHeaderHeading } from '@/components/page-header';
+import { PageHeaderHeading } from '@/components/page-header';
 import Image from 'next/image';
-import ReAccCard from '@/components/Cards/ReAccCard';
 import { capitalizeString } from '@/lib/otherutil';
 import { getSingleWord } from '@/services/wordapis';
+import ReAccCard from '@/components/Cards/ReAccCard';
+import MeaningCard from '@/components/Cards/MeaningCard';
 
 const page = async ({ params }) => {
   const singleWord = await getSingleWord(params);
 
-  console.log(singleWord, "sin")
-
   return (
-    <div className='p-10'>
+    <div className='p-5'>
       <div className="flex justify-between items-center">
         <div className="text-center flex-grow">
           <PageHeaderHeading>
@@ -30,6 +29,25 @@ const page = async ({ params }) => {
           </div>
         </div>
       </div>
+
+      <div className='mt-5 space-y-2'>
+
+        {singleWord && singleWord?.meanings?.map((meaning) => (
+
+          <MeaningCard key={meaning?.id} heading={meaning?.subtitle}
+            post={meaning?.pos}
+            meaning={meaning?.meaning}
+            difficulty={meaning?.difficulty}
+            examples={ meaning?.example_sentences}
+          />
+
+        ))}
+      </div>
+
+
+
+
+
 
     </div>
 

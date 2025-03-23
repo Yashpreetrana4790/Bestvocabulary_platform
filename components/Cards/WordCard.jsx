@@ -1,6 +1,6 @@
 import IconsReturn from '@/lib/helper';
 import { capitalizeString } from '@/lib/otherutil';
-import { ArrowUpNarrowWide } from 'lucide-react';
+import { ArrowUpNarrowWide, Save, Share2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -84,11 +84,12 @@ const WordCard = ({ wordsdata }) => {
           <span>{wordsdata?.frequency || "N/A"}</span>
         </div>
         <div className="flex items-center gap-2">
-          {["view", "save", "share"].map((icon, index) => (
-            <div key={index} className="cursor-pointer">
-              <Image src={`/${icon}.png`} width={30} height={30} alt={icon} className="mt-2" />
-            </div>
-          ))}
+          <div>
+            <Share2 />
+          </div>
+          <div>
+            <Save />
+          </div>
         </div>
       </div>
     </div>
