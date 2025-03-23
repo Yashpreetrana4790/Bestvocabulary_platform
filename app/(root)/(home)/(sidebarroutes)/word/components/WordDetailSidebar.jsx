@@ -14,7 +14,7 @@ import {
 // Menu items.
 const items = [
   {
-    title: "Definition",
+    title: "Meaning",
     url: "#",
     icon: Home,
   },
