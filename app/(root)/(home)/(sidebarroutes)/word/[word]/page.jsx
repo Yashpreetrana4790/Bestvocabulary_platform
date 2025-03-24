@@ -5,6 +5,8 @@ import { capitalizeString } from '@/lib/otherutil';
 import { getSingleWord } from '@/services/wordapis';
 import ReAccCard from '@/components/Cards/ReAccCard';
 import MeaningCard from '@/components/Cards/MeaningCard';
+import RightsideBar from '../components/RightsideBar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 const page = async ({ params }) => {
   const singleWord = await getSingleWord(params);
@@ -30,25 +32,27 @@ const page = async ({ params }) => {
         </div>
       </div>
 
-      <div className='mt-5 space-y-2'>
+      <div className='mt-5 space-y-2 flex '>
+        <div className='w-full'>
 
+          {singleWord && singleWord?.meanings?.map((meaning) => (
+
+            <MeaningCard key={meaning?.id} heading={meaning?.subtitle}
+              post={meaning?.pos}
+              meaning={meaning?.meaning}
+              difficulty={meaning?.difficulty}
+              examples={meaning?.example_sentences}
+              commonUsage={meaning?.common_usage}
+            />
+          ))}
+        </div>
         {singleWord && singleWord?.meanings?.map((meaning) => (
 
-          <MeaningCard key={meaning?.id} heading={meaning?.subtitle}
-            post={meaning?.pos}
-            meaning={meaning?.meaning}
-            difficulty={meaning?.difficulty}
-            examples={ meaning?.example_sentences}
+          <RightsideBar mnemonic={meaning?.mnemonic}
+            historicalUsage={singleWord?.historical_usage}
           />
-
         ))}
       </div>
-
-
-
-
-
-
     </div>
 
   )

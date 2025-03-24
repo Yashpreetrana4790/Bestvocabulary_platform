@@ -166,9 +166,7 @@ const items = [
 export function LeftSidebar({ ...props }) {
   return (
     <Sidebar collapsible="icon" {...props} className="md:block hidden mt-14">
-      <SidebarHeader>
-        <TeamSwitcher userlevel={data.userlevel} />
-      </SidebarHeader>
+   
       <SidebarContent>
         <NavMain items={items} />
       </SidebarContent>

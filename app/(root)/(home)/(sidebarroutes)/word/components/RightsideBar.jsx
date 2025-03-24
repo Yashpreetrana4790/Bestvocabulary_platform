@@ -10,7 +10,10 @@ import {
 } from "@/components/ui/sidebar"
 import InfoCard from '@/components/Cards/InfoCard'
 
-const RightsideBar = () => {
+const RightsideBar = ({ mnemonic, historicalUsage }) => {
+
+
+
   return (
     <div>
 
@@ -19,17 +22,20 @@ const RightsideBar = () => {
           <SidebarGroup>
             <SidebarGroupLabel></SidebarGroupLabel>
             <SidebarGroupContent>
+              {mnemonic &&
+                <InfoCard
+                  heading="mnemonic"
+                  desc={mnemonic}
+                  color="bg-cyan-200"
+                />
+              }
               <InfoCard
-                heading="Etymology"
-                desc="she is the person whogfgs fgsdfg dsfyery tuaght he is the a"
-                color="bg-cyan-200"
-              />
-
-              <InfoCard
-                heading="Mnemonic"
-                desc="The root word is achieve which means to successfully complete something to mean able to be achieved"
+                heading="Hisotrical Usage"
+                desc={historicalUsage}
                 color="bg-amber-200"
               />
+
+              <p></p>
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
