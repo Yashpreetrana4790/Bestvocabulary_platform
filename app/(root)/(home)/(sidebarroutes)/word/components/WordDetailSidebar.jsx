@@ -19,6 +19,7 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { TeamSwitcher } from "@/components/team-switcher"
 
 // This is sample data.
 const data = {
@@ -161,23 +162,35 @@ const data = {
   ],
 }
 
+const UserData = {
+  userlevel: [
+    {
+      name: "Beginner",
+      logo: "/easy.png",
+      plan: "Start with the basics",
+    },
+    {
+      name: "Intermediate",
+      logo: "/medium.png",
+      plan: " Scale up to the next level",
+    },
+    {
+      name: "Hard",
+      logo: "/hard.png",
+      plan: " Master the art of words",
+    },
+  ],
+}
+
 export function WordDetailSidebar({ ...props }) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Documentation</span>
-                  <span className="">v1.0.0</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
+            <SidebarHeader className="mt-14">
+              <TeamSwitcher userlevel={UserData.userlevel} />
+            </SidebarHeader>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

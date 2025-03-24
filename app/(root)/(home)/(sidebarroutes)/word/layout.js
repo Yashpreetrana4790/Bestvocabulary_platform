@@ -13,7 +13,6 @@ export default function WordLayout({ children }) {
         <div className="w-full">
           {children}
         </div>
-        <RightsideBar />
       </SidebarProvider>
     </>
 
