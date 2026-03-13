@@ -14,15 +14,8 @@ export default async function WordPage({ params }) {
   const resolvedParams = await params;
   const wordParam = decodeURIComponent(resolvedParams.word);
   
-  console.log('Fetching word:', wordParam);
-  
   const response = await getSingleWord({ word: wordParam });
-  
-  console.log('API Response:', JSON.stringify(response, null, 2));
-  
   const word = response?.data || response;
-  
-  console.log('Word data:', word?.word, 'Meanings:', word?.meanings?.length);
 
   if (!word || !word.word) {
     return (
