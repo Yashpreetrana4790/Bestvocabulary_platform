@@ -1,36 +1,103 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
-import { Sparkles } from "lucide-react"
-import Image from "next/image"
+import { ArrowRight, Search } from "lucide-react"
+import Link from "next/link"
+import SmartSearchBar from "@/components/SmartSearchBar"
 
 const Herobanner = () => {
   return (
-    <>
-      <div className="max:md:flex max:sm:flex-col lg:flex items-center justify-between px-4 md:px-[164px] py-20 md:py-24 gap-2">
-        <div className="flex flex-col items-center justify-center lg:items-start">
-          <h1 className="font-playfair text-[26px] mb-4  max-lg:text-center font-normal dark:text-customBlue text-customBlue-dark">
-            BE THE MASTER OF WORDS
-          </h1>
-          <p className="font-inter font-base font-normal max-w-xl mb-5 max-lg:text-center">
-            Words are more than just words – they carry emotions, context, and meaning. This platform helps you master the art of choosing the right word, understanding its multiple layers, and exploring its connections with other words.
-          </p>
-          <Button className="font-playfair rounded-xl" variant="default" >
-            <Sparkles />
-            Word Treasure
-          </Button>
-        </div>
-        <div className="flex items-center justify-center px-5">
-          <Image
-            width={400}
-            height={400}
-            alt="student"
-            className='my-5'
-            src="/std.svg"
-          />
+    <section className="relative min-h-[90vh] flex items-center justify-center px-4 py-24 overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 -z-10">
+        {/* Floating orbs - behind everything */}
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '10s' }} />
+        
+        {/* Gradient mesh */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+        
+        {/* Grid pattern - more visible */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(rgba(128, 128, 128, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(128, 128, 128, 0.15) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        
+        {/* Radial fade - only at edges */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, hsl(var(--background)) 100%)`
+          }}
+        />
+      </div>
 
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm px-5 py-2 text-sm font-medium text-primary mb-10 shadow-sm">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
+          10,000+ words with rich definitions
+        </div>
+
+        {/* Headline */}
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-8 leading-[1.05]">
+          Master the art of
+          <span className="relative block mt-2">
+            <span className="text-primary">choosing words</span>
+            <svg className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-48 h-3 text-primary/30" viewBox="0 0 200 12" fill="none">
+              <path d="M2 10C50 2 150 2 198 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            </svg>
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
+          Discover meanings, explore connections, and expand your vocabulary 
+          with <span className="text-foreground font-medium">AI-powered search</span> and curated word collections.
+        </p>
+
+        {/* Search Bar */}
+        <div className="max-w-xl mx-auto mb-10">
+          <SmartSearchBar />
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link href="/dictionary">
+            <Button size="lg" className="rounded-full px-8 h-12 text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
+              Explore Dictionary
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </Link>
+          <Link href="/wordofday">
+            <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-base font-medium hover:bg-primary/5 transition-all">
+              Word of the Day
+            </Button>
+          </Link>
+        </div>
+
+        {/* Trust indicators */}
+        <div className="mt-16 flex items-center justify-center gap-8 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+            Free to use
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+            No signup required
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+            Updated daily
+          </div>
         </div>
       </div>
-    </>
+    </section>
   )
 }
 

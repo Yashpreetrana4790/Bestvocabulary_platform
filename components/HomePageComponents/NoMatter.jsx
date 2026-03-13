@@ -1,28 +1,57 @@
 import Image from 'next/image'
 import React from 'react'
+import { Users } from 'lucide-react'
 
 const NoMatter = () => {
   return (
-    <div className='px-4 my-14'>
-      <div className='flex  items-center justify-center'>
-        <div className='flex flex-col items-center justify-center relative '>
-          <h2 className="font-playfair text-[26px] mb-4 md:text-[28px] max-lg:text-center font-normal dark:text-customBlue text-customBlue-dark">
-            Expand Your Vocabulary—No Matter Your Age or Skill Level
-          </h2>
-          <p className='max-w-lg w-full text-center font-inter'>
-            From young learners to professionals, our platform adapts to your needs.
-            Improve your vocabulary for school, career, and beyond!
-          </p>
-          <Image
-            width={600}
-            height={600}
-            alt="age level"
-            src="/lvl.png"
-            className="my-10"
-          />
+    <section className="py-28 px-4 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-30 blur-[100px] bg-primary/10" />
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Image */}
+          <div className="order-2 lg:order-1">
+            <Image
+              width={500}
+              height={500}
+              alt="Learning levels for all ages"
+              src="/lvl.png"
+              className="w-full max-w-md mx-auto"
+            />
+          </div>
+
+          {/* Content */}
+          <div className="order-1 lg:order-2">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
+              <Users className="h-4 w-4" />
+              For Everyone
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight">
+              No matter your age or skill level
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+              From young learners taking their first steps to professionals seeking precision, our platform adapts to meet you where you are.
+            </p>
+            
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { label: 'Beginner', desc: 'Start easy' },
+                { label: 'Intermediate', desc: 'Build skills' },
+                { label: 'Advanced', desc: 'Master words' },
+              ].map((level, i) => (
+                <div key={i} className="text-center p-4 rounded-xl bg-muted/50">
+                  <p className="font-semibold text-foreground text-sm">{level.label}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{level.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

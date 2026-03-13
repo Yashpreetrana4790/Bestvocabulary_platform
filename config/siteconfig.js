@@ -1,10 +1,9 @@
 export const siteConfig = {
-  name: "Logophile",
-  url: "https://logophile.com",
+  name: "Best Vocabulary",
+  url: "https://bestvocabulary.com",
   description:
-    "Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.",
+    "Expand your vocabulary with AI-powered search, rich definitions, and curated word collections. The best way to learn new words.",
   links: {
-    twitter: "https://twitter.com/logophile",
+    twitter: "https://twitter.com/bestvocabulary",
   },
 }
-

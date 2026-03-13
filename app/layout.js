@@ -4,10 +4,13 @@ import React from 'react';
 import "./globals.css";
 import { Inter, Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from 'next-themes';
+import KeyboardShortcuts from '@/components/KeyboardShortcuts';
+import { AuthProvider } from '@/context/AuthContext';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata = {
   title: "Best Vocabulary",
-  description: "Master english vocabulary",
+  description: "Expand your vocabulary with AI-powered search, rich definitions, and curated word collections.",
 };
 
 
@@ -56,8 +59,11 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-
-          {children}
+          <AuthProvider>
+            <KeyboardShortcuts />
+            {children}
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
