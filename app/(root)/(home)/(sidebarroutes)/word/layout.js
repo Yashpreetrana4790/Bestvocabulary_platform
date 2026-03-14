@@ -1,14 +1,8 @@
+export const metadata = {
+  title: 'Word Details | Best Vocabulary',
+  description: 'Explore detailed word information, meanings, etymology, and more.',
+};
+
 export default function WordLayout({ children }) {
-  return (
-    <>
-      <SidebarProvider>
-
-        <WordDetailSidebar />
-        <div className="w-full">
-          {children}
-        </div>
-      </SidebarProvider>
-    </>
-
-  );
+  return children;
 }
