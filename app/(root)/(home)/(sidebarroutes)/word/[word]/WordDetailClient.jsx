@@ -1,13 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Volume2, Bookmark, Share2, Copy, Check } from 'lucide-react';
+import { Volume2, Bookmark, Share2, Copy, Check, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
 export default function WordDetailClient({ word }) {
   const [copied, setCopied] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const [bookmarked, setBookmarked] = useState(false);
 
@@ -16,6 +18,12 @@ export default function WordDetailClient({ word }) {
       setBookmarked(isBookmarked(word.word));
     }
   }, [word, isBookmarked]);
+
+  const showNotification = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+  };
 
   const handleSpeak = () => {
     if ('speechSynthesis' in window && word?.word) {
@@ -31,10 +39,11 @@ export default function WordDetailClient({ word }) {
   };
 
   const handleCopy = async () => {
-    const text = `${word.word} (${word.pronunciation || ''})\n\n${word.meanings?.[0]?.meaning || ''}`;
+    const text = `${word.word} (${word.pronunciation || ''})\n\nDefinition: ${word.meanings?.[0]?.meaning || ''}\n\nExample: ${word.meanings?.[0]?.example_sentences?.[0] || ''}`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
+      showNotification('Copied to clipboard!');
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
@@ -44,7 +53,7 @@ export default function WordDetailClient({ word }) {
   const handleShare = async () => {
     const shareData = {
       title: `${word.word} - Best Vocabulary`,
-      text: `${word.word}: ${word.meanings?.[0]?.subtitle || word.meanings?.[0]?.meaning || ''}`,
+      text: `Learn the word "${word.word}": ${word.meanings?.[0]?.subtitle || word.meanings?.[0]?.meaning || ''}`,
       url: window.location.href,
     };
 
@@ -70,54 +79,88 @@ export default function WordDetailClient({ word }) {
         difficulty: word.meanings?.[0]?.difficulty,
       });
       setBookmarked(!bookmarked);
+      showNotification(bookmarked ? 'Removed from bookmarks' : 'Added to bookmarks!');
     }
   };
 
   return (
-    <div className="flex items-center gap-2">
-      {/* Audio */}
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleSpeak}
-        className={`rounded-xl h-10 w-10 ${isPlaying ? 'bg-primary/10 border-primary/30' : ''}`}
-        title="Listen to pronunciation"
-      >
-        <Volume2 className={`h-4 w-4 ${isPlaying ? 'text-primary animate-pulse' : ''}`} />
-      </Button>
+    <div className="relative">
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-foreground text-background text-xs font-medium px-3 py-2 rounded-lg shadow-lg animate-in fade-in slide-in-from-top-2 z-50">
+          {toastMessage}
+        </div>
+      )}
 
-      {/* Copy */}
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleCopy}
-        className="rounded-xl h-10 w-10"
-        title="Copy to clipboard"
-      >
-        {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
-      </Button>
+      {/* Actions Card */}
+      <div className="flex items-center gap-2 p-2 bg-card/80 backdrop-blur-sm border rounded-2xl shadow-sm">
+        {/* Audio */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleSpeak}
+          className={`rounded-xl h-11 w-11 transition-all ${
+            isPlaying 
+              ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25' 
+              : 'hover:bg-primary/10 hover:text-primary'
+          }`}
+          title="Listen to pronunciation"
+        >
+          <Volume2 className={`h-5 w-5 ${isPlaying ? 'animate-pulse' : ''}`} />
+        </Button>
 
-      {/* Share */}
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleShare}
-        className="rounded-xl h-10 w-10"
-        title="Share"
-      >
-        <Share2 className="h-4 w-4" />
-      </Button>
+        {/* Copy */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleCopy}
+          className={`rounded-xl h-11 w-11 transition-all ${
+            copied 
+              ? 'bg-emerald-500 text-white' 
+              : 'hover:bg-primary/10 hover:text-primary'
+          }`}
+          title="Copy to clipboard"
+        >
+          {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
+        </Button>
 
-      {/* Bookmark */}
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleBookmark}
-        className={`rounded-xl h-10 w-10 ${bookmarked ? 'bg-primary/10 border-primary/30' : ''}`}
-        title={bookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
-      >
-        <Bookmark className={`h-4 w-4 ${bookmarked ? 'fill-primary text-primary' : ''}`} />
-      </Button>
+        {/* Share */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleShare}
+          className="rounded-xl h-11 w-11 hover:bg-primary/10 hover:text-primary transition-all"
+          title="Share this word"
+        >
+          <Share2 className="h-5 w-5" />
+        </Button>
+
+        {/* Bookmark */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleBookmark}
+          className={`rounded-xl h-11 w-11 transition-all ${
+            bookmarked 
+              ? 'bg-amber-500/10 text-amber-500' 
+              : 'hover:bg-primary/10 hover:text-primary'
+          }`}
+          title={bookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
+        >
+          <Bookmark className={`h-5 w-5 transition-all ${bookmarked ? 'fill-amber-500' : ''}`} />
+        </Button>
+
+        {/* Google Search */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => window.open(`https://www.google.com/search?q=define+${word.word}`, '_blank')}
+          className="rounded-xl h-11 w-11 hover:bg-primary/10 hover:text-primary transition-all"
+          title="Search on Google"
+        >
+          <ExternalLink className="h-5 w-5" />
+        </Button>
+      </div>
     </div>
   );
 }

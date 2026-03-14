@@ -246,7 +246,7 @@ const SmartSearchBar = ({ className }) => {
                   onClick={handleSubmit}
                   className="flex w-full items-center justify-center gap-2 text-sm text-primary hover:underline"
                 >
-                  View all results for "{query}"
+                  View all results for &quot;{query}&quot;
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
