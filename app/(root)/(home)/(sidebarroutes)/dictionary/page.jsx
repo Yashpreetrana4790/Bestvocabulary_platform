@@ -7,6 +7,16 @@ import React, { Suspense } from 'react';
 import { Sparkles, BookOpen, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+export const metadata = {
+  title: 'Dictionary - Browse All Words',
+  description: 'Explore our comprehensive dictionary with 10,000+ words. Filter by difficulty, category, or part of speech. Learn new words with definitions, examples, and etymology.',
+  keywords: ['dictionary', 'vocabulary', 'word list', 'english words', 'word definitions', 'learn vocabulary'],
+  openGraph: {
+    title: 'Dictionary - Browse All Words | Best Vocabulary',
+    description: 'Explore our comprehensive dictionary with 10,000+ words. Learn new words with definitions, examples, and etymology.',
+  },
+};
+
 const Page = async ({ searchParams }) => {
   const wordslist = await getWords({
     page: searchParams.page,

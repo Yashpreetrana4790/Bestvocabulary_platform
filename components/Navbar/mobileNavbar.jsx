@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
@@ -9,7 +10,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
 import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
 import { 
-  Menu, Sparkles, Crown, ChevronDown, ChevronRight,
+  Menu, Sparkles, ChevronDown, ChevronRight, Crown,
   Home, BookOpen, Brain, Layers, Calendar, Shuffle, Bookmark,
   FolderOpen, Briefcase, Stethoscope, Scale, Atom, Palette,
   GraduationCap, Globe, Heart, Lightbulb, Map, Search
@@ -62,8 +63,14 @@ export function MobileNav() {
           {/* Header */}
           <div className="p-5 border-b bg-muted/30">
             <MobileLink href="/" onOpenChange={setOpen} className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 shadow-md shadow-primary/20">
-                <Crown className="h-5 w-5 text-primary-foreground" />
+              <div className="w-11 h-11 rounded-xl bg-[#0f172a] p-1.5 flex items-center justify-center shadow-sm">
+                <Image 
+                  src="/icons/icon-512x512.png" 
+                  alt="Best Vocabulary" 
+                  width={44}
+                  height={44}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <span className="font-bold text-lg block">Best Vocabulary</span>

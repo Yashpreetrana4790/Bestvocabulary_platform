@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Crown, Twitter, Github, Linkedin, Mail, Heart } from 'lucide-react';
+import Image from 'next/image';
+import { Twitter, Github, Linkedin, Mail, Heart } from 'lucide-react';
 
 const footerLinks = {
   product: [
@@ -39,11 +40,16 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-                <Crown className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="font-bold text-lg">Best Vocabulary</span>
+            <Link href="/" className="flex items-center gap-3 mb-4">
+              <Image
+                src="/bv.png"
+                alt="Best Vocabulary"
+                width={56}
+                height={56}
+                className="w-14 h-14 rounded-xl shadow-md"
+                quality={100}
+              />
+              <span className="font-bold text-xl tracking-tight">Best Vocabulary</span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Expand your vocabulary with AI-powered search and curated word collections.
