@@ -5,9 +5,18 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
-import { Crown } from "lucide-react"
+import { 
+  User, Search, Sparkles, Command, Crown, ChevronDown,
+  BookOpen, Brain, Layers, Calendar, Shuffle, Bookmark,
+  FolderOpen, Briefcase, Stethoscope, Scale, Atom, Palette,
+  Globe, Heart, Lightbulb, Map, ArrowRight, Menu, LogOut, Settings
+} from "lucide-react"
+import { useAuth } from "@/context/AuthContext"
 import { ModeToggle } from "./modetoggler"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 import {
   DropdownMenu,
@@ -17,71 +26,400 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { MobileNav } from "./Navbar/mobileNavbar"
-import { navbarlinks } from "@/lib/helper"
-import TokenCredit from "./TokenCredit"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
+
+const learnItems = [
+  { title: "Quiz", href: "/quiz", description: "Test your vocabulary knowledge", icon: Brain },
+  { title: "Flashcards", href: "/flashcards", description: "Learn with interactive cards", icon: Layers },
+  { title: "Word of the Day", href: "/wordofday", description: "Discover a new word daily", icon: Calendar },
+  { title: "Random Word", href: "/random", description: "Explore random vocabulary", icon: Shuffle },
+  { title: "Bookmarks", href: "/bookmarks", description: "Your saved words", icon: Bookmark },
+  { title: "Origin Maps", href: "/origins", description: "Explore word origins", icon: Map },
+]
+
+const categoryGroups = [
+  {
+    title: "Professional",
+    categories: [
+      { name: "Business", icon: Briefcase, href: "/dictionary?category=Business" },
+      { name: "Medical", icon: Stethoscope, href: "/dictionary?category=Medical" },
+      { name: "Legal", icon: Scale, href: "/dictionary?category=Legal" },
+    ]
+  },
+  {
+    title: "Academic",
+    categories: [
+      { name: "Science", icon: Atom, href: "/dictionary?category=Science" },
+      { name: "Literature", icon: BookOpen, href: "/dictionary?category=Literature" },
+      { name: "Philosophy", icon: Lightbulb, href: "/dictionary?category=Philosophy" },
+    ]
+  },
+  {
+    title: "Creative",
+    categories: [
+      { name: "Arts", icon: Palette, href: "/dictionary?category=Arts" },
+      { name: "Psychology", icon: Heart, href: "/dictionary?category=Psychology" },
+      { name: "Culture", icon: Globe, href: "/dictionary?category=Culture" },
+    ]
+  },
+]
 
 export function Navbar() {
   const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [learnExpanded, setLearnExpanded] = React.useState(false)
+  const [categoriesExpanded, setCategoriesExpanded] = React.useState(false)
+  const { user, isAuthenticated, logout, isLoading } = useAuth()
+
+  const isLearnActive = ["/quiz", "/flashcards", "/wordofday", "/random", "/bookmarks", "/origins"].some(p => pathname?.startsWith(p))
+  const isCategoryActive = pathname?.startsWith("/categories") || pathname?.includes("category=")
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="px-4  flex h-14 w-full items-center ">
-        {/* <MainNav /> */}
-        <MobileNav />
-        <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Crown />
-            <span className="hidden font-bold sm:inline-block">Logophile</span>
-          </Link>
-          <nav className="flex items-center gap-6 text-sm">
-            {navbarlinks.map(({ name, href, hidden }) => (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  "transition-colors hover:text-foreground/80",
-                  pathname === href || pathname?.startsWith(href)
-                    ? "text-foreground"
-                    : "text-foreground/60",
-                  hidden ? "hidden lg:block" : "" // Hide QuickQuiz on small screens
-                )}
-              >
-                {name}
-              </Link>
-            ))}
-          </nav>
-        </div>
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80">
+      <div className="container mx-auto px-4">
+        <div className="flex h-14 sm:h-16 items-center justify-between gap-4">
+          
+          {/* Left: Mobile Menu + Logo */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Mobile Menu Button */}
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="xl:hidden h-9 w-9 shrink-0">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0">
+                <MobileNavContent 
+                  pathname={pathname}
+                  setOpen={setMobileOpen}
+                  learnExpanded={learnExpanded}
+                  setLearnExpanded={setLearnExpanded}
+                  categoriesExpanded={categoriesExpanded}
+                  setCategoriesExpanded={setCategoriesExpanded}
+                  isLearnActive={isLearnActive}
+                  isCategoryActive={isCategoryActive}
+                  user={user}
+                  isAuthenticated={isAuthenticated}
+                  logout={logout}
+                />
+              </SheetContent>
+            </Sheet>
 
-        <div className="flex flex-1 items-center  space-x-2 justify-end">
-          {/* <TokenCredit /> */}
-          <nav className="flex items-center">
-            <div></div>
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 group shrink-0">
+              <div className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-primary to-primary/80 shadow-sm">
+                <Crown className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
+              </div>
+              <span className="hidden sm:inline font-bold text-base sm:text-lg">Best Vocabulary</span>
+            </Link>
+          </div>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src="/std.svg" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <div className="px-1">
+          {/* Center: Desktop Navigation */}
+          <NavigationMenu className="hidden xl:flex">
+            <NavigationMenuList className="gap-0.5">
+              <NavigationMenuItem>
+                <Link href="/" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(
+                    "inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors",
+                    pathname === "/" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}>
+                    Home
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
 
-              <ModeToggle />
-            </div>
+              <NavigationMenuItem>
+                <Link href="/dictionary" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(
+                    "inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors",
+                    pathname?.startsWith("/dictionary") && !pathname?.includes("category=") ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}>
+                    Dictionary
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
 
-          </nav>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className={cn(
+                  "h-9 px-3 text-sm font-medium",
+                  isCategoryActive ? "bg-primary/10 text-primary" : "text-muted-foreground"
+                )}>
+                  Categories
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="w-[550px] p-5">
+                    <div className="grid grid-cols-3 gap-5">
+                      {categoryGroups.map((group) => (
+                        <div key={group.title}>
+                          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">{group.title}</h4>
+                          <div className="space-y-0.5">
+                            {group.categories.map((cat) => {
+                              const Icon = cat.icon
+                              return (
+                                <Link key={cat.name} href={cat.href} className="flex items-center gap-2 p-2 rounded-md hover:bg-muted transition-colors group">
+                                  <Icon className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+                                  <span className="text-sm">{cat.name}</span>
+                                </Link>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 pt-3 border-t">
+                      <Link href="/categories" className="flex items-center justify-center gap-2 p-2 rounded-md bg-primary/5 hover:bg-primary/10 text-primary text-sm font-medium">
+                        <FolderOpen className="h-4 w-4" />
+                        View all categories
+                        <ArrowRight className="h-3 w-3" />
+                      </Link>
+                    </div>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className={cn(
+                  "h-9 px-3 text-sm font-medium",
+                  isLearnActive ? "bg-primary/10 text-primary" : "text-muted-foreground"
+                )}>
+                  Learn
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="w-[450px] p-4">
+                    <div className="grid grid-cols-2 gap-1">
+                      {learnItems.map((item) => {
+                        const Icon = item.icon
+                        const isActive = pathname === item.href
+                        return (
+                          <Link key={item.href} href={item.href} className={cn(
+                            "flex items-center gap-3 p-3 rounded-lg transition-colors",
+                            isActive ? "bg-primary/10" : "hover:bg-muted"
+                          )}>
+                            <div className={cn(
+                              "w-9 h-9 rounded-lg flex items-center justify-center shrink-0",
+                              isActive ? "bg-primary/20" : "bg-muted"
+                            )}>
+                              <Icon className={cn("h-4 w-4", isActive ? "text-primary" : "text-muted-foreground")} />
+                            </div>
+                            <div>
+                              <p className={cn("text-sm font-medium", isActive ? "text-primary" : "")}>{item.title}</p>
+                              <p className="text-xs text-muted-foreground">{item.description}</p>
+                            </div>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+
+          {/* Right: Actions */}
+          <div className="flex items-center gap-1 sm:gap-2">
+            {/* AI Search */}
+            <Link href="/search">
+              <Button variant="outline" size="sm" className="h-8 sm:h-9 px-2 sm:px-3 gap-1.5 text-xs sm:text-sm">
+                <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
+                <span className="hidden sm:inline">Search</span>
+                <kbd className="hidden lg:inline-flex h-5 items-center rounded border bg-muted px-1 text-[10px] font-mono">
+                  <Command className="h-2.5 w-2.5" />K
+                </kbd>
+              </Button>
+            </Link>
+
+            <ModeToggle />
+
+            {/* User Menu */}
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 rounded-full">
+                    <Avatar className="h-7 w-7 sm:h-8 sm:w-8">
+                      <AvatarFallback className="bg-primary text-primary-foreground text-xs font-medium">
+                        {user?.fullName?.charAt(0)?.toUpperCase() || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium">{user?.fullName}</p>
+                      <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/bookmarks"><Bookmark className="h-4 w-4 mr-2" />Bookmarks</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/quiz"><Brain className="h-4 w-4 mr-2" />Take Quiz</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout} className="text-red-600 dark:text-red-400">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="h-8 sm:h-9 px-3 text-sm hidden sm:inline-flex">
+                    Sign in
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button size="sm" className="h-8 sm:h-9 px-3 text-sm">
+                    <span className="hidden sm:inline">Get started</span>
+                    <span className="sm:hidden">Sign up</span>
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
+  )
+}
+
+function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, categoriesExpanded, setCategoriesExpanded, isLearnActive, isCategoryActive, user, isAuthenticated, logout }) {
+  return (
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="p-4 border-b">
+        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
+            <Crown className="h-5 w-5 text-primary-foreground" />
+          </div>
+          <span className="font-bold text-lg">Best Vocabulary</span>
+        </Link>
+      </div>
+
+      {/* Search */}
+      <div className="p-3 border-b">
+        <Link href="/search" onClick={() => setOpen(false)} className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 border border-primary/10">
+          <Sparkles className="h-4 w-4 text-primary" />
+          <div className="flex-1">
+            <p className="text-sm font-medium">AI Search</p>
+            <p className="text-xs text-muted-foreground">Search by meaning</p>
+          </div>
+        </Link>
+      </div>
+
+      {/* Nav Links */}
+      <ScrollArea className="flex-1">
+        <nav className="p-3 space-y-1">
+          <MobileNavLink href="/" active={pathname === "/"} onClick={() => setOpen(false)}>Home</MobileNavLink>
+          <MobileNavLink href="/dictionary" active={pathname?.startsWith("/dictionary") && !pathname?.includes("category=")} onClick={() => setOpen(false)}>Dictionary</MobileNavLink>
+          
+          {/* Categories */}
+          <div>
+            <button onClick={() => setCategoriesExpanded(!categoriesExpanded)} className={cn(
+              "w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium",
+              isCategoryActive ? "bg-primary/10 text-primary" : "hover:bg-muted"
+            )}>
+              Categories
+              <ChevronDown className={cn("h-4 w-4 transition-transform", categoriesExpanded && "rotate-180")} />
+            </button>
+            {categoriesExpanded && (
+              <div className="ml-3 mt-1 pl-3 border-l space-y-0.5">
+                {categoryGroups.flatMap(g => g.categories).map((cat) => (
+                  <Link key={cat.name} href={cat.href} onClick={() => setOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-muted">
+                    <cat.icon className="h-4 w-4" />
+                    {cat.name}
+                  </Link>
+                ))}
+                <Link href="/categories" onClick={() => setOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-primary font-medium">
+                  View all <ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Learn */}
+          <div>
+            <button onClick={() => setLearnExpanded(!learnExpanded)} className={cn(
+              "w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium",
+              isLearnActive ? "bg-primary/10 text-primary" : "hover:bg-muted"
+            )}>
+              Learn
+              <ChevronDown className={cn("h-4 w-4 transition-transform", learnExpanded && "rotate-180")} />
+            </button>
+            {learnExpanded && (
+              <div className="ml-3 mt-1 pl-3 border-l space-y-0.5">
+                {learnItems.map((item) => (
+                  <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm",
+                    pathname === item.href ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  )}>
+                    <item.icon className="h-4 w-4" />
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </nav>
+      </ScrollArea>
+
+      {/* Footer - Auth */}
+      <div className="p-3 border-t">
+        {isAuthenticated ? (
+          <div className="space-y-2">
+            <div className="flex items-center gap-3 p-2">
+              <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-medium">
+                {user?.fullName?.charAt(0)?.toUpperCase() || 'U'}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium truncate">{user?.fullName}</p>
+                <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => { logout(); setOpen(false); }}
+              className="w-full flex items-center justify-center gap-2 p-2.5 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign out
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <Link href="/login" onClick={() => setOpen(false)}>
+              <button className="w-full p-2.5 rounded-lg text-sm font-medium border border-border hover:bg-muted transition-colors">
+                Sign in
+              </button>
+            </Link>
+            <Link href="/register" onClick={() => setOpen(false)}>
+              <button className="w-full p-2.5 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                Create account
+              </button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function MobileNavLink({ href, active, onClick, children }) {
+  return (
+    <Link href={href} onClick={onClick} className={cn(
+      "block px-3 py-2.5 rounded-lg text-sm font-medium",
+      active ? "bg-primary/10 text-primary" : "hover:bg-muted"
+    )}>
+      {children}
+    </Link>
   )
 }

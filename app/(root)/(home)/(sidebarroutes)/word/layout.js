@@ -1,21 +1,8 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { WordDetailSidebar } from "./components/WordDetailSidebar";
-import RightsideBar from "./components/RightsideBar";
-
-
+export const metadata = {
+  title: 'Word Details | Best Vocabulary',
+  description: 'Explore detailed word information, meanings, etymology, and more.',
+};
 
 export default function WordLayout({ children }) {
-  return (
-    <>
-      <SidebarProvider>
-
-        <WordDetailSidebar />
-        <div className="w-full">
-          {children}
-        </div>
-        <RightsideBar />
-      </SidebarProvider>
-    </>
-
-  );
+  return children;
 }
