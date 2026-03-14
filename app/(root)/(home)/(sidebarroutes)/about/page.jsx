@@ -249,7 +249,7 @@ export default function AboutPage() {
               or just want to say hi – we&apos;re all ears.
             </p>
             
-            <Link href="mailto:hello@bestvocabulary.com">
+            <Link href="mailto:bestvocabularyramblerrana@gmail.com">
               <Button size="lg" className="rounded-full px-8 gap-2">
                 Get in Touch <ArrowRight className="h-4 w-4" />
               </Button>

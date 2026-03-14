@@ -68,7 +68,7 @@ const FeaturedWords = async () => {
                       wordOfTheDay.meanings?.[0]?.easyMeaning ||
                       'Discover the meaning of this fascinating word'}
                   </p>
-                  <Link href={`/word/${wordOfTheDay.word}`}>
+                  <Link href={`/search?q=${encodeURIComponent(wordOfTheDay.word)}`}>
                     <Button className="rounded-full px-4 sm:px-5 md:px-6 h-9 sm:h-10 md:h-11 text-sm sm:text-base shadow-md hover:shadow-lg transition-all">
                       Learn this word
                       <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1.5 sm:ml-2" />
