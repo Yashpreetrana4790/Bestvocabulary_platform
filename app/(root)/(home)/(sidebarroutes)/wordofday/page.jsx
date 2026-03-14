@@ -150,7 +150,7 @@ const Page = async () => {
                     className="p-5 rounded-2xl border bg-card hover:shadow-md transition-shadow"
                   >
                     <p className="font-medium text-foreground mb-2">{usage?.context}</p>
-                    <p className="text-muted-foreground italic">"{usage?.example}"</p>
+                    <p className="text-muted-foreground italic">&quot;{usage?.example}&quot;</p>
                   </div>
                 ))
               ))}

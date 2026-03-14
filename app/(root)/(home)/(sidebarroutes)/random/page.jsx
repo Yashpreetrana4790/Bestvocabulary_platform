@@ -210,7 +210,7 @@ export default function RandomWordPage() {
                     <div className="mb-8">
                       <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">Example</h3>
                       <p className="text-foreground italic">
-                        "{meaning.common_usage[0].example}"
+                        &quot;{meaning.common_usage[0].example}&quot;
                       </p>
                     </div>
                   )}

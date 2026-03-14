@@ -317,7 +317,7 @@ export default function FlashcardsPage() {
                   {currentCard.example && (
                     <div className="p-4 rounded-xl bg-muted/50 max-w-md">
                       <p className="text-sm text-muted-foreground italic">
-                        "{currentCard.example}"
+                        &quot;{currentCard.example}&quot;
                       </p>
                     </div>
                   )}

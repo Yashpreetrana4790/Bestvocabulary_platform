@@ -177,7 +177,7 @@ export default function BookmarksPage() {
                 {filteredBookmarks.length === 0 && search && (
                   <div className="text-center py-12">
                     <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">No bookmarks match "{search}"</p>
+                    <p className="text-muted-foreground">No bookmarks match &quot;{search}&quot;</p>
                   </div>
                 )}
               </div>

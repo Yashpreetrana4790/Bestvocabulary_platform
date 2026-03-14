@@ -3,12 +3,15 @@ import Link from 'next/link';
 import { getSingleWord } from '@/services/wordapis';
 import { capitalizeString } from '@/lib/otherutil';
 import { 
-  Volume2, BookOpen, Lightbulb, History, Quote, 
-  ArrowLeft, Share2, Bookmark, Copy, ExternalLink,
-  Sparkles, GraduationCap, MessageSquare
+  BookOpen, Lightbulb,
+  ArrowLeft, Sparkles, GraduationCap,
+  Globe, AlertCircle, Users,
+  BookMarked, Layers, ArrowRight,
+  Zap, Brain, PenTool, Target, Shuffle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WordDetailClient from './WordDetailClient';
+import { DefinitionCard, ExpandableInfoCard } from './ExpandableSection';
 
 export default async function WordPage({ params }) {
   const resolvedParams = await params;
@@ -21,17 +24,27 @@ export default async function WordPage({ params }) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="h-8 w-8 text-muted-foreground" />
+          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center mx-auto mb-6">
+            <BookOpen className="h-10 w-10 text-muted-foreground" />
           </div>
-          <h1 className="text-2xl font-bold mb-2">Word not found</h1>
-          <p className="text-muted-foreground mb-6">The word "{wordParam}" could not be found in our dictionary.</p>
-          <Link href="/dictionary">
-            <Button>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dictionary
-            </Button>
-          </Link>
+          <h1 className="text-3xl font-bold mb-3">Word not found</h1>
+          <p className="text-muted-foreground mb-8 max-w-md">
+            The word &quot;{wordParam}&quot; could not be found in our dictionary.
+          </p>
+          <div className="flex items-center justify-center gap-3">
+            <Link href="/dictionary">
+              <Button variant="outline" size="lg" className="rounded-xl">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Dictionary
+              </Button>
+            </Link>
+            <Link href="/search">
+              <Button size="lg" className="rounded-xl">
+                <Sparkles className="h-4 w-4 mr-2" />
+                AI Search
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -40,265 +53,304 @@ export default async function WordPage({ params }) {
   const firstMeaning = word.meanings?.[0];
   const difficulty = firstMeaning?.difficulty || 'Beginner';
   
-  const difficultyStyles = {
-    Beginner: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-    Easy: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-    Intermediate: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
-    Medium: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
-    Advanced: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20',
-    Hard: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20',
+  const difficultyConfig = {
+    Beginner: { bg: 'bg-emerald-500', text: 'text-emerald-600 dark:text-emerald-400', light: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+    Easy: { bg: 'bg-emerald-500', text: 'text-emerald-600 dark:text-emerald-400', light: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+    Intermediate: { bg: 'bg-amber-500', text: 'text-amber-600 dark:text-amber-400', light: 'bg-amber-500/10', border: 'border-amber-500/20' },
+    Medium: { bg: 'bg-amber-500', text: 'text-amber-600 dark:text-amber-400', light: 'bg-amber-500/10', border: 'border-amber-500/20' },
+    Advanced: { bg: 'bg-rose-500', text: 'text-rose-600 dark:text-rose-400', light: 'bg-rose-500/10', border: 'border-rose-500/20' },
+    Hard: { bg: 'bg-rose-500', text: 'text-rose-600 dark:text-rose-400', light: 'bg-rose-500/10', border: 'border-rose-500/20' },
   };
 
+  const currentDifficulty = difficultyConfig[difficulty] || difficultyConfig.Beginner;
+
+  const frequencyConfig = {
+    high: { label: 'Very Common', color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-500/10', icon: '🔥' },
+    medium: { label: 'Common', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-500/10', icon: '📊' },
+    low: { label: 'Rare', color: 'text-violet-600 dark:text-violet-400', bg: 'bg-violet-500/10', icon: '💎' },
+  };
+
+  const currentFrequency = frequencyConfig[word.frequency] || frequencyConfig.medium;
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b">
         {/* Background */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/5 rounded-full blur-[120px]" />
           <div 
-            className="absolute inset-0"
+            className="absolute inset-0 opacity-40"
             style={{
-              backgroundImage: `linear-gradient(rgba(128, 128, 128, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(128, 128, 128, 0.05) 1px, transparent 1px)`,
-              backgroundSize: '40px 40px',
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(128,128,128,0.15) 1px, transparent 0)`,
+              backgroundSize: '24px 24px',
             }}
           />
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-12 md:py-16">
-          {/* Back Button */}
-          <Link href="/dictionary" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
-            <ArrowLeft className="h-4 w-4" />
-            Back to Dictionary
-          </Link>
+        <div className="max-w-6xl mx-auto px-4 py-6 md:py-10">
+          {/* Navigation */}
+          <div className="flex items-center justify-between mb-6">
+            <Link href="/dictionary" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group">
+              <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+              Back to Dictionary
+            </Link>
+            <Link href="/random">
+              <Button variant="ghost" size="sm" className="rounded-lg gap-2 text-xs">
+                <Shuffle className="h-3.5 w-3.5" />
+                Random
+              </Button>
+            </Link>
+          </div>
 
-          {/* Word Header */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+          {/* Main Header Grid */}
+          <div className="grid lg:grid-cols-[1fr,auto] gap-8">
+            {/* Left: Word Info */}
             <div>
-              {/* Difficulty Badge */}
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border mb-4 ${difficultyStyles[difficulty]}`}>
-                <GraduationCap className="h-3 w-3" />
-                {difficulty}
-              </div>
-
-              {/* Word */}
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight mb-2">
                 {capitalizeString(word.word)}
               </h1>
-
-              {/* Pronunciation */}
               {word.pronunciation && (
-                <p className="text-lg text-muted-foreground font-mono">
+                <p className="text-xl md:text-2xl text-muted-foreground font-mono mb-5">
                   {word.pronunciation}
                 </p>
               )}
 
-              {/* Quick Info */}
-              <div className="flex flex-wrap items-center gap-3 mt-4">
+              {/* Quick Stats Row */}
+              <div className="flex flex-wrap items-center gap-3">
                 {firstMeaning?.pos && (
-                  <span className="text-sm text-primary font-medium bg-primary/5 px-3 py-1 rounded-full">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary bg-primary/10 px-4 py-2 rounded-xl border border-primary/20">
+                    <PenTool className="h-3.5 w-3.5" />
                     {firstMeaning.pos}
                   </span>
                 )}
-                {firstMeaning?.category && (
-                  <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                    {firstMeaning.category}
+                <span className={`inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-xl border ${currentDifficulty.light} ${currentDifficulty.text} ${currentDifficulty.border}`}>
+                  <GraduationCap className="h-3.5 w-3.5" />
+                  {difficulty}
+                </span>
+                {word.frequency && (
+                  <span className={`inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-xl ${currentFrequency.bg} ${currentFrequency.color}`}>
+                    <span className="text-base">{currentFrequency.icon}</span>
+                    {currentFrequency.label}
                   </span>
                 )}
-                {word.frequency && (
-                  <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                    {word.frequency} frequency
+                {firstMeaning?.category && (
+                  <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground bg-muted px-4 py-2 rounded-xl">
+                    <Target className="h-3.5 w-3.5" />
+                    {firstMeaning.category}
                   </span>
                 )}
               </div>
             </div>
 
-            {/* Actions - Client Component */}
-            <WordDetailClient word={word} />
+            {/* Right: Actions & Stats */}
+            <div className="flex flex-col gap-4">
+              <WordDetailClient word={word} />
+              
+              {/* Usage Distribution */}
+              {word.usage_distribution && (word.usage_distribution.spoken > 0 || word.usage_distribution.written > 0) && (
+                <div className="bg-card/80 backdrop-blur-sm border rounded-2xl p-4">
+                  <p className="text-xs font-medium text-muted-foreground mb-3 text-center">Usage Pattern</p>
+                  <div className="flex items-center justify-center gap-6">
+                    <div className="relative flex flex-col items-center">
+                      <div className="relative w-16 h-16">
+                        <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                          <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-muted/30" />
+                          <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3"
+                            strokeDasharray={`${(word.usage_distribution.spoken || 0) * 0.88} 88`}
+                            strokeLinecap="round" className="text-violet-500" />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <Users className="h-4 w-4 text-violet-500" />
+                        </div>
+                      </div>
+                      <span className="text-lg font-bold text-foreground mt-1">{word.usage_distribution.spoken || 0}%</span>
+                      <span className="text-[10px] text-muted-foreground">Spoken</span>
+                    </div>
+                    <div className="relative flex flex-col items-center">
+                      <div className="relative w-16 h-16">
+                        <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                          <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3" className="text-muted/30" />
+                          <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="3"
+                            strokeDasharray={`${(word.usage_distribution.written || 0) * 0.88} 88`}
+                            strokeLinecap="round" className="text-primary" />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <BookMarked className="h-4 w-4 text-primary" />
+                        </div>
+                      </div>
+                      <span className="text-lg font-bold text-foreground mt-1">{word.usage_distribution.written || 0}%</span>
+                      <span className="text-[10px] text-muted-foreground">Written</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Meanings */}
-            {word.meanings?.map((meaning, index) => (
-              <div key={meaning._id || index} className="bg-card border rounded-2xl overflow-hidden">
-                <div className="p-6">
-                  {/* Meaning Header */}
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
-                        {index + 1}
-                      </span>
-                      {meaning.pos && (
-                        <span className="text-sm font-medium text-primary">{meaning.pos}</span>
-                      )}
-                    </div>
-                    {meaning.difficulty && (
-                      <span className={`text-xs font-medium px-2.5 py-1 rounded-full border ${difficultyStyles[meaning.difficulty]}`}>
-                        {meaning.difficulty}
-                      </span>
-                    )}
+      {/* Main Content */}
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-[1fr,340px] gap-8">
+          {/* Left Column */}
+          <div className="space-y-6">
+            {/* Quick Memory Tip */}
+            {firstMeaning?.mnemonic && (
+              <div className="bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-rose-500/10 border border-amber-500/20 rounded-2xl p-5">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/20">
+                    <Lightbulb className="h-6 w-6 text-white" />
                   </div>
-
-                  {/* Subtitle */}
-                  {meaning.subtitle && (
-                    <p className="text-lg font-medium text-foreground mb-2">
-                      {meaning.subtitle}
-                    </p>
-                  )}
-
-                  {/* Full Meaning */}
-                  <p className="text-muted-foreground leading-relaxed">
-                    {meaning.meaning}
-                  </p>
-
-                  {/* Easy Meaning */}
-                  {meaning.easyMeaning && (
-                    <div className="mt-4 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
-                      <p className="text-sm">
-                        <span className="font-medium text-emerald-600 dark:text-emerald-400">Simply put:</span>{' '}
-                        <span className="text-muted-foreground">{meaning.easyMeaning}</span>
-                      </p>
-                    </div>
-                  )}
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1">Quick Memory Tip</h3>
+                    <p className="text-muted-foreground">{firstMeaning.mnemonic}</p>
+                  </div>
                 </div>
+              </div>
+            )}
 
-                {/* Examples */}
-                {meaning.example_sentences?.length > 0 && (
-                  <div className="border-t bg-muted/30 p-6">
-                    <h4 className="text-sm font-medium text-foreground mb-3 flex items-center gap-2">
-                      <Quote className="h-4 w-4 text-primary" />
-                      Examples
-                    </h4>
-                    <div className="space-y-2">
-                      {meaning.example_sentences.slice(0, 3).map((example, i) => (
-                        <p key={i} className="text-sm text-muted-foreground italic pl-4 border-l-2 border-primary/20">
-                          "{example}"
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Common Usage */}
-                {meaning.common_usage?.length > 0 && (
-                  <div className="border-t p-6">
-                    <h4 className="text-sm font-medium text-foreground mb-3 flex items-center gap-2">
-                      <MessageSquare className="h-4 w-4 text-primary" />
-                      Common Usage
-                    </h4>
-                    <div className="space-y-3">
-                      {meaning.common_usage.map((usage, i) => (
-                        <div key={i} className="text-sm">
-                          <span className="font-medium text-primary">{usage.context}:</span>
-                          <span className="text-muted-foreground ml-2 italic">"{usage.example}"</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+            {/* Definitions */}
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                  <BookOpen className="h-5 w-5 text-primary" />
+                  Definitions
+                </h2>
+                {word.meanings?.length > 1 && (
+                  <span className="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">
+                    {word.meanings.length} meanings
+                  </span>
                 )}
               </div>
-            ))}
+              
+              <div className="space-y-4">
+                {word.meanings?.map((meaning, index) => (
+                  <DefinitionCard
+                    key={meaning._id || index}
+                    meaning={meaning}
+                    index={index}
+                    word={word.word}
+                    difficultyConfig={difficultyConfig}
+                    isFirst={index === 0}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Etymology & History - Expandable */}
+            {(word.etymology || word.historical_usage) && (
+              <div className="space-y-4">
+                {word.etymology && (
+                  <ExpandableInfoCard title="Etymology" iconName="history" defaultOpen={false}>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{word.etymology}</p>
+                  </ExpandableInfoCard>
+                )}
+                {word.historical_usage && (
+                  <ExpandableInfoCard title="Historical Context" iconName="clock" defaultOpen={false}>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{word.historical_usage}</p>
+                  </ExpandableInfoCard>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Mnemonic */}
-            {firstMeaning?.mnemonic && (
-              <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <Lightbulb className="h-5 w-5 text-amber-500" />
-                  <h3 className="font-semibold text-foreground">Memory Tip</h3>
+          {/* Right Sidebar */}
+          <div className="space-y-4">
+            {/* Word Origin */}
+            {word.root_analysis && (word.root_analysis.origin_language || word.root_analysis.meaning) && (
+              <div className="bg-gradient-to-br from-violet-500/10 to-primary/5 border border-violet-500/20 rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <Globe className="h-5 w-5 text-violet-500" />
+                  <h3 className="font-bold text-foreground">Word Origin</h3>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {firstMeaning.mnemonic}
-                </p>
-              </div>
-            )}
-
-            {/* Etymology */}
-            {word.etymology && (
-              <div className="bg-card border rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <History className="h-5 w-5 text-primary" />
-                  <h3 className="font-semibold text-foreground">Etymology</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {word.etymology}
-                </p>
-              </div>
-            )}
-
-            {/* Root Analysis */}
-            {word.root_analysis && (
-              <div className="bg-card border rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="h-5 w-5 text-primary" />
-                  <h3 className="font-semibold text-foreground">Word Origin</h3>
-                </div>
-                <div className="space-y-2 text-sm">
-                  {word.root_analysis.origin_language && (
-                    <p>
-                      <span className="text-muted-foreground">Language:</span>
-                      <span className="ml-2 font-medium text-foreground">{word.root_analysis.origin_language}</span>
-                    </p>
-                  )}
-                  {word.root_analysis.meaning && (
-                    <p>
-                      <span className="text-muted-foreground">Original meaning:</span>
-                      <span className="ml-2 font-medium text-foreground">{word.root_analysis.meaning}</span>
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Historical Usage */}
-            {word.historical_usage && (
-              <div className="bg-card border rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <BookOpen className="h-5 w-5 text-primary" />
-                  <h3 className="font-semibold text-foreground">Historical Usage</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {word.historical_usage}
-                </p>
-              </div>
-            )}
-
-            {/* Collocations */}
-            {word.collocations?.length > 0 && (
-              <div className="bg-card border rounded-2xl p-5">
-                <h3 className="font-semibold text-foreground mb-3">Related Words</h3>
-                <div className="flex flex-wrap gap-2">
-                  {word.collocations.map((collocation, i) => (
-                    <span key={i} className="text-sm bg-muted px-3 py-1 rounded-full text-muted-foreground">
-                      {collocation}
+                {word.root_analysis.origin_language && (
+                  <div className="flex items-center justify-between py-2 border-b border-violet-500/10">
+                    <span className="text-sm text-muted-foreground">Language</span>
+                    <span className="text-sm font-semibold text-foreground bg-background/50 px-3 py-1 rounded-lg">
+                      {word.root_analysis.origin_language}
                     </span>
-                  ))}
-                </div>
+                  </div>
+                )}
+                {word.root_analysis.meaning && (
+                  <div className="pt-3">
+                    <span className="text-xs text-muted-foreground">Original Meaning</span>
+                    <p className="text-base font-medium text-foreground mt-1">&quot;{word.root_analysis.meaning}&quot;</p>
+                  </div>
+                )}
               </div>
             )}
 
             {/* Word Family */}
             {word.word_family?.derived?.length > 0 && (
-              <div className="bg-card border rounded-2xl p-5">
-                <h3 className="font-semibold text-foreground mb-3">Word Family</h3>
+              <ExpandableInfoCard title="Word Family" iconName="layers" defaultOpen={true}>
+                {word.word_family.base && (
+                  <div className="mb-3 p-2 rounded-lg bg-primary/5 text-center">
+                    <span className="text-xs text-muted-foreground">Base: </span>
+                    <span className="font-bold text-primary">{word.word_family.base}</span>
+                  </div>
+                )}
                 <div className="flex flex-wrap gap-2">
                   {word.word_family.derived.map((derived, i) => (
-                    <Link key={i} href={`/word/${derived.toLowerCase()}`} className="text-sm bg-primary/5 text-primary px-3 py-1 rounded-full hover:bg-primary/10 transition-colors">
+                    <Link key={i} href={`/word/${derived.toLowerCase()}`}
+                      className="text-sm bg-primary/10 text-primary px-3 py-1.5 rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors font-medium">
                       {derived}
                     </Link>
                   ))}
                 </div>
+              </ExpandableInfoCard>
+            )}
+
+            {/* Collocations */}
+            {word.collocations?.length > 0 && (
+              <ExpandableInfoCard title="Common Pairs" iconName="sparkles" defaultOpen={false}>
+                <div className="flex flex-wrap gap-2">
+                  {word.collocations.map((col, i) => (
+                    <span key={i} className="text-sm bg-muted text-foreground px-3 py-1.5 rounded-lg">{col}</span>
+                  ))}
+                </div>
+              </ExpandableInfoCard>
+            )}
+
+            {/* Misspellings */}
+            {word.misspellings?.length > 0 && (
+              <div className="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertCircle className="h-5 w-5 text-rose-500" />
+                  <h3 className="font-bold text-foreground">Avoid</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {word.misspellings.slice(0, 4).map((m, i) => (
+                    <span key={i} className="text-sm bg-rose-500/10 text-rose-600 dark:text-rose-400 px-3 py-1.5 rounded-lg line-through">{m}</span>
+                  ))}
+                </div>
               </div>
             )}
+
+            {/* Practice */}
+            <div className="bg-gradient-to-br from-primary/10 to-violet-500/10 border border-primary/20 rounded-2xl p-5">
+              <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
+                <Zap className="h-5 w-5 text-primary" />
+                Practice
+              </h3>
+              <div className="space-y-2">
+                <Link href="/quiz" className="flex items-center justify-between p-3 rounded-xl bg-background/50 hover:bg-background transition-colors group">
+                  <div className="flex items-center gap-3">
+                    <Brain className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-medium">Quiz</span>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link href="/flashcards" className="flex items-center justify-between p-3 rounded-xl bg-background/50 hover:bg-background transition-colors group">
+                  <div className="flex items-center gap-3">
+                    <Layers className="h-5 w-5 text-violet-500" />
+                    <span className="text-sm font-medium">Flashcards</span>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

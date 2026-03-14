@@ -157,7 +157,7 @@ export default function KeyboardShortcuts() {
 
           {!loading && query.length >= 2 && results.length === 0 && (
             <div className="p-8 text-center">
-              <p className="text-muted-foreground mb-4">No words found for "{query}"</p>
+              <p className="text-muted-foreground mb-4">No words found for &quot;{query}&quot;</p>
               <button
                 onClick={goToAISearch}
                 className="inline-flex items-center gap-2 text-primary hover:underline"

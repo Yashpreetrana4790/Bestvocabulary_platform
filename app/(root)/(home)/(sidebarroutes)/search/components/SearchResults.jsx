@@ -43,7 +43,7 @@ async function SearchResults({ query, mode }) {
         </div>
         <h2 className="text-xl font-semibold text-foreground mb-2">No results found</h2>
         <p className="text-muted-foreground max-w-md mx-auto">
-          We couldn't find any words matching "{query}".{' '}
+          We couldn&apos;t find any words matching &quot;{query}&quot;.{' '}
           {!isAIMode && (
             <span>
               Try{' '}
@@ -85,7 +85,7 @@ async function SearchResults({ query, mode }) {
             {isAIMode ? 'Semantic Results' : 'Search Results'}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Found {totalCount} {totalCount === 1 ? 'word' : 'words'} for "{query}"
+            Found {totalCount} {totalCount === 1 ? 'word' : 'words'} for &quot;{query}&quot;
             {isAIMode && (
               <span className="inline-flex items-center gap-1 ml-2 text-violet-600">
                 <Sparkles className="h-3 w-3" />

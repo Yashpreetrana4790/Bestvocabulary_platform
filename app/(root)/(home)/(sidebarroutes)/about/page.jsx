@@ -122,7 +122,7 @@ export default function AboutPage() {
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 We believe that a rich vocabulary is the foundation of effective communication. 
-                Whether you're a student, professional, writer, or simply someone who loves 
+                Whether you&apos;re a student, professional, writer, or simply someone who loves 
                 language, Best Vocabulary provides the tools you need to express yourself better.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -235,8 +235,8 @@ export default function AboutPage() {
               Have questions or feedback?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              We'd love to hear from you. Whether you have a feature request, found a bug, 
-              or just want to say hi – we're all ears.
+              We&apos;d love to hear from you. Whether you have a feature request, found a bug, 
+              or just want to say hi – we&apos;re all ears.
             </p>
             
             <Link href="mailto:hello@bestvocabulary.com">
