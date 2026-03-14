@@ -5,6 +5,16 @@ import { Button } from "@/components/ui/button";
 import { capitalizeString } from "@/lib/otherutil";
 import { getWordOfDay, getWodHistory } from "@/services/wordOfDay";
 
+export const metadata = {
+  title: 'Word of the Day',
+  description: 'Learn a new word every day with our Word of the Day feature. Expand your vocabulary with daily curated words, definitions, examples, and memory tips.',
+  keywords: ['word of the day', 'daily word', 'learn vocabulary', 'new words', 'vocabulary building'],
+  openGraph: {
+    title: 'Word of the Day | Best Vocabulary',
+    description: 'Learn a new word every day. Expand your vocabulary with daily curated words, definitions, and memory tips.',
+  },
+};
+
 const staticWordOfDay = {
   word: "Serendipity",
   pronunciation: "/ˌser.ənˈdɪp.ɪ.ti/",

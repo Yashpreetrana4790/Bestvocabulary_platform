@@ -5,8 +5,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
-import { 
-  User, Search, Sparkles, Command, Crown, ChevronDown,
+import Image from "next/image"
+import {
+  User, Search, Sparkles, Command, ChevronDown,
   BookOpen, Brain, Layers, Calendar, Shuffle, Bookmark,
   FolderOpen, Briefcase, Stethoscope, Scale, Atom, Palette,
   Globe, Heart, Lightbulb, Map, ArrowRight, Menu, LogOut, Settings
@@ -85,7 +86,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80">
       <div className="container mx-auto px-4">
         <div className="flex h-14 sm:h-16 items-center justify-between gap-4">
-          
+
           {/* Left: Mobile Menu + Logo */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile Menu Button */}
@@ -97,7 +98,7 @@ export function Navbar() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0">
-                <MobileNavContent 
+                <MobileNavContent
                   pathname={pathname}
                   setOpen={setMobileOpen}
                   learnExpanded={learnExpanded}
@@ -114,11 +115,17 @@ export function Navbar() {
             </Sheet>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group shrink-0">
-              <div className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-primary to-primary/80 shadow-sm">
-                <Crown className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
-              </div>
-              <span className="hidden sm:inline font-bold text-base sm:text-lg">Best Vocabulary</span>
+            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+              <Image
+                src="/bv.png"
+                alt="Best Vocabulary"
+                width={44}
+                height={44}
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl shadow-sm"
+                priority
+                quality={100}
+              />
+              <span className="hidden sm:inline font-bold text-lg tracking-tight">Best Vocabulary</span>
             </Link>
           </div>
 
@@ -298,11 +305,16 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b">
-        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-            <Crown className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="font-bold text-lg">Best Vocabulary</span>
+        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5">
+          <Image
+            src="/bv.png"
+            alt="Best Vocabulary"
+            width={48}
+            height={48}
+            className="w-11 h-11 rounded-xl shadow-sm"
+            quality={100}
+          />
+          <span className="font-bold text-lg tracking-tight">Best Vocabulary</span>
         </Link>
       </div>
 
@@ -322,7 +334,7 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
         <nav className="p-3 space-y-1">
           <MobileNavLink href="/" active={pathname === "/"} onClick={() => setOpen(false)}>Home</MobileNavLink>
           <MobileNavLink href="/dictionary" active={pathname?.startsWith("/dictionary") && !pathname?.includes("category=")} onClick={() => setOpen(false)}>Dictionary</MobileNavLink>
-          
+
           {/* Categories */}
           <div>
             <button onClick={() => setCategoriesExpanded(!categoriesExpanded)} className={cn(

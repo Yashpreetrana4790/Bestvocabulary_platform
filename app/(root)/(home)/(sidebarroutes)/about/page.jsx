@@ -6,6 +6,16 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+export const metadata = {
+  title: 'About Us',
+  description: 'Best Vocabulary is your free platform to master the art of choosing words. Learn about our mission to make vocabulary learning accessible, effective, and enjoyable for everyone.',
+  keywords: ['about best vocabulary', 'vocabulary learning platform', 'free dictionary', 'word learning'],
+  openGraph: {
+    title: 'About Us | Best Vocabulary',
+    description: 'Learn about our mission to make vocabulary learning accessible, effective, and enjoyable for everyone.',
+  },
+};
+
 const stats = [
   { value: '10,000+', label: 'Words', icon: BookOpen },
   { value: '50,000+', label: 'Definitions', icon: Lightbulb },

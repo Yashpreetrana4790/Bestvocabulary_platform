@@ -1,0 +1,17 @@
+# Best Vocabulary - Robots.txt
+# https://bestvocabulary.com
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /login
+Disallow: /register
+
+# Sitemap
+Sitemap: https://bestvocabulary.com/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1

@@ -13,6 +13,112 @@ import { Button } from '@/components/ui/button';
 import WordDetailClient from './WordDetailClient';
 import { DefinitionCard, ExpandableInfoCard } from './ExpandableSection';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bestvocabulary.com';
+
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const wordParam = decodeURIComponent(resolvedParams.word);
+  const response = await getSingleWord({ word: wordParam });
+  const word = response?.data || response;
+
+  if (!word || !word.word) {
+    return {
+      title: 'Word Not Found',
+      description: 'The requested word could not be found in our dictionary.',
+    };
+  }
+
+  const firstMeaning = word.meanings?.[0];
+  const definition = firstMeaning?.meaning || firstMeaning?.subtitle || '';
+  const pos = firstMeaning?.pos || '';
+  
+  return {
+    title: `${capitalizeString(word.word)} - Definition, Meaning & Examples`,
+    description: `${capitalizeString(word.word)} (${pos}): ${definition.slice(0, 150)}${definition.length > 150 ? '...' : ''} Learn the meaning, etymology, synonyms, and usage examples.`,
+    keywords: [
+      word.word,
+      `${word.word} meaning`,
+      `${word.word} definition`,
+      `${word.word} synonym`,
+      `${word.word} example`,
+      `how to use ${word.word}`,
+      ...(word.word_family?.derived || []),
+    ],
+    openGraph: {
+      title: `${capitalizeString(word.word)} - Definition & Meaning | Best Vocabulary`,
+      description: `${capitalizeString(word.word)} (${pos}): ${definition.slice(0, 150)}${definition.length > 150 ? '...' : ''}`,
+      url: `${SITE_URL}/word/${encodeURIComponent(word.word)}`,
+      type: 'article',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: `${capitalizeString(word.word)} - Best Vocabulary`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${capitalizeString(word.word)} - Definition & Meaning`,
+      description: `${capitalizeString(word.word)} (${pos}): ${definition.slice(0, 100)}...`,
+    },
+    alternates: {
+      canonical: `${SITE_URL}/word/${encodeURIComponent(word.word)}`,
+    },
+  };
+}
+
+function generateWordJsonLd(word) {
+  const firstMeaning = word.meanings?.[0];
+  
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTerm',
+    '@id': `${SITE_URL}/word/${encodeURIComponent(word.word)}`,
+    name: word.word,
+    description: firstMeaning?.meaning || firstMeaning?.subtitle || '',
+    inDefinedTermSet: {
+      '@type': 'DefinedTermSet',
+      name: 'Best Vocabulary Dictionary',
+      url: SITE_URL,
+    },
+    ...(word.pronunciation && { 
+      alternateName: word.pronunciation 
+    }),
+    ...(word.etymology && {
+      disambiguatingDescription: word.etymology,
+    }),
+  };
+}
+
+function generateBreadcrumbJsonLd(word) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Dictionary',
+        item: `${SITE_URL}/dictionary`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: capitalizeString(word.word),
+        item: `${SITE_URL}/word/${encodeURIComponent(word.word)}`,
+      },
+    ],
+  };
+}
+
 export default async function WordPage({ params }) {
   const resolvedParams = await params;
   const wordParam = decodeURIComponent(resolvedParams.word);
@@ -73,9 +179,22 @@ export default async function WordPage({ params }) {
   const currentFrequency = frequencyConfig[word.frequency] || frequencyConfig.medium;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateWordJsonLd(word)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbJsonLd(word)),
+        }}
+      />
+      <div className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden border-b">
         {/* Background */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]" />
@@ -355,5 +474,6 @@ export default async function WordPage({ params }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
