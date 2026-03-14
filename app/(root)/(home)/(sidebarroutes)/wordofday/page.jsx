@@ -1,18 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { CalendarDays, Volume2, BookOpen, Lightbulb, MessageSquareQuote, ArrowRight, Sparkles, Share2, Bookmark } from "lucide-react";
+import { CalendarDays, Volume2, BookOpen, Lightbulb, MessageSquareQuote, ArrowRight, Sparkles, Share2, Bookmark, History, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { capitalizeString } from "@/lib/otherutil";
-import { getWordOfDay } from "@/services/wordOfDay";
+import { getWordOfDay, getWodHistory } from "@/services/wordOfDay";
 
 const staticWordOfDay = {
   word: "Serendipity",
   pronunciation: "/ˌser.ənˈdɪp.ɪ.ti/",
-  etymology: "Coined by Horace Walpole in 1754, from the Persian fairy tale 'The Three Princes of Serendip', whose heroes were always making discoveries by accidents and sagacity.",
+  etymology: "Coined by Horace Walpole in 1754, from the Persian fairy tale &apos;The Three Princes of Serendip&apos;, whose heroes were always making discoveries by accidents and sagacity.",
   meanings: [
     {
       subtitle: "The occurrence of events by chance in a happy or beneficial way",
-      easyMeaning: "Finding something good without looking for it. It's like when you accidentally discover something wonderful that you weren't even searching for.",
+      easyMeaning: "Finding something good without looking for it. It&apos;s like when you accidentally discover something wonderful that you weren&apos;t even searching for.",
       category: "noun",
       difficulty: "Medium",
       common_usage: [
@@ -34,12 +34,14 @@ const staticWordOfDay = {
 };
 
 const Page = async () => {
-  let oneWord = await getWordOfDay();
+  const [oneWordResult, historyResult] = await Promise.all([
+    getWordOfDay(),
+    getWodHistory(7)
+  ]);
   
   // Use static data if API returns nothing
-  if (!oneWord || !oneWord.word) {
-    oneWord = staticWordOfDay;
-  }
+  const oneWord = (oneWordResult && oneWordResult.word) ? oneWordResult : staticWordOfDay;
+  const history = historyResult || [];
   
   const today = new Date();
   const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -170,6 +172,53 @@ const Page = async () => {
             <p className="text-muted-foreground leading-relaxed">
               {oneWord.etymology}
             </p>
+          </div>
+        )}
+
+        {/* History Section */}
+        {history.length > 1 && (
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+                <History className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+              </div>
+              <h2 className="text-xl font-semibold text-foreground">Previous Words</h2>
+            </div>
+            
+            <div className="grid gap-3">
+              {history.slice(1, 8).map((item, idx) => {
+                const wordData = item.word;
+                if (!wordData) return null;
+                
+                const date = new Date(item.date);
+                const formattedHistoryDate = new Intl.DateTimeFormat('en-US', {
+                  weekday: 'short',
+                  day: 'numeric',
+                  month: 'short'
+                }).format(date);
+                
+                return (
+                  <Link 
+                    key={item._id || idx} 
+                    href={`/word/${wordData.word}`}
+                    className="flex items-center justify-between p-4 rounded-2xl border bg-card hover:bg-muted/50 hover:border-primary/20 transition-all group"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="text-sm text-muted-foreground min-w-[80px]">{formattedHistoryDate}</span>
+                      <div>
+                        <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {capitalizeString(wordData.word)}
+                        </span>
+                        {wordData.pronunciation && (
+                          <span className="text-sm text-muted-foreground ml-2 font-mono">{wordData.pronunciation}</span>
+                        )}
+                      </div>
+                    </div>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         )}
 

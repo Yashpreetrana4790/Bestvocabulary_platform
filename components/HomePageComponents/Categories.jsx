@@ -13,7 +13,7 @@ const categories = [
 
 const Categories = () => {
   return (
-    <section className="py-28 px-4 relative overflow-hidden">
+    <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full opacity-30 blur-[100px] -translate-y-1/2 bg-primary/10" />
@@ -35,24 +35,24 @@ const Categories = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Link
                 key={index}
                 href={`/dictionary?category=${category.name.toLowerCase()}`}
-                className="group relative p-6 rounded-2xl border bg-card/80 backdrop-blur-sm hover:bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+                className="group relative p-4 sm:p-6 rounded-2xl border bg-card/80 backdrop-blur-sm hover:bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                    <Icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="flex items-center sm:items-start gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-muted flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">{category.name}</h3>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-foreground mb-0.5 sm:mb-1 group-hover:text-primary transition-colors">{category.name}</h3>
                     <p className="text-sm text-muted-foreground">{category.count} words</p>
                   </div>
-                  <ArrowUpRight className="h-5 w-5 text-muted-foreground/50 group-hover:text-primary opacity-0 group-hover:opacity-100 transition-all -translate-y-1 group-hover:translate-y-0" />
+                  <ArrowUpRight className="h-5 w-5 text-muted-foreground/50 group-hover:text-primary opacity-0 group-hover:opacity-100 transition-all shrink-0 -translate-y-1 group-hover:translate-y-0" />
                 </div>
               </Link>
             );

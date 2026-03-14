@@ -6,7 +6,7 @@ import SmartSearchBar from "@/components/SmartSearchBar"
 
 const Herobanner = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center px-4 py-24 overflow-hidden">
+    <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center px-4 py-16 sm:py-24 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         {/* Floating orbs - behind everything */}
@@ -45,11 +45,11 @@ const Herobanner = () => {
         </div>
 
         {/* Headline */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground mb-8 leading-[1.05]">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-8 leading-[1.1]">
           Master the art of
           <span className="relative block mt-2">
             <span className="text-primary">choosing words</span>
-            <svg className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-48 h-3 text-primary/30" viewBox="0 0 200 12" fill="none">
+            <svg className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-32 sm:w-40 md:w-48 h-3 text-primary/30" viewBox="0 0 200 12" fill="none">
               <path d="M2 10C50 2 150 2 198 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
             </svg>
           </span>
@@ -82,7 +82,7 @@ const Herobanner = () => {
         </div>
 
         {/* Trust indicators */}
-        <div className="mt-16 flex items-center justify-center gap-8 text-sm text-muted-foreground">
+        <div className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
             Free to use

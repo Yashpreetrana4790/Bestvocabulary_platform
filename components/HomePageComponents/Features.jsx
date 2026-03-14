@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Features = () => {
   return (
-    <section className="py-28 px-4 relative overflow-hidden bg-muted/30">
+    <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden bg-muted/30">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full opacity-30 blur-[100px] bg-primary/20" />
@@ -92,15 +92,15 @@ const Features = () => {
         </div>
 
         {/* Stats Row */}
-        <div className="mt-12 grid grid-cols-3 gap-4">
+        <div className="mt-12 grid grid-cols-3 gap-2 sm:gap-4">
           {[
             { value: '10K+', label: 'Words' },
             { value: '50K+', label: 'Definitions' },
             { value: 'Daily', label: 'Updates' },
           ].map((stat, i) => (
-            <div key={i} className="text-center p-4 rounded-2xl bg-card/50 border">
-              <p className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
+            <div key={i} className="text-center p-3 sm:p-4 rounded-2xl bg-card/50 border">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}
         </div>

@@ -5,14 +5,14 @@ import { Button } from '@/components/ui/button';
 
 const CTASection = () => {
   return (
-    <section className="py-28 px-4 relative overflow-hidden bg-muted/30">
+    <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden bg-muted/30">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/2 left-1/2 w-[600px] h-[400px] rounded-full opacity-40 blur-[120px] -translate-x-1/2 -translate-y-1/2 bg-primary/15" />
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className="text-center p-12 md:p-16 rounded-3xl border bg-card/80 backdrop-blur-sm shadow-lg">
+        <div className="text-center p-6 sm:p-12 md:p-16 rounded-3xl border bg-card/80 backdrop-blur-sm shadow-lg">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
             <Rocket className="h-4 w-4" />
             Get Started
@@ -40,15 +40,15 @@ const CTASection = () => {
           </div>
 
           {/* Stats */}
-          <div className="mt-12 pt-10 border-t grid grid-cols-3 gap-8">
+          <div className="mt-12 pt-10 border-t grid grid-cols-3 gap-4 sm:gap-8">
             {[
               { value: '10K+', label: 'Words' },
               { value: '50K+', label: 'Definitions' },
               { value: 'Free', label: 'Forever' },
             ].map((stat, i) => (
               <div key={i}>
-                <p className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
-                <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">{stat.label}</p>
               </div>
             ))}
           </div>
