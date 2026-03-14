@@ -69,30 +69,30 @@ const ScrollingWords = () => {
   const duplicatedWords = [...famousWords, ...famousWords];
 
   return (
-    <div className="relative h-[520px] overflow-hidden rounded-2xl border bg-card/50 backdrop-blur-sm">
+    <div className="relative h-[320px] sm:h-[380px] md:h-[420px] lg:h-[520px] overflow-hidden rounded-xl sm:rounded-2xl border bg-card/50 backdrop-blur-sm">
       {/* Fades */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-card to-transparent z-10 pointer-events-none rounded-t-2xl" />
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-card to-transparent z-10 pointer-events-none rounded-b-2xl" />
+      <div className="absolute top-0 left-0 right-0 h-10 sm:h-12 md:h-16 bg-gradient-to-b from-card to-transparent z-10 pointer-events-none rounded-t-xl sm:rounded-t-2xl" />
+      <div className="absolute bottom-0 left-0 right-0 h-10 sm:h-12 md:h-16 bg-gradient-to-t from-card to-transparent z-10 pointer-events-none rounded-b-xl sm:rounded-b-2xl" />
 
-      <div ref={scrollRef} className="h-full overflow-hidden px-2">
-        <div className="space-y-2 py-6">
+      <div ref={scrollRef} className="h-full overflow-hidden px-1.5 sm:px-2">
+        <div className="space-y-1 sm:space-y-1.5 md:space-y-2 py-4 sm:py-5 md:py-6">
           {duplicatedWords.map((item, index) => (
             <Link
               key={`${item.word}-${index}`}
               href={`/word/${item.word.toLowerCase()}`}
-              className="group flex items-center justify-between gap-4 p-4 rounded-xl hover:bg-muted/80 transition-all duration-200"
+              className="group flex items-center justify-between gap-2 sm:gap-3 md:gap-4 p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl hover:bg-muted/80 transition-all duration-200"
             >
               <div className="min-w-0 flex-1">
-                <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                <h4 className="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors truncate">
                   {item.word}
                 </h4>
-                <p className="text-sm text-muted-foreground truncate mt-0.5">{item.meaning}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate mt-0.5">{item.meaning}</p>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <span className="text-[10px] sm:text-xs font-medium px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-muted text-muted-foreground">
                   {difficultyLabels[item.difficulty]}
                 </span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block" />
               </div>
             </Link>
           ))}
