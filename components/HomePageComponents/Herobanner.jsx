@@ -57,8 +57,8 @@ const Herobanner = () => {
 
         {/* Subtitle */}
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
-          Discover meanings, explore connections, and expand your vocabulary 
-          with <span className="text-foreground font-medium">AI-powered search</span> and curated word collections.
+          The meaning you want is often the situation you have in mind—when you wonder &quot;what’s the exact word for this?&quot; 
+          Discover words, explore connections, and expand your vocabulary with <span className="text-lg font-semibold text-foreground">AI-powered search</span> and an enriched database of word relations.
         </p>
 
         {/* Search Bar */}
@@ -67,22 +67,22 @@ const Herobanner = () => {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link href="/dictionary">
-            <Button size="lg" className="rounded-full px-8 h-12 text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full max-w-sm sm:max-w-none mx-auto">
+          <Link href="/dictionary" className="w-full sm:w-auto">
+            <Button size="lg" className="w-full sm:w-auto rounded-full px-8 h-12 text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
               Explore Dictionary
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </Link>
-          <Link href="/wordofday">
-            <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-base font-medium hover:bg-primary/5 transition-all">
+          <Link href="/wordofday" className="w-full sm:w-auto">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-8 h-12 text-base font-medium hover:bg-primary/5 transition-all">
               Word of the Day
             </Button>
           </Link>
         </div>
 
         {/* Trust indicators */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-sm text-muted-foreground">
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
             Free to use

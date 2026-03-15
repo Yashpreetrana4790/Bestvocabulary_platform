@@ -119,7 +119,7 @@ function EmptyState() {
             <span className="font-medium">AI Search</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            Search by meaning – find synonyms and related words
+            Search by meaning – describe the situation, find the exact word with AI and enriched word relations
           </p>
         </div>
       </div>

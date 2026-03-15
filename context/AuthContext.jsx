@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { loginUser as apiLogin, registerUser as apiRegister } from '@/services/authapis';
+import { loginUser as apiLogin, registerUser as apiRegister, loginWithGoogle as apiLoginGoogle } from '@/services/authapis';
 
 const AuthContext = createContext(undefined);
 
@@ -20,8 +20,9 @@ export function AuthProvider({ children }) {
         const storedToken = localStorage.getItem(TOKEN_KEY);
         const storedUser = localStorage.getItem(USER_KEY);
 
-        if (storedToken && storedUser) {
-          setToken(storedToken);
+        const tokenStr = storedToken != null && typeof storedToken === 'string' ? storedToken.trim() : '';
+        if (tokenStr && storedUser) {
+          setToken(tokenStr);
           setUser(JSON.parse(storedUser));
         }
       } catch (error) {
@@ -42,13 +43,12 @@ export function AuthProvider({ children }) {
       
       if (response.success && response.data) {
         const { token: newToken, user: userData } = response.data;
+        const tokenStr = newToken != null && typeof newToken === 'string' ? newToken : String(newToken ?? '');
+        if (!tokenStr) throw new Error('No token received');
         
-        // Save to state
-        setToken(newToken);
+        setToken(tokenStr);
         setUser(userData);
-        
-        // Save to localStorage
-        localStorage.setItem(TOKEN_KEY, newToken);
+        localStorage.setItem(TOKEN_KEY, tokenStr);
         localStorage.setItem(USER_KEY, JSON.stringify(userData));
         
         return { success: true, user: userData };
@@ -66,19 +66,41 @@ export function AuthProvider({ children }) {
       
       if (response.success && response.data) {
         const { token: newToken, user: userData } = response.data;
+        const tokenStr = newToken != null && typeof newToken === 'string' ? newToken : String(newToken ?? '');
+        if (!tokenStr) throw new Error('No token received');
         
-        // Save to state
-        setToken(newToken);
+        setToken(tokenStr);
         setUser(userData);
-        
-        // Save to localStorage
-        localStorage.setItem(TOKEN_KEY, newToken);
+        localStorage.setItem(TOKEN_KEY, tokenStr);
         localStorage.setItem(USER_KEY, JSON.stringify(userData));
         
         return { success: true, user: userData };
       }
       
       throw new Error(response.message || 'Registration failed');
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }, []);
+
+  const loginWithGoogle = useCallback(async (credential) => {
+    try {
+      const response = await apiLoginGoogle(credential);
+      
+      if (response.success && response.data) {
+        const { token: newToken, user: userData, isNewUser } = response.data;
+        const tokenStr = newToken != null && typeof newToken === 'string' ? newToken : String(newToken ?? '');
+        if (!tokenStr) throw new Error('No token received');
+        
+        setToken(tokenStr);
+        setUser(userData);
+        localStorage.setItem(TOKEN_KEY, tokenStr);
+        localStorage.setItem(USER_KEY, JSON.stringify(userData));
+        
+        return { success: true, user: userData, isNewUser: !!isNewUser };
+      }
+      
+      throw new Error(response.message || 'Google sign-in failed');
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -98,6 +120,7 @@ export function AuthProvider({ children }) {
     isAuthenticated: !!user && !!token,
     login,
     register,
+    loginWithGoogle,
     logout,
   };
 

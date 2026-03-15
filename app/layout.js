@@ -7,11 +7,12 @@ import { Inter, Libre_Baskerville, Merriweather, Open_Sans, Playfair_Display } f
 import { ThemeProvider } from 'next-themes';
 import KeyboardShortcuts from '@/components/KeyboardShortcuts';
 import { AuthProvider } from '@/context/AuthContext';
+import { GoogleOAuthProviderWrapper } from '@/components/GoogleOAuthProvider';
 import { Toaster } from '@/components/ui/toaster';
 
 const GTM_ID = 'GTM-KXNZCTS3';
 const GA_ID = 'G-BNHRL2GJ1Y';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bestvocabulary.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.bestvocabulary.com';
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -229,11 +230,13 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <KeyboardShortcuts />
-            {children}
-            <Toaster />
-          </AuthProvider>
+          <GoogleOAuthProviderWrapper>
+            <AuthProvider>
+              <KeyboardShortcuts />
+              {children}
+              <Toaster />
+            </AuthProvider>
+          </GoogleOAuthProviderWrapper>
         </ThemeProvider>
       </body>
     </html>

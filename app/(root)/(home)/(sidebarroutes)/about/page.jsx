@@ -32,7 +32,7 @@ const values = [
   {
     icon: Sparkles,
     title: 'Innovation',
-    description: 'Leveraging AI to make word discovery intuitive. Search by meaning, not just spelling.',
+    description: 'Meaning is the situation a word fits. Our AI and enriched word-relations database help you find the exact word for any moment.',
   },
   {
     icon: Brain,
@@ -136,10 +136,9 @@ export default function AboutPage() {
                 language, Best Vocabulary provides the tools you need to express yourself better.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Our platform combines traditional dictionary features with modern AI technology, 
-                making it easier than ever to find the perfect word for any situation. No more 
-                struggling to remember that word on the tip of your tongue – just describe what 
-                you mean, and let our AI help you find it.
+                Our platform combines traditional dictionary features with modern AI technology. 
+                When you search for a word, you’re often searching for a situation—that moment when you think, &quot;What’s the exact word for this?&quot; 
+                Describe the feeling or context; our AI and enriched database of word relations let you search by meaning in a more advanced way.
               </p>
             </div>
             

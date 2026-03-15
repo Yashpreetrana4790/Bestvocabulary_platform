@@ -103,7 +103,7 @@ const FeaturedWords = async () => {
             <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6 px-1 sm:px-2">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-5 sm:h-6 rounded-full bg-primary"></div>
-                <span className="text-xs sm:text-sm font-semibold text-foreground">Popular Words</span>
+                <span className="text-sm sm:text-md font-semibold text-foreground">Popular Words</span>
               </div>
               <Link href="/dictionary" className="text-xs sm:text-sm text-primary hover:underline font-medium">
                 View all →

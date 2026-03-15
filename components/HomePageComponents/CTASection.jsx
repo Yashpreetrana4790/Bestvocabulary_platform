@@ -6,23 +6,29 @@ import { Button } from '@/components/ui/button';
 const CTASection = () => {
   return (
     <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden bg-muted/30">
-      {/* Background */}
+      {/* Background - theme-matching gradient glow */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/2 left-1/2 w-[600px] h-[400px] rounded-full opacity-40 blur-[120px] -translate-x-1/2 -translate-y-1/2 bg-primary/15" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className="text-center p-6 sm:p-12 md:p-16 rounded-3xl border bg-card/80 backdrop-blur-sm shadow-lg">
+        <div className="text-center p-6 sm:p-12 md:p-16 rounded-3xl border bg-card/80 backdrop-blur-sm shadow-lg shadow-primary/5">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
             <Rocket className="h-4 w-4" />
             Get Started
           </div>
-          
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+
+          <h2
+            className="text-3xl md:text-5xl font-bold mb-6 leading-tight bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(to right, hsl(var(--primary)), hsl(var(--muted-foreground)))',
+            }}
+          >
             Ready to expand your vocabulary?
           </h2>
           <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
-            Start your journey to becoming a word master today. Free to use, no sign-up required.
+            Your next favorite word is waiting. Start your journey to becoming a word master today—free to use, no sign-up required.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">

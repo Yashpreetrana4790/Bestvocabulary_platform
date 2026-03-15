@@ -11,10 +11,27 @@ const Features = () => {
 
   return (
     <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden bg-muted/30">
-      {/* Background */}
+      {/* Background - same pattern as Hero */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full opacity-30 blur-[100px] bg-primary/20" />
         <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] rounded-full opacity-30 blur-[80px] bg-primary/15" />
+        {/* Gradient mesh */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(rgba(128, 128, 128, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(128, 128, 128, 0.15) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        {/* Radial fade at edges */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, hsl(var(--background)) 100%)`,
+          }}
+        />
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -47,8 +64,8 @@ const Features = () => {
                 <Sparkles className="h-7 w-7 text-primary" strokeWidth={1.5} />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">AI-Powered Search</h3>
-              <p className="text-muted-foreground leading-relaxed mb-6 max-w-md">
-                Ever had a word on the tip of your tongue? Describe the feeling or situation, and let AI find the perfect word.
+              <p className="text-muted-foreground leading-relaxed mb-6 w-full">
+                When you look for a word, you’re really looking for a situation—that moment when you think, &quot;What’s the exact word for this?&quot; Describe the action, feeling, or situation; our AI and enriched database of word relations find the word that fits.
               </p>
               <div className="mt-auto flex items-center gap-2 text-primary font-medium">
                 <span>Search by meaning</span>
