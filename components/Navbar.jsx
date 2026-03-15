@@ -287,6 +287,8 @@ export function Navbar() {
                   setOpen={setMobileOpen}
                   learnExpanded={learnExpanded}
                   setLearnExpanded={setLearnExpanded}
+                  learnItems={learnItems}
+                  categoryGroups={categoryGroups}
                   categoriesExpanded={categoriesExpanded}
                   setCategoriesExpanded={setCategoriesExpanded}
                   isLearnActive={isLearnActive}
@@ -304,7 +306,7 @@ export function Navbar() {
   )
 }
 
-function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, categoriesExpanded, setCategoriesExpanded, isLearnActive, isCategoryActive, user, isAuthenticated, logout }) {
+function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, learnItems, categoryGroups, categoriesExpanded, setCategoriesExpanded, isLearnActive, isCategoryActive, user, isAuthenticated, logout }) {
   return (
     <div className="flex flex-col h-full min-h-0 overflow-hidden">
       {/* Header */}
@@ -350,12 +352,15 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
             </button>
             {categoriesExpanded && (
               <div className="ml-3 mt-1 pl-3 border-l space-y-0.5">
-                {categoryGroups.flatMap(g => g.categories).map((cat) => (
-                  <Link key={cat.name} href={cat.href} onClick={() => setOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-muted">
-                    <cat.icon className="h-4 w-4" />
-                    {cat.name}
-                  </Link>
-                ))}
+                {categoryGroups.flatMap(g => g.categories).map((cat) => {
+                  const CatIcon = cat.icon
+                  return (
+                    <Link key={cat.name} href={cat.href} onClick={() => setOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-muted">
+                      <CatIcon className="h-4 w-4" />
+                      {cat.name}
+                    </Link>
+                  )
+                })}
                 <Link href="/categories" onClick={() => setOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-primary font-medium">
                   View all <ArrowRight className="h-3 w-3" />
                 </Link>
@@ -374,15 +379,18 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
             </button>
             {learnExpanded && (
               <div className="ml-3 mt-1 pl-3 border-l space-y-0.5">
-                {learnItems.map((item) => (
-                  <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={cn(
-                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm",
-                    pathname === item.href ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  )}>
-                    <item.icon className="h-4 w-4" />
-                    {item.title}
-                  </Link>
-                ))}
+                {learnItems.map((item) => {
+                  const ItemIcon = item.icon
+                  return (
+                    <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={cn(
+                      "flex items-center gap-2 px-3 py-2 rounded-md text-sm",
+                      pathname === item.href ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    )}>
+                      <ItemIcon className="h-4 w-4" />
+                      {item.title}
+                    </Link>
+                  )
+                })}
               </div>
             )}
           </div>
