@@ -1,8 +1,14 @@
 import React from 'react';
-import { Sparkles, BookOpen, Brain, Layers, Zap, ArrowRight } from 'lucide-react';
+import { Sparkles, BookOpen, Brain, Network, Zap, ArrowRight, BookMarked, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 
 const Features = () => {
+  const stats = [
+    { value: '10K+', label: 'Words', icon: BookMarked },
+    { value: '50K+', label: 'Definitions', icon: BookOpen },
+    { value: 'Daily', label: 'Updates', icon: RefreshCw },
+  ];
+
   return (
     <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden bg-muted/30">
       {/* Background */}
@@ -37,8 +43,8 @@ const Features = () => {
               Try it now
             </div>
             <div className="flex flex-col h-full">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Sparkles className="h-7 w-7 text-primary" />
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                <Sparkles className="h-7 w-7 text-primary" strokeWidth={1.5} />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">AI-Powered Search</h3>
               <p className="text-muted-foreground leading-relaxed mb-6 max-w-md">
@@ -49,14 +55,13 @@ const Features = () => {
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
-            {/* Decorative elements */}
             <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-colors" />
           </Link>
 
           {/* Rich Definitions - Tall Card */}
-          <div className="group p-6 rounded-3xl border bg-card hover:shadow-lg transition-all duration-300">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-5">
-              <BookOpen className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+          <div className="group p-6 rounded-3xl border bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <BookOpen className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">Rich Definitions</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -65,9 +70,9 @@ const Features = () => {
           </div>
 
           {/* Memory Aids */}
-          <div className="group p-6 rounded-3xl border bg-card hover:shadow-lg transition-all duration-300">
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5">
-              <Brain className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+          <div className="group p-6 rounded-3xl border bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <Brain className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">Memory Aids</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -76,10 +81,10 @@ const Features = () => {
           </div>
 
           {/* Word Networks - Wide Card */}
-          <div className="md:col-span-2 group p-6 rounded-3xl border bg-card hover:shadow-lg transition-all duration-300">
+          <div className="md:col-span-2 group p-6 rounded-3xl border bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
             <div className="flex flex-col sm:flex-row sm:items-center gap-5">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
-                <Layers className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <Network className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">Word Networks</h3>
@@ -93,16 +98,18 @@ const Features = () => {
 
         {/* Stats Row */}
         <div className="mt-12 grid grid-cols-3 gap-2 sm:gap-4">
-          {[
-            { value: '10K+', label: 'Words' },
-            { value: '50K+', label: 'Definitions' },
-            { value: 'Daily', label: 'Updates' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center p-3 sm:p-4 rounded-2xl bg-card/50 border">
-              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
-              <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
+          {stats.map((stat, i) => {
+            const Icon = stat.icon;
+            return (
+              <div key={i} className="text-center p-4 sm:p-5 rounded-2xl bg-card/50 border hover:bg-card hover:border-primary/20 transition-all duration-300">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" strokeWidth={1.5} />
+                </div>
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

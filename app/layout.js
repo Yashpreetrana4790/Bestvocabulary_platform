@@ -53,7 +53,7 @@ export const metadata = {
     description: "Expand your vocabulary with AI-powered search, rich definitions, etymology, mnemonics, and curated word collections.",
     images: [
       {
-        url: "/og-image.png",
+        url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Best Vocabulary - Master the Art of Choosing Words",
@@ -64,7 +64,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Best Vocabulary - Master the Art of Choosing Words",
     description: "Expand your vocabulary with AI-powered search, rich definitions, etymology, and curated word collections.",
-    images: ["/og-image.png"],
+    images: [`${SITE_URL}/og-image.png`],
     creator: "@bestvocabulary",
   },
   robots: {
@@ -87,15 +87,15 @@ export const metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+      { url: `${SITE_URL}/favicon.ico`, sizes: "48x48" },
+      { url: `${SITE_URL}/icons/favicon-16x16.png`, sizes: "16x16", type: "image/png" },
+      { url: `${SITE_URL}/icons/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
+      { url: `${SITE_URL}/icons/icon-192x192.png`, sizes: "192x192", type: "image/png" },
+      { url: `${SITE_URL}/icons/icon-512x512.png`, sizes: "512x512", type: "image/png" },
     ],
-    shortcut: [{ url: "/favicon.ico" }],
+    shortcut: [{ url: `${SITE_URL}/favicon.ico` }],
     apple: [
-      { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: `${SITE_URL}/icons/apple-touch-icon.png`, sizes: "180x180", type: "image/png" },
     ],
   },
   appleWebApp: {
