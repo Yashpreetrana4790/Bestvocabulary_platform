@@ -53,7 +53,7 @@ export const metadata = {
     description: "Expand your vocabulary with AI-powered search, rich definitions, etymology, mnemonics, and curated word collections.",
     images: [
       {
-        url: `${SITE_URL}/og-image.png`,
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Best Vocabulary - Master the Art of Choosing Words",
@@ -64,7 +64,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Best Vocabulary - Master the Art of Choosing Words",
     description: "Expand your vocabulary with AI-powered search, rich definitions, etymology, and curated word collections.",
-    images: [`${SITE_URL}/og-image.png`],
+    images: ["/og-image.png"],
     creator: "@bestvocabulary",
   },
   robots: {
