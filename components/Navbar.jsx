@@ -36,12 +36,12 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 
-const learnItems = [
+const learnItemsBase = [
   { title: "Quiz", href: "/quiz", description: "Test your vocabulary knowledge", icon: Brain },
   { title: "Flashcards", href: "/flashcards", description: "Learn with interactive cards", icon: Layers },
   { title: "Word of the Day", href: "/wordofday", description: "Discover a new word daily", icon: Calendar },
   { title: "Random Word", href: "/random", description: "Explore random vocabulary", icon: Shuffle },
-  { title: "Bookmarks", href: "/bookmarks", description: "Your saved words", icon: Bookmark },
+  { title: "Saved Words", href: "/bookmarks", description: "Your saved words", icon: Bookmark },
   { title: "Origin Maps", href: "/origins", description: "Explore word origins", icon: Map },
 ]
 
@@ -78,6 +78,10 @@ export function Navbar() {
   const [learnExpanded, setLearnExpanded] = React.useState(false)
   const [categoriesExpanded, setCategoriesExpanded] = React.useState(false)
   const { user, isAuthenticated, logout, isLoading } = useAuth()
+  const learnItems = React.useMemo(
+    () => (isAuthenticated ? learnItemsBase : learnItemsBase.filter((item) => item.href !== "/bookmarks")),
+    [isAuthenticated]
+  )
 
   const isLearnActive = ["/quiz", "/flashcards", "/wordofday", "/random", "/bookmarks", "/origins"].some(p => pathname?.startsWith(p))
   const isCategoryActive = pathname?.startsWith("/categories") || pathname?.includes("category=")
@@ -241,7 +245,7 @@ export function Navbar() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/bookmarks"><Bookmark className="h-4 w-4 mr-2" />Bookmarks</Link>
+                    <Link href="/bookmarks"><Bookmark className="h-4 w-4 mr-2" />Saved Words</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/quiz"><Brain className="h-4 w-4 mr-2" />Take Quiz</Link>

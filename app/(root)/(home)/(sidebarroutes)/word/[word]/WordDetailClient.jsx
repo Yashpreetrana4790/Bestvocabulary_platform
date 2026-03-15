@@ -3,21 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, Bookmark, Share2, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useBookmarks } from '@/hooks/useBookmarks';
+import { useSavedWords } from '@/hooks/useSavedWords';
 
 export default function WordDetailClient({ word }) {
   const [copied, setCopied] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const { isBookmarked, toggleBookmark } = useBookmarks();
-  const [bookmarked, setBookmarked] = useState(false);
+  const { isSaved, toggleSave, isAuthenticated } = useSavedWords();
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    if (word?.word) {
-      setBookmarked(isBookmarked(word.word));
+    if (word?._id || word?.id) {
+      setSaved(isSaved(word._id ?? word.id));
     }
-  }, [word, isBookmarked]);
+  }, [word, isSaved]);
 
   const showNotification = (message) => {
     setToastMessage(message);
@@ -70,16 +70,14 @@ export default function WordDetailClient({ word }) {
     }
   };
 
-  const handleBookmark = () => {
-    if (word) {
-      toggleBookmark({
-        word: word.word,
-        pronunciation: word.pronunciation,
-        meaning: word.meanings?.[0]?.subtitle || word.meanings?.[0]?.meaning,
-        difficulty: word.meanings?.[0]?.difficulty,
-      });
-      setBookmarked(!bookmarked);
-      showNotification(bookmarked ? 'Removed from bookmarks' : 'Added to bookmarks!');
+  const handleSave = async () => {
+    if (!word) return;
+    try {
+      await toggleSave(word);
+      setSaved(!saved);
+      showNotification(saved ? 'Removed from saved words' : 'Saved word!');
+    } catch (e) {
+      showNotification('Could not update saved word');
     }
   };
 
@@ -135,20 +133,22 @@ export default function WordDetailClient({ word }) {
           <Share2 className="h-5 w-5" />
         </Button>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleBookmark}
-          className={`rounded-xl h-11 w-11 transition-all ${
-            bookmarked 
-              ? 'bg-primary/10 text-primary' 
-              : 'hover:bg-primary/10 hover:text-primary'
-          }`}
-          title={bookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
-          aria-label={bookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
-        >
-          <Bookmark className={`h-5 w-5 ${bookmarked ? 'fill-primary' : ''}`} />
-        </Button>
+        {isAuthenticated && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleSave}
+            className={`rounded-xl h-11 w-11 transition-all ${
+              saved
+                ? 'bg-primary/10 text-primary'
+                : 'hover:bg-primary/10 hover:text-primary'
+            }`}
+            title={saved ? 'Remove from saved words' : 'Save word'}
+            aria-label={saved ? 'Remove from saved words' : 'Save word'}
+          >
+            <Bookmark className={`h-5 w-5 ${saved ? 'fill-primary' : ''}`} />
+          </Button>
+        )}
 
       </div>
     </div>

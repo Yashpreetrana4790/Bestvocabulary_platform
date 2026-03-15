@@ -155,7 +155,7 @@ export default function LoginPage() {
                 Continue learning
               </h1>
               <p className="text-muted-foreground">
-                Sign in to access your bookmarks, progress, and personalized recommendations
+                Sign in to save words, track progress, and get personalized recommendations
               </p>
             </div>
 

@@ -1,19 +1,43 @@
+'use client';
+
+import { useState } from "react";
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
+import { validateLogin } from "@/lib/validations/auth"
 
 export function LoginForm({
   className,
+  onSubmit,
   ...props
 }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+    const validation = validateLogin({ email, password });
+    if (!validation.success) {
+      const fieldErrors = {};
+      Object.entries(validation.errors).forEach(([key, messages]) => {
+        if (messages?.length) fieldErrors[key] = messages[0];
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    onSubmit?.(validation.data);
+  };
+
   return (
     (<div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form className="p-6 md:p-8" onSubmit={handleSubmit} noValidate>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -23,7 +47,17 @@ export function LoginForm({
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); setErrors((p) => ({ ...p, email: undefined })); }}
+                  aria-invalid={!!errors.email}
+                  className={errors.email ? 'border-destructive' : ''}
+                />
+                {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -32,7 +66,16 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value); setErrors((p) => ({ ...p, password: undefined })); }}
+                  aria-invalid={!!errors.password}
+                  className={errors.password ? 'border-destructive' : ''}
+                />
+                {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
               </div>
               <Button type="submit" className="w-full">
                 Login

@@ -5,20 +5,15 @@ import Link from 'next/link';
 import { 
   Shuffle, 
   ArrowRight, 
-  Volume2, 
-  Bookmark, 
-  Share2, 
   RefreshCw,
   Sparkles,
-  Copy,
-  Check
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import WordActions from '@/components/WordActions';
 
 export default function RandomWordPage() {
   const [word, setWord] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [copied, setCopied] = useState(false);
 
   const fetchRandomWord = useCallback(async () => {
     setLoading(true);
@@ -41,45 +36,6 @@ export default function RandomWordPage() {
   useEffect(() => {
     fetchRandomWord();
   }, [fetchRandomWord]);
-
-  const handleSpeak = () => {
-    if (word?.word && 'speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(word.word);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
-  const handleCopy = async () => {
-    if (word?.word) {
-      await navigator.clipboard.writeText(word.word);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
-  const handleShare = async () => {
-    if (word?.word) {
-      const shareData = {
-        title: `Word: ${word.word}`,
-        text: `Learn a new word: ${word.word} - ${word.meanings?.[0]?.subtitle || ''}`,
-        url: `${window.location.origin}/word/${word.word.toLowerCase()}`,
-      };
-
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          console.log('Share cancelled');
-        }
-      } else {
-        await navigator.clipboard.writeText(shareData.url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }
-    }
-  };
 
   const meaning = word?.meanings?.[0];
 
@@ -131,39 +87,9 @@ export default function RandomWordPage() {
                       )}
                     </div>
                     
-                    {/* Action Buttons */}
+                    {/* Action Buttons (includes save when logged in) */}
                     <div className="flex items-center gap-2">
-                      <button
-                        onClick={handleSpeak}
-                        className="w-10 h-10 rounded-full bg-muted/80 hover:bg-primary/10 flex items-center justify-center transition-colors"
-                        title="Listen to pronunciation"
-                      >
-                        <Volume2 className="h-5 w-5 text-muted-foreground hover:text-primary" />
-                      </button>
-                      <button
-                        onClick={handleCopy}
-                        className="w-10 h-10 rounded-full bg-muted/80 hover:bg-primary/10 flex items-center justify-center transition-colors"
-                        title={copied ? "Copied!" : "Copy word"}
-                      >
-                        {copied ? (
-                          <Check className="h-5 w-5 text-green-500" />
-                        ) : (
-                          <Copy className="h-5 w-5 text-muted-foreground" />
-                        )}
-                      </button>
-                      <button
-                        onClick={handleShare}
-                        className="w-10 h-10 rounded-full bg-muted/80 hover:bg-primary/10 flex items-center justify-center transition-colors"
-                        title="Share word"
-                      >
-                        <Share2 className="h-5 w-5 text-muted-foreground" />
-                      </button>
-                      <button
-                        className="w-10 h-10 rounded-full bg-muted/80 hover:bg-primary/10 flex items-center justify-center transition-colors"
-                        title="Bookmark word"
-                      >
-                        <Bookmark className="h-5 w-5 text-muted-foreground" />
-                      </button>
+                      <WordActions word={word} />
                     </div>
                   </div>
 

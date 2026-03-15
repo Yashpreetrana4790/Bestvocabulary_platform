@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import CountUp from '@/components/CountUp';
 
 const CTASection = () => {
   return (
@@ -53,7 +54,9 @@ const CTASection = () => {
               { value: 'Free', label: 'Forever' },
             ].map((stat, i) => (
               <div key={i} className="min-w-0">
-                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
+                  <CountUp value={stat.value} className="inline-block" />
+                </p>
                 <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-0.5 sm:mt-1">{stat.label}</p>
               </div>
             ))}

@@ -16,7 +16,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useBookmarks } from '@/hooks/useBookmarks';
+import { useSavedWords } from '@/hooks/useSavedWords';
 
 const DEFAULT_CARDS = [
   {
@@ -87,8 +87,8 @@ export default function FlashcardsPage() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [known, setKnown] = useState([]);
   const [learning, setLearning] = useState([]);
-  const [useBookmarkedCards, setUseBookmarkedCards] = useState(false);
-  const { bookmarks } = useBookmarks();
+  const [useSavedCards, setUseSavedCards] = useState(false);
+  const { savedWords, isAuthenticated } = useSavedWords();
 
   const shuffleCards = useCallback(() => {
     const shuffled = [...cards];
@@ -152,20 +152,20 @@ export default function FlashcardsPage() {
     setLearning([]);
   };
 
-  const switchToBookmarks = () => {
-    if (bookmarks.length > 0) {
-      const bookmarkedCards = bookmarks.map(b => ({
-        word: b.word,
+  const switchToSavedWords = () => {
+    if (savedWords.length > 0) {
+      const savedCards = savedWords.map((b) => ({
+        word: b.word || '',
         pronunciation: b.pronunciation || '',
         meaning: b.meaning || 'No definition available',
         example: '',
       }));
-      setCards(bookmarkedCards);
+      setCards(savedCards);
       setCurrentIndex(0);
       setIsFlipped(false);
       setKnown([]);
       setLearning([]);
-      setUseBookmarkedCards(true);
+      setUseSavedCards(true);
     }
   };
 
@@ -175,7 +175,7 @@ export default function FlashcardsPage() {
     setIsFlipped(false);
     setKnown([]);
     setLearning([]);
-    setUseBookmarkedCards(false);
+    setUseSavedCards(false);
   };
 
   useEffect(() => {
@@ -221,22 +221,24 @@ export default function FlashcardsPage() {
           </div>
 
           {/* Card Source Toggle */}
-          <div className="flex justify-center gap-2 mb-8">
+          <div className="flex justify-center gap-2 mb-8 flex-wrap">
             <Button
-              variant={useBookmarkedCards ? 'outline' : 'default'}
+              variant={useSavedCards ? 'outline' : 'default'}
               onClick={switchToDefault}
               className="rounded-full"
             >
               Default Cards ({DEFAULT_CARDS.length})
             </Button>
-            <Button
-              variant={useBookmarkedCards ? 'default' : 'outline'}
-              onClick={switchToBookmarks}
-              disabled={bookmarks.length === 0}
-              className="rounded-full"
-            >
-              My Bookmarks ({bookmarks.length})
-            </Button>
+            {isAuthenticated && (
+              <Button
+                variant={useSavedCards ? 'default' : 'outline'}
+                onClick={switchToSavedWords}
+                disabled={savedWords.length === 0}
+                className="rounded-full"
+              >
+                My Saved Words ({savedWords.length})
+              </Button>
+            )}
           </div>
 
           {/* Progress */}

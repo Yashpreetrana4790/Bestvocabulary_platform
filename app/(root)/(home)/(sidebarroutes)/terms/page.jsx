@@ -36,7 +36,7 @@ const sections = [
       'AI-powered semantic search',
       'Vocabulary quizzes and flashcards',
       'Word of the Day feature',
-      'Bookmarking and progress tracking',
+      'Saving words and progress tracking',
       'Etymology and word origin information',
       'Category-based word exploration',
     ],

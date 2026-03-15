@@ -6,6 +6,7 @@ import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/context/AuthContext"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
 import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
@@ -16,12 +17,12 @@ import {
   GraduationCap, Globe, Heart, Lightbulb, Map, Search
 } from "lucide-react"
 
-const learnItems = [
+const learnItemsBase = [
   { title: "Quiz", href: "/quiz", icon: Brain, description: "Test your knowledge" },
   { title: "Flashcards", href: "/flashcards", icon: Layers, description: "Interactive cards" },
   { title: "Word of the Day", href: "/wordofday", icon: Calendar, description: "Daily word" },
   { title: "Random Word", href: "/random", icon: Shuffle, description: "Discover randomly" },
-  { title: "Bookmarks", href: "/bookmarks", icon: Bookmark, description: "Saved words" },
+  { title: "Saved Words", href: "/bookmarks", icon: Bookmark, description: "Your saved words" },
   { title: "Origin Maps", href: "/origins", icon: Map, description: "Word origins" },
 ]
 
@@ -42,6 +43,11 @@ export function MobileNav() {
   const [learnExpanded, setLearnExpanded] = React.useState(false)
   const [categoriesExpanded, setCategoriesExpanded] = React.useState(false)
   const pathname = usePathname()
+  const { isAuthenticated } = useAuth()
+  const learnItems = React.useMemo(
+    () => (isAuthenticated ? learnItemsBase : learnItemsBase.filter((item) => item.href !== "/bookmarks")),
+    [isAuthenticated]
+  )
 
   const isLearnActive = ["/quiz", "/flashcards", "/wordofday", "/random", "/bookmarks", "/origins"].some(p => pathname?.startsWith(p))
   const isCategoryActive = pathname?.startsWith("/categories") || pathname?.includes("category=")

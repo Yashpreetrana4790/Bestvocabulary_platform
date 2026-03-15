@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles, BookOpen, Brain, Network, Zap, ArrowRight, BookMarked, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
+import CountUp from '@/components/CountUp';
 
 const Features = () => {
   const stats = [
@@ -122,7 +123,9 @@ const Features = () => {
                 <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-1.5 sm:mb-3">
                   <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-primary" strokeWidth={1.5} />
                 </div>
-                <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
+                  <CountUp value={stat.value} className="inline-block" />
+                </p>
                 <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground">{stat.label}</p>
               </div>
             );
