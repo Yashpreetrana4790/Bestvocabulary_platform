@@ -100,11 +100,11 @@ const SmartSearchBar = ({ className }) => {
   };
 
   return (
-    <div className={cn('relative w-full max-w-2xl mx-auto', className)}>
+    <div className={cn('relative w-full max-w-2xl mx-auto min-w-0', className)}>
       <form onSubmit={handleSubmit}>
         <div
           className={cn(
-            'relative flex items-center gap-2 rounded-2xl border-2 bg-background px-4 py-3 transition-all duration-300',
+            'relative flex items-center gap-1.5 sm:gap-2 rounded-xl sm:rounded-2xl border-2 bg-background px-2.5 sm:px-4 py-2.5 sm:py-3 transition-all duration-300 min-w-0',
             isFocused
               ? 'border-primary shadow-lg shadow-primary/10 ring-4 ring-primary/5'
               : 'border-border hover:border-primary/50',
@@ -151,7 +151,7 @@ const SmartSearchBar = ({ className }) => {
                 ? 'Search by meaning... e.g. "feeling happy"'
                 : 'Search for a word...'
             }
-            className="flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground/60"
+            className="flex-1 min-w-0 bg-transparent text-sm sm:text-base outline-none placeholder:text-muted-foreground/60"
           />
 
           {/* Loading / Clear / Submit */}

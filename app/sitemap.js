@@ -1,7 +1,13 @@
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bestvocabulary.com';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
+/** Skip API fetch during Vercel build when backend is not reachable (no localhost). */
+const isBuildTime = typeof process.env.VERCEL !== 'undefined';
+
 async function getAllWords() {
+  if (isBuildTime && (!API_URL || API_URL.includes('localhost') || API_URL.includes('127.0.0.1'))) {
+    return [];
+  }
   try {
     const response = await fetch(`${API_URL}/words?limit=10000`, {
       next: { revalidate: 86400 },

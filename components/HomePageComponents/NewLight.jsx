@@ -4,24 +4,24 @@ import { Eye } from 'lucide-react'
 
 const NewLight = () => {
   return (
-    <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden bg-muted/30">
+    <section className="py-12 sm:py-24 md:py-28 px-3 sm:px-4 relative overflow-hidden bg-muted/30">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full opacity-40 blur-[100px] bg-primary/10" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="max-w-6xl mx-auto relative z-10 w-full min-w-0">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center">
           {/* Content */}
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
-              <Eye className="h-4 w-4" />
+          <div className="text-center lg:text-left min-w-0">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-primary mb-4 sm:mb-6">
+              <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Visual Learning
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-6 leading-tight">
               Discover words in a new light
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6 sm:mb-8">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-8">
               See how words connect, evolve, and come to life. Our visual approach helps you understand relationships between words and remember them better.
             </p>
             <ul className="space-y-3 sm:space-y-4 inline-block text-left">

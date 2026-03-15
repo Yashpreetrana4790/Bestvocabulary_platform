@@ -255,7 +255,7 @@ export default function LoginPage() {
                     <p className="text-center text-xs text-muted-foreground mt-3">
                       Or{' '}
                       <a href={googleServerAuthUrl} className="text-primary hover:underline">
-                        sign in with Google (redirect)
+                        sign in with Google
                       </a>
                     </p>
                   </>
@@ -263,7 +263,7 @@ export default function LoginPage() {
                 {!GOOGLE_CLIENT_ID && (
                   <p className="text-center text-xs text-muted-foreground mt-3">
                     <a href={googleServerAuthUrl} className="text-primary hover:underline">
-                      Sign in with Google (redirect)
+                      Sign in with Google
                     </a>
                   </p>
                 )}

@@ -324,7 +324,7 @@ export default function RegisterPage() {
                     <p className="text-center text-xs text-muted-foreground mt-3">
                       Or{' '}
                       <a href={googleServerAuthUrl} className="text-primary hover:underline">
-                        sign up with Google (redirect)
+                        sign up with Google
                       </a>
                     </p>
                   </>
@@ -332,7 +332,7 @@ export default function RegisterPage() {
                 {!GOOGLE_CLIENT_ID && (
                   <p className="text-center text-xs text-muted-foreground mt-3">
                     <a href={googleServerAuthUrl} className="text-primary hover:underline">
-                      Sign up with Google (redirect)
+                      Sign up with Google
                     </a>
                   </p>
                 )}
