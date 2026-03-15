@@ -3,16 +3,17 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ScrollingWords from './ScrollingWords';
+import PronunciationButton from './PronunciationButton';
 import { getWordOfDay } from '@/services/wordOfDay';
 import { capitalizeString } from '@/lib/otherutil';
 
 const FeaturedWords = async () => {
   const wordOfTheDay = await getWordOfDay();
 
-  const today = new Date().toLocaleDateString('en-US', { 
-    month: 'long', 
-    day: 'numeric', 
-    year: 'numeric' 
+  const today = new Date().toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
   });
 
   return (
@@ -54,9 +55,12 @@ const FeaturedWords = async () => {
               {/* Content */}
               {wordOfTheDay && wordOfTheDay.word ? (
                 <>
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-2 sm:mb-3 md:mb-4 tracking-tight break-words">
-                    {capitalizeString(wordOfTheDay.word)}
-                  </h3>
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 md:mb-4">
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight break-words">
+                      {capitalizeString(wordOfTheDay.word)}
+                    </h3>
+                    <PronunciationButton word={wordOfTheDay.word} className="shrink-0 mt-1 sm:mt-2" />
+                  </div>
                   {wordOfTheDay.pronunciation && (
                     <p className="text-muted-foreground font-mono text-xs sm:text-sm mb-4 sm:mb-5 md:mb-6 tracking-wide">
                       {wordOfTheDay.pronunciation}
@@ -68,7 +72,7 @@ const FeaturedWords = async () => {
                       wordOfTheDay.meanings?.[0]?.easyMeaning ||
                       'Discover the meaning of this fascinating word'}
                   </p>
-                  <Link href={`/word/${wordOfTheDay.word}`}>
+                  <Link href={`/search?q=${encodeURIComponent(wordOfTheDay.word)}`}>
                     <Button className="rounded-full px-4 sm:px-5 md:px-6 h-9 sm:h-10 md:h-11 text-sm sm:text-base shadow-md hover:shadow-lg transition-all">
                       Learn this word
                       <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1.5 sm:ml-2" />

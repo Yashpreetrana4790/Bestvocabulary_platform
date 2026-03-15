@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Volume2, Bookmark, Share2, Copy, Check, ExternalLink } from 'lucide-react';
+import { Volume2, Bookmark, Share2, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
@@ -87,79 +87,69 @@ export default function WordDetailClient({ word }) {
     <div className="relative">
       {/* Toast Notification */}
       {showToast && (
-        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-foreground text-background text-xs font-medium px-3 py-2 rounded-lg shadow-lg animate-in fade-in slide-in-from-top-2 z-50">
+        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-foreground text-background text-xs font-medium px-3 py-2 rounded-xl shadow-lg z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           {toastMessage}
         </div>
       )}
 
       {/* Actions Card */}
-      <div className="flex items-center gap-2 p-2 bg-card/80 backdrop-blur-sm border rounded-2xl shadow-sm">
-        {/* Audio */}
+      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 p-3 rounded-2xl border bg-card shadow-sm">
         <Button
           variant="ghost"
           size="icon"
           onClick={handleSpeak}
           className={`rounded-xl h-11 w-11 transition-all ${
             isPlaying 
-              ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25' 
+              ? 'bg-primary text-primary-foreground' 
               : 'hover:bg-primary/10 hover:text-primary'
           }`}
           title="Listen to pronunciation"
+          aria-label="Listen to pronunciation"
         >
           <Volume2 className={`h-5 w-5 ${isPlaying ? 'animate-pulse' : ''}`} />
         </Button>
 
-        {/* Copy */}
         <Button
           variant="ghost"
           size="icon"
           onClick={handleCopy}
           className={`rounded-xl h-11 w-11 transition-all ${
             copied 
-              ? 'bg-emerald-500 text-white' 
+              ? 'bg-primary text-primary-foreground' 
               : 'hover:bg-primary/10 hover:text-primary'
           }`}
           title="Copy to clipboard"
+          aria-label="Copy"
         >
           {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
         </Button>
 
-        {/* Share */}
         <Button
           variant="ghost"
           size="icon"
           onClick={handleShare}
           className="rounded-xl h-11 w-11 hover:bg-primary/10 hover:text-primary transition-all"
           title="Share this word"
+          aria-label="Share"
         >
           <Share2 className="h-5 w-5" />
         </Button>
 
-        {/* Bookmark */}
         <Button
           variant="ghost"
           size="icon"
           onClick={handleBookmark}
           className={`rounded-xl h-11 w-11 transition-all ${
             bookmarked 
-              ? 'bg-amber-500/10 text-amber-500' 
+              ? 'bg-primary/10 text-primary' 
               : 'hover:bg-primary/10 hover:text-primary'
           }`}
           title={bookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
+          aria-label={bookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
         >
-          <Bookmark className={`h-5 w-5 transition-all ${bookmarked ? 'fill-amber-500' : ''}`} />
+          <Bookmark className={`h-5 w-5 ${bookmarked ? 'fill-primary' : ''}`} />
         </Button>
 
-        {/* Google Search */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => window.open(`https://www.google.com/search?q=define+${word.word}`, '_blank')}
-          className="rounded-xl h-11 w-11 hover:bg-primary/10 hover:text-primary transition-all"
-          title="Search on Google"
-        >
-          <ExternalLink className="h-5 w-5" />
-        </Button>
       </div>
     </div>
   );

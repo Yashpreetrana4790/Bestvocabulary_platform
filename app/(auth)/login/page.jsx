@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import { Crown, Eye, EyeOff, Mail, Lock, Loader2, ArrowRight, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, Loader2, ArrowRight, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -74,10 +75,15 @@ export default function LoginPage() {
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
         <header className="p-6">
-          <Link href="/" className="inline-flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/20">
-              <Crown className="h-5 w-5 text-primary-foreground" />
-            </div>
+          <Link href="/" className="inline-flex items-center gap-2.5 group">
+            <Image
+              src="/bv.png"
+              alt="Best Vocabulary"
+              width={44}
+              height={44}
+              className="w-10 h-10 rounded-xl shadow-sm"
+              priority
+            />
             <span className="font-bold text-lg">Best Vocabulary</span>
           </Link>
         </header>

@@ -24,31 +24,31 @@ export function DefinitionCard({ meaning, index, word, difficultyConfig, isFirst
     (meaning.mnemonic && !isFirst);
 
   return (
-    <div className="bg-card border rounded-2xl overflow-hidden hover:border-primary/20 transition-all">
+    <div className="bg-card border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-sm transition-all">
       {/* Header - Always Visible */}
-      <div className="px-5 py-4 bg-muted/50 border-b">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0 ${currentDifficulty.bg}`}>
-              {index + 1}
+      <div className="px-5 py-4 bg-muted/30 border-b">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <span className="text-sm font-bold text-primary">{index + 1}</span>
             </div>
-            <div className="flex items-baseline gap-2">
-              <h3 className="text-xl font-bold text-foreground">
+            <div className="flex flex-wrap items-baseline gap-2 min-w-0">
+              <h3 className="text-lg font-bold text-foreground truncate">
                 {capitalizeString(word)}
               </h3>
               {meaning.pos && (
-                <span className="text-sm font-medium text-primary">({meaning.pos})</span>
+                <span className="text-sm font-medium text-primary shrink-0">({meaning.pos})</span>
               )}
             </div>
           </div>
           {meaning.difficulty && (
-            <span className={`text-xs font-medium px-2.5 py-1 rounded-lg border ${currentDifficulty.light} ${currentDifficulty.text} ${currentDifficulty.border}`}>
+            <span className={`text-xs font-medium px-2.5 py-1 rounded-lg border shrink-0 ${currentDifficulty.light} ${currentDifficulty.text} ${currentDifficulty.border}`}>
               {meaning.difficulty}
             </span>
           )}
         </div>
         {meaning.pronunciation && (
-          <p className="text-sm text-muted-foreground font-mono mt-1 ml-11">{meaning.pronunciation}</p>
+          <p className="text-sm text-muted-foreground font-mono mt-2 ml-12">{meaning.pronunciation}</p>
         )}
       </div>
 
@@ -182,16 +182,18 @@ export function ExpandableInfoCard({ title, iconName, children, defaultOpen = fa
   const Icon = iconMap[iconName] || History;
 
   return (
-    <div className="bg-card border rounded-2xl overflow-hidden">
+    <div className="bg-card border rounded-2xl overflow-hidden hover:border-primary/20 transition-all">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full px-5 py-4 flex items-center justify-between hover:bg-muted/50 transition-color mb-2.5s"
+        className="w-full px-5 py-4 flex items-center justify-between hover:bg-muted/50 transition-colors"
       >
-        <div className="flex items-center gap-2">
-          <Icon className="h-4 w-4 text-primary" />
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+            <Icon className="h-4 w-4 text-primary" />
+          </div>
           <h3 className="font-semibold text-foreground text-sm">{title}</h3>
         </div>
-        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-300 shrink-0 ${expanded ? 'rotate-180' : ''}`} />
       </button>
       <div className={`overflow-hidden transition-all duration-300 ${expanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-5 pb-5 pt-0">
