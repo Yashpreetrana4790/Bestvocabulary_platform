@@ -63,7 +63,7 @@ const Herobanner = () => {
 
         {/* Search Bar */}
         <div className="w-full max-w-xl mx-auto mb-8 sm:mb-10 min-w-0">
-          <SmartSearchBar />
+          <SmartSearchBar autoFocus />
         </div>
 
         {/* CTA Buttons */}

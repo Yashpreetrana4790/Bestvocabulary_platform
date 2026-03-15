@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
@@ -27,6 +27,15 @@ export default function RegisterPage() {
   const { register, login, loginWithGoogle } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const emailFromUrl = searchParams.get('email');
+    if (emailFromUrl && typeof emailFromUrl === 'string') {
+      const decoded = decodeURIComponent(emailFromUrl).trim();
+      if (decoded) setEmail(decoded);
+    }
+  }, [searchParams]);
 
   const handleGoogleSuccess = async (credentialResponse) => {
     if (!credentialResponse?.credential) return;

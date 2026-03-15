@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ScrollingWords from './ScrollingWords';
 import PronunciationButton from './PronunciationButton';
+import WordOfDaySignup from './WordOfDaySignup';
 import { getWordOfDay } from '@/services/wordOfDay';
 import { capitalizeString } from '@/lib/otherutil';
 
@@ -36,12 +37,12 @@ const FeaturedWords = async () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6 sm:gap-8 lg:gap-10 items-start min-w-0 w-full">
-          {/* Word of the Day Card - responsive down to 320px */}
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6 sm:gap-8 lg:gap-10 min-w-0 w-full">
+          {/* Word of the Day Card (includes email signup at bottom) */}
           <div className="group relative min-w-0 w-full max-w-full">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl sm:rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl sm:rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             <div
-              className="relative rounded-xl sm:rounded-2xl md:rounded-3xl border bg-card/80 backdrop-blur-sm p-3 sm:p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-lg transition-all duration-300 overflow-x-hidden"
+              className="relative flex flex-col flex-1 min-h-0 rounded-xl sm:rounded-2xl md:rounded-3xl border bg-card/80 backdrop-blur-sm p-3 sm:p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-lg transition-all duration-300 overflow-x-hidden"
               style={{ minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
             >
               {/* Header */}
@@ -59,18 +60,18 @@ const FeaturedWords = async () => {
               {wordOfTheDay && wordOfTheDay.word ? (
                 <>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 md:mb-4 min-w-0">
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground tracking-tight break-words min-w-0">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground tracking-tight min-w-0 truncate" title={capitalizeString(wordOfTheDay.word)}>
                       {capitalizeString(wordOfTheDay.word)}
                     </h3>
                     <PronunciationButton word={wordOfTheDay.word} className="shrink-0 mt-1 sm:mt-2" />
                   </div>
                   {wordOfTheDay.pronunciation && (
-                    <p className="text-muted-foreground font-mono text-xs sm:text-sm mb-4 sm:mb-5 md:mb-6 tracking-wide break-all min-w-0">
+                    <p className="text-muted-foreground font-mono text-xs sm:text-sm mb-4 sm:mb-5 md:mb-6 tracking-wide min-w-0 truncate">
                       {wordOfTheDay.pronunciation}
                     </p>
                   )}
                   <div className="wod-definition-wrapper mb-5 sm:mb-8 md:mb-10">
-                    <p className="wod-definition text-sm sm:text-base md:text-lg text-foreground/80 leading-relaxed max-h-[4.5rem] sm:max-h-[5.25rem] md:max-h-[6rem] overflow-hidden">
+                    <p className="wod-definition text-sm sm:text-base md:text-lg text-foreground/80 leading-relaxed line-clamp-3 min-w-0" title={wordOfTheDay.meanings?.[0]?.meaning || wordOfTheDay.meanings?.[0]?.subtitle || wordOfTheDay.meanings?.[0]?.easyMeaning || ''}>
                       {wordOfTheDay.meanings?.[0]?.meaning ||
                         wordOfTheDay.meanings?.[0]?.subtitle ||
                         wordOfTheDay.meanings?.[0]?.easyMeaning ||
@@ -86,10 +87,10 @@ const FeaturedWords = async () => {
                 </>
               ) : (
                 <>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-3 sm:mb-5 md:mb-6 tracking-tight break-words min-w-0">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-3 sm:mb-5 md:mb-6 tracking-tight min-w-0 truncate">
                     Discover Today
                   </h3>
-                  <p className="text-sm sm:text-base md:text-lg text-foreground/80 leading-relaxed mb-5 sm:mb-8 md:mb-10 break-words min-w-0">
+                  <p className="text-sm sm:text-base md:text-lg text-foreground/80 leading-relaxed mb-5 sm:mb-8 md:mb-10 min-w-0 line-clamp-3">
                     Learn a new word every day. Expand your vocabulary and express yourself with precision.
                   </p>
                   <Link href="/wordofday" className="inline-block min-w-0">
@@ -100,11 +101,16 @@ const FeaturedWords = async () => {
                   </Link>
                 </>
               )}
+
+              {/* Get one word in your inbox – inside same card */}
+              <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-border min-w-0 w-full">
+                <WordOfDaySignup compact />
+              </div>
             </div>
           </div>
 
           {/* Popular Words */}
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6 px-1 sm:px-2">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-5 sm:h-6 rounded-full bg-primary"></div>
