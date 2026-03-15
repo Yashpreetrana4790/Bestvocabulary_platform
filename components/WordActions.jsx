@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react';
 import { Volume2, Bookmark, Share2, Copy, Check, BookmarkCheck } from 'lucide-react';
-import { useBookmarks } from '@/hooks/useBookmarks';
+import { useSavedWords } from '@/hooks/useSavedWords';
 
 export default function WordActions({ word }) {
   const [copied, setCopied] = useState(false);
-  const { isBookmarked, toggleBookmark } = useBookmarks();
-  
+  const { isSaved, toggleSave, isAuthenticated } = useSavedWords();
   const wordText = word?.word || '';
-  const bookmarked = isBookmarked(wordText);
+  const wordId = word?._id ?? word?.id;
+  const saved = isSaved(wordId);
 
   const handleSpeak = () => {
     if (wordText && 'speechSynthesis' in window) {
@@ -51,14 +51,13 @@ export default function WordActions({ word }) {
     }
   };
 
-  const handleBookmark = () => {
-    if (word) {
-      toggleBookmark({
-        word: word.word,
-        id: word._id || word.id,
-        pronunciation: word.pronunciation,
-        meaning: word.meanings?.[0]?.subtitle || '',
-      });
+  const handleSave = async () => {
+    if (word && wordId) {
+      try {
+        await toggleSave(word);
+      } catch (e) {
+        console.error('Failed to save word', e);
+      }
     }
   };
 
@@ -89,19 +88,21 @@ export default function WordActions({ word }) {
       >
         <Share2 className="h-5 w-5 text-muted-foreground" />
       </button>
-      <button
-        onClick={handleBookmark}
-        className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
-          bookmarked ? 'bg-primary/20 text-primary' : 'bg-muted/80 hover:bg-primary/10 text-muted-foreground'
-        }`}
-        title={bookmarked ? "Remove from bookmarks" : "Bookmark word"}
-      >
-        {bookmarked ? (
-          <BookmarkCheck className="h-5 w-5" />
-        ) : (
-          <Bookmark className="h-5 w-5" />
-        )}
-      </button>
+      {isAuthenticated && (
+        <button
+          onClick={handleSave}
+          className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+            saved ? 'bg-primary/20 text-primary' : 'bg-muted/80 hover:bg-primary/10 text-muted-foreground'
+          }`}
+          title={saved ? 'Remove from saved words' : 'Save word'}
+        >
+          {saved ? (
+            <BookmarkCheck className="h-5 w-5" />
+          ) : (
+            <Bookmark className="h-5 w-5" />
+          )}
+        </button>
+      )}
     </div>
   );
 }

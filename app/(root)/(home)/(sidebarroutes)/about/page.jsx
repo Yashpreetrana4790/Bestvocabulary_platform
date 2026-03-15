@@ -53,7 +53,7 @@ const features = [
   'Interactive quizzes',
   'Flashcard learning',
   'Word of the Day',
-  'Bookmarks & history',
+  'Saved words & progress',
   'Dark mode support',
 ];
 

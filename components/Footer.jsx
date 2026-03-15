@@ -14,7 +14,7 @@ const footerLinks = {
   learn: [
     { name: 'Quiz', href: '/quiz' },
     { name: 'Flashcards', href: '/flashcards' },
-    { name: 'Bookmarks', href: '/bookmarks' },
+    { name: 'Saved Words', href: '/bookmarks' },
     { name: 'All Categories', href: '/categories' },
   ],
   categories: [

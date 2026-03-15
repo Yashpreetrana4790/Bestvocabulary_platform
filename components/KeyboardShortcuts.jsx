@@ -177,7 +177,7 @@ export default function KeyboardShortcuts() {
                   { label: 'Word of the Day', href: '/wordofday', icon: '✨' },
                   { label: 'Random Word', href: '/random', icon: '🎲' },
                   { label: 'AI Search', href: '/search', icon: '🤖' },
-                  { label: 'My Bookmarks', href: '/bookmarks', icon: '🔖' },
+                  { label: 'My Saved Words', href: '/bookmarks', icon: '🔖' },
                 ].map((action) => (
                   <button
                     key={action.href}

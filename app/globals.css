@@ -217,3 +217,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Word of the Day card: force definition text to wrap inside card (no overflow) */
+.wod-definition {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  box-sizing: border-box !important;
+}
+.wod-definition-wrapper {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
