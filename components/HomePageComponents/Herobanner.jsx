@@ -6,7 +6,7 @@ import SmartSearchBar from "@/components/SmartSearchBar"
 
 const Herobanner = () => {
   return (
-    <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center px-4 py-16 sm:py-24 overflow-hidden">
+    <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center px-3 sm:px-4 py-12 sm:py-16 md:py-24 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         {/* Floating orbs - behind everything */}
@@ -34,9 +34,9 @@ const Herobanner = () => {
         />
       </div>
 
-      <div className="max-w-4xl mx-auto text-center relative z-10">
+      <div className="max-w-4xl mx-auto text-center relative z-10 w-full min-w-0 px-0">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm px-5 py-2 text-sm font-medium text-primary mb-10 shadow-sm">
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-primary mb-6 sm:mb-10 shadow-sm max-w-[calc(100vw-1.5rem)]">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -45,44 +45,44 @@ const Herobanner = () => {
         </div>
 
         {/* Headline */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-8 leading-[1.1]">
+        <h1 className="text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground mb-6 sm:mb-8 leading-[1.15]">
           Master the art of
-          <span className="relative block mt-2">
+          <span className="relative block mt-1 sm:mt-2">
             <span className="text-primary">choosing words</span>
-            <svg className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-32 sm:w-40 md:w-48 h-3 text-primary/30" viewBox="0 0 200 12" fill="none">
+            <svg className="absolute -bottom-1.5 sm:-bottom-2 left-1/2 -translate-x-1/2 w-24 min-[380px]:w-32 sm:w-40 md:w-48 h-2.5 sm:h-3 text-primary/30" viewBox="0 0 200 12" fill="none">
               <path d="M2 10C50 2 150 2 198 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
             </svg>
           </span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
-          Discover meanings, explore connections, and expand your vocabulary 
-          with <span className="text-foreground font-medium">AI-powered search</span> and curated word collections.
+        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed">
+          The meaning you want is often the situation you have in mind—when you wonder &quot;what’s the exact word for this?&quot; 
+          Discover words, explore connections, and expand your vocabulary with <span className="text-base sm:text-lg font-semibold text-foreground">AI-powered search</span> and an enriched database of word relations.
         </p>
 
         {/* Search Bar */}
-        <div className="max-w-xl mx-auto mb-10">
+        <div className="w-full max-w-xl mx-auto mb-8 sm:mb-10 min-w-0">
           <SmartSearchBar />
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link href="/dictionary">
-            <Button size="lg" className="rounded-full px-8 h-12 text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-4 w-full max-w-sm sm:max-w-none mx-auto">
+          <Link href="/dictionary" className="w-full sm:w-auto min-w-0">
+            <Button size="lg" className="w-full sm:w-auto rounded-full px-5 sm:px-8 h-11 sm:h-12 text-sm sm:text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
               Explore Dictionary
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </Link>
-          <Link href="/wordofday">
-            <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-base font-medium hover:bg-primary/5 transition-all">
+          <Link href="/wordofday" className="w-full sm:w-auto min-w-0">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-5 sm:px-8 h-11 sm:h-12 text-sm sm:text-base font-medium hover:bg-primary/5 transition-all">
               Word of the Day
             </Button>
           </Link>
         </div>
 
         {/* Trust indicators */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-sm text-muted-foreground">
+        <div className="mt-10 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-8 text-xs sm:text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
             Free to use

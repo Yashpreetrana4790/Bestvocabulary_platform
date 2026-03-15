@@ -3,11 +3,16 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { googleServerAuthUrl } from '@/services/authapis';
+import { validateRegister } from '@/lib/validations/auth';
 import { Button } from '@/components/ui/button';
 import { Eye, EyeOff, Mail, Lock, User, Loader2, Check, Sparkles, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 export default function RegisterPage() {
   const [fullName, setFullName] = useState('');
@@ -16,10 +21,39 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   
-  const { register } = useAuth();
+  const { register, login, loginWithGoogle } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    if (!credentialResponse?.credential) return;
+    setIsGoogleLoading(true);
+    try {
+      const result = await loginWithGoogle(credentialResponse.credential);
+      if (result.success) {
+        if (result.isNewUser) {
+          toast({ title: 'Account created!', description: 'Welcome to Best Vocabulary. You\'re all set.', variant: 'success' });
+        } else {
+          toast({ title: 'Welcome back!', description: 'You\'re signed in successfully.', variant: 'success' });
+        }
+        router.push('/');
+      } else {
+        toast({ title: 'Sign-up failed', description: result.error || 'Google sign-up failed', variant: 'destructive' });
+      }
+    } catch (error) {
+      toast({ title: 'Error', description: 'Something went wrong. Please try again.', variant: 'destructive' });
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast({ title: 'Google sign-up was cancelled or failed', variant: 'destructive' });
+    setIsGoogleLoading(false);
+  };
 
   const passwordRequirements = [
     { text: '6+ characters', met: password.length >= 6 },
@@ -28,33 +62,46 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!fullName || !email || !password || !confirmPassword) {
-      toast({ title: 'Missing fields', description: 'Please fill in all fields', variant: 'destructive' });
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      toast({ title: 'Passwords do not match', description: 'Please make sure your passwords match', variant: 'destructive' });
-      return;
-    }
-
-    if (password.length < 6) {
-      toast({ title: 'Password too short', description: 'Password must be at least 6 characters', variant: 'destructive' });
+    setErrors({});
+    const validation = validateRegister({ fullName, email, password, confirmPassword });
+    if (!validation.success) {
+      const fieldErrors = {};
+      Object.entries(validation.errors).forEach(([key, messages]) => {
+        if (messages && messages.length) fieldErrors[key] = messages[0];
+      });
+      setErrors(fieldErrors);
       return;
     }
 
     setIsLoading(true);
-    
+
     try {
       const result = await register(fullName, email, password, confirmPassword);
-      
+
       if (result.success) {
         toast({ title: 'Account created!', description: 'Welcome to Best Vocabulary', variant: 'success' });
         router.push('/');
-      } else {
-        toast({ title: 'Registration failed', description: result.error || 'Something went wrong', variant: 'destructive' });
+        return;
       }
+
+      // If account already exists, try to log them in (same idea as Google: one action = sign in or sign up)
+      const alreadyExists = /already exists|user exists|username already exists|email already exists/i.test(result.error || '');
+      if (alreadyExists) {
+        const loginResult = await login(email, password);
+        if (loginResult.success) {
+          toast({ title: 'Welcome back!', description: "You're signed in.", variant: 'success' });
+          router.push('/');
+          return;
+        }
+        toast({
+          title: 'Account already exists',
+          description: 'Sign in with your password, or use Google if you linked your account.',
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      toast({ title: 'Registration failed', description: result.error || 'Something went wrong', variant: 'destructive' });
     } catch (error) {
       toast({ title: 'Error', description: 'Something went wrong. Please try again.', variant: 'destructive' });
     } finally {
@@ -131,7 +178,7 @@ export default function RegisterPage() {
 
             {/* Form Card */}
             <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 sm:p-8 shadow-xl">
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 {/* Full Name */}
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Full Name</label>
@@ -140,12 +187,14 @@ export default function RegisterPage() {
                     <input
                       type="text"
                       value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
+                      onChange={(e) => { setFullName(e.target.value); setErrors((prev) => ({ ...prev, fullName: undefined })); }}
                       placeholder="John Doe"
-                      className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60"
+                      className={`w-full h-11 pl-10 pr-4 rounded-xl border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60 ${errors.fullName ? 'border-destructive' : 'border-border'}`}
                       disabled={isLoading}
+                      autoComplete="name"
                     />
                   </div>
+                  {errors.fullName && <p className="text-sm text-destructive mt-1">{errors.fullName}</p>}
                 </div>
 
                 {/* Email */}
@@ -156,12 +205,14 @@ export default function RegisterPage() {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => { setEmail(e.target.value); setErrors((prev) => ({ ...prev, email: undefined })); }}
                       placeholder="you@example.com"
-                      className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60"
+                      className={`w-full h-11 pl-10 pr-4 rounded-xl border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60 ${errors.email ? 'border-destructive' : 'border-border'}`}
                       disabled={isLoading}
+                      autoComplete="email"
                     />
                   </div>
+                  {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
                 </div>
 
                 {/* Password */}
@@ -172,10 +223,11 @@ export default function RegisterPage() {
                     <input
                       type={showPassword ? 'text' : 'password'}
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => { setPassword(e.target.value); setErrors((prev) => ({ ...prev, password: undefined })); }}
                       placeholder="••••••••"
-                      className="w-full h-11 pl-10 pr-11 rounded-xl border border-border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60"
+                      className={`w-full h-11 pl-10 pr-11 rounded-xl border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60 ${errors.password ? 'border-destructive' : 'border-border'}`}
                       disabled={isLoading}
+                      autoComplete="new-password"
                     />
                     <button
                       type="button"
@@ -185,6 +237,7 @@ export default function RegisterPage() {
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
+                  {errors.password && <p className="text-sm text-destructive mt-1">{errors.password}</p>}
                 </div>
 
                 {/* Confirm Password */}
@@ -195,12 +248,14 @@ export default function RegisterPage() {
                     <input
                       type={showPassword ? 'text' : 'password'}
                       value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      onChange={(e) => { setConfirmPassword(e.target.value); setErrors((prev) => ({ ...prev, confirmPassword: undefined })); }}
                       placeholder="••••••••"
-                      className="w-full h-11 pl-10 pr-4 rounded-xl border border-border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60"
+                      className={`w-full h-11 pl-10 pr-4 rounded-xl border bg-background/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted-foreground/60 ${errors.confirmPassword ? 'border-destructive' : 'border-border'}`}
                       disabled={isLoading}
+                      autoComplete="new-password"
                     />
                   </div>
+                  {errors.confirmPassword && <p className="text-sm text-destructive mt-1">{errors.confirmPassword}</p>}
                 </div>
 
                 {/* Password Requirements */}
@@ -237,6 +292,50 @@ export default function RegisterPage() {
                     </>
                   )}
                 </Button>
+
+                {GOOGLE_CLIENT_ID && (
+                  <>
+                    <div className="relative my-4">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-border/50" />
+                      </div>
+                      <div className="relative flex justify-center text-xs">
+                        <span className="bg-card/50 px-3 text-muted-foreground">or sign up with</span>
+                      </div>
+                    </div>
+                    <div className={`flex justify-center ${isGoogleLoading ? 'pointer-events-none opacity-70' : ''}`}>
+                      <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleError}
+                        useOneTap={false}
+                        theme="filled_black"
+                        size="large"
+                        text="signup_with"
+                        shape="rectangular"
+                        width="320"
+                      />
+                    </div>
+                    {isGoogleLoading && (
+                      <p className="text-center text-sm text-muted-foreground mt-2">
+                        <Loader2 className="h-4 w-4 animate-spin inline mr-1" />
+                        Creating account...
+                      </p>
+                    )}
+                    <p className="text-center text-xs text-muted-foreground mt-3">
+                      Or{' '}
+                      <a href={googleServerAuthUrl} className="text-primary hover:underline">
+                        sign up with Google
+                      </a>
+                    </p>
+                  </>
+                )}
+                {!GOOGLE_CLIENT_ID && (
+                  <p className="text-center text-xs text-muted-foreground mt-3">
+                    <a href={googleServerAuthUrl} className="text-primary hover:underline">
+                      Sign up with Google
+                    </a>
+                  </p>
+                )}
               </form>
 
               {/* Divider */}

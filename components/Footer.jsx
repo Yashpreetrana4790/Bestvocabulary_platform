@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, Twitter, Youtube, Mail, Heart, MapPin } from 'lucide-react';
+import { Instagram, Twitter, Youtube, Mail, Heart } from 'lucide-react';
 
 const footerLinks = {
   features: [
@@ -32,7 +32,6 @@ const footerLinks = {
     { name: 'Contact', href: '/contact' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
-    { name: 'Sitemap', href: '/sitemap.xml' },
   ],
 };
 
@@ -163,10 +162,6 @@ const Footer = () => {
               © {currentYear} Best Vocabulary. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/sitemap.xml" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5" />
-                Sitemap
-              </Link>
               <p className="text-sm text-muted-foreground flex items-center gap-1">
                 Made with <Heart className="h-4 w-4 text-red-500 fill-red-500" /> for word lovers
               </p>

@@ -10,11 +10,28 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden bg-muted/30">
-      {/* Background */}
+    <section className="py-12 sm:py-24 md:py-28 px-3 sm:px-4 relative overflow-hidden bg-muted/30">
+      {/* Background - same pattern as Hero */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full opacity-30 blur-[100px] bg-primary/20" />
         <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] rounded-full opacity-30 blur-[80px] bg-primary/15" />
+        {/* Gradient mesh */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(rgba(128, 128, 128, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(128, 128, 128, 0.15) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        {/* Radial fade at edges */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, hsl(var(--background)) 100%)`,
+          }}
+        />
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -33,22 +50,22 @@ const Features = () => {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-3 sm:gap-4">
           {/* AI Search - Large Card */}
           <Link 
             href="/search"
-            className="md:col-span-2 group relative p-8 rounded-3xl border bg-gradient-to-br from-primary/5 via-card to-card hover:from-primary/10 transition-all duration-500 overflow-hidden"
+            className="md:col-span-2 group relative p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border bg-gradient-to-br from-primary/5 via-card to-card hover:from-primary/10 transition-all duration-500 overflow-hidden"
           >
-            <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-primary text-primary-foreground text-[10px] sm:text-xs font-medium">
               Try it now
             </div>
-            <div className="flex flex-col h-full">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                <Sparkles className="h-7 w-7 text-primary" strokeWidth={1.5} />
+            <div className="flex flex-col h-full min-w-0">
+              <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm shrink-0">
+                <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">AI-Powered Search</h3>
-              <p className="text-muted-foreground leading-relaxed mb-6 max-w-md">
-                Ever had a word on the tip of your tongue? Describe the feeling or situation, and let AI find the perfect word.
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">AI-Powered Search</h3>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 w-full min-w-0">
+                When you look for a word, you’re really looking for a situation—that moment when you think, &quot;What’s the exact word for this?&quot; Describe the action, feeling, or situation; our AI and enriched database of word relations find the word that fits.
               </p>
               <div className="mt-auto flex items-center gap-2 text-primary font-medium">
                 <span>Search by meaning</span>
@@ -97,16 +114,16 @@ const Features = () => {
         </div>
 
         {/* Stats Row */}
-        <div className="mt-12 grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-1.5 sm:gap-4">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
-              <div key={i} className="text-center p-4 sm:p-5 rounded-2xl bg-card/50 border hover:bg-card hover:border-primary/20 transition-all duration-300">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" strokeWidth={1.5} />
+              <div key={i} className="text-center p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-card/50 border hover:bg-card hover:border-primary/20 transition-all duration-300 min-w-0">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-1.5 sm:mb-3">
+                  <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-primary" strokeWidth={1.5} />
                 </div>
-                <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
+                <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground">{stat.label}</p>
               </div>
             );
           })}

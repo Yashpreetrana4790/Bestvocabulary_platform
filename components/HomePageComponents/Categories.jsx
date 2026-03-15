@@ -13,20 +13,20 @@ const categories = [
 
 const Categories = () => {
   return (
-    <section className="py-16 sm:py-24 md:py-28 px-4 relative overflow-hidden">
+    <section className="py-12 sm:py-24 md:py-28 px-3 sm:px-4 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full opacity-30 blur-[100px] -translate-y-1/2 bg-primary/10" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 w-full min-w-0">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-            <FolderOpen className="h-4 w-4" />
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-primary mb-3 sm:mb-4">
+            <FolderOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             Categories
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
             Browse by topic
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
@@ -35,14 +35,14 @@ const Categories = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Link
                 key={index}
                 href={`/dictionary?category=${category.name.toLowerCase()}`}
-                className="group relative p-4 sm:p-6 rounded-2xl border bg-card/80 backdrop-blur-sm hover:bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+                className="group relative p-3 sm:p-6 rounded-xl sm:rounded-2xl border bg-card/80 backdrop-blur-sm hover:bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300 min-w-0"
               >
                 <div className="flex items-center sm:items-start gap-3 sm:gap-4">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-muted flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">

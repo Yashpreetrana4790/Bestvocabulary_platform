@@ -9,7 +9,7 @@ import React, { Suspense } from "react"
 
 export default function Home() {
   return (
-    <main>
+    <main className="overflow-x-hidden min-w-0">
       <Herobanner />
 
       <Suspense fallback={<SectionSkeleton />}>
@@ -31,7 +31,7 @@ export default function Home() {
 
 function SectionSkeleton() {
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-28 px-4">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-28 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header Skeleton */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">

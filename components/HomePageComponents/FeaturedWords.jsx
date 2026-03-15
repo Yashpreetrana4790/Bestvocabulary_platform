@@ -17,21 +17,21 @@ const FeaturedWords = async () => {
   });
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-28 px-4 relative overflow-hidden">
+    <section className="py-10 sm:py-16 md:py-20 lg:py-28 px-3 sm:px-4 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent" />
         <div className="absolute top-0 right-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] rounded-full opacity-50 blur-[120px] bg-primary/10" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 w-full min-w-0">
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-primary mb-3 sm:mb-4">
             <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             Daily Learning
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
             Expand Your Vocabulary
           </h2>
         </div>
@@ -40,7 +40,7 @@ const FeaturedWords = async () => {
           {/* Word of the Day Card */}
           <div className="group relative">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl sm:rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative rounded-2xl sm:rounded-3xl border bg-card/80 backdrop-blur-sm p-5 sm:p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-lg transition-all duration-300">
+              <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl border bg-card/80 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-lg transition-all duration-300 min-w-0">
               {/* Header */}
               <div className="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6 md:mb-8">
                 <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center">
@@ -56,7 +56,7 @@ const FeaturedWords = async () => {
               {wordOfTheDay && wordOfTheDay.word ? (
                 <>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 md:mb-4">
-                    <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight break-words">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground tracking-tight break-words">
                       {capitalizeString(wordOfTheDay.word)}
                     </h3>
                     <PronunciationButton word={wordOfTheDay.word} className="shrink-0 mt-1 sm:mt-2" />
@@ -81,7 +81,7 @@ const FeaturedWords = async () => {
                 </>
               ) : (
                 <>
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-5 md:mb-6 tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-4 sm:mb-5 md:mb-6 tracking-tight">
                     Discover Today
                   </h3>
                   <p className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-6 sm:mb-8 md:mb-10">
@@ -103,7 +103,7 @@ const FeaturedWords = async () => {
             <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6 px-1 sm:px-2">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-5 sm:h-6 rounded-full bg-primary"></div>
-                <span className="text-xs sm:text-sm font-semibold text-foreground">Popular Words</span>
+                <span className="text-sm sm:text-base font-semibold text-foreground">Popular Words</span>
               </div>
               <Link href="/dictionary" className="text-xs sm:text-sm text-primary hover:underline font-medium">
                 View all →

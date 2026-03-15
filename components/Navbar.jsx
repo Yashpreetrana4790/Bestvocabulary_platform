@@ -87,33 +87,8 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex h-14 sm:h-16 items-center justify-between gap-4">
 
-          {/* Left: Mobile Menu + Logo */}
+          {/* Left: Logo only (mobile menu is on the right) */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Mobile Menu Button */}
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="xl:hidden h-9 w-9 shrink-0">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0">
-                <MobileNavContent
-                  pathname={pathname}
-                  setOpen={setMobileOpen}
-                  learnExpanded={learnExpanded}
-                  setLearnExpanded={setLearnExpanded}
-                  categoriesExpanded={categoriesExpanded}
-                  setCategoriesExpanded={setCategoriesExpanded}
-                  isLearnActive={isLearnActive}
-                  isCategoryActive={isCategoryActive}
-                  user={user}
-                  isAuthenticated={isAuthenticated}
-                  logout={logout}
-                />
-              </SheetContent>
-            </Sheet>
-
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group shrink-0">
               <Image
@@ -293,6 +268,31 @@ export function Navbar() {
                 </Link>
               </div>
             )}
+
+            {/* Mobile Menu Button (right side on mobile) */}
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="xl:hidden h-12 w-12 shrink-0 [&_svg]:!h-7 [&_svg]:!w-7 sm:h-14 sm:w-14 sm:[&_svg]:!h-8 sm:[&_svg]:!w-8">
+                  <Menu />
+                  <span className="sr-only">Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[min(280px,100vw-1rem)] sm:w-[min(320px,100vw-1rem)] max-w-[85vw] p-0 overflow-hidden flex flex-col h-full max-h-[100dvh]">
+                <MobileNavContent
+                  pathname={pathname}
+                  setOpen={setMobileOpen}
+                  learnExpanded={learnExpanded}
+                  setLearnExpanded={setLearnExpanded}
+                  categoriesExpanded={categoriesExpanded}
+                  setCategoriesExpanded={setCategoriesExpanded}
+                  isLearnActive={isLearnActive}
+                  isCategoryActive={isCategoryActive}
+                  user={user}
+                  isAuthenticated={isAuthenticated}
+                  logout={logout}
+                />
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
@@ -302,9 +302,9 @@ export function Navbar() {
 
 function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, categoriesExpanded, setCategoriesExpanded, isLearnActive, isCategoryActive, user, isAuthenticated, logout }) {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full min-h-0 overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b">
+      <div className="p-4 border-b shrink-0">
         <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5">
           <Image
             src="/bv.png"
@@ -319,7 +319,7 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
       </div>
 
       {/* Search */}
-      <div className="p-3 border-b">
+      <div className="p-3 border-b shrink-0">
         <Link href="/search" onClick={() => setOpen(false)} className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 border border-primary/10">
           <Sparkles className="h-4 w-4 text-primary" />
           <div className="flex-1">
@@ -386,9 +386,9 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
       </ScrollArea>
 
       {/* Footer - Auth */}
-      <div className="p-3 border-t">
+      <div className="p-3 border-t shrink-0 bg-background">
         {isAuthenticated ? (
-          <div className="space-y-2">
+          <div className="flex-col flex gap-2">
             <div className="flex items-center gap-3 p-2">
               <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-medium">
                 {user?.fullName?.charAt(0)?.toUpperCase() || 'U'}
@@ -407,7 +407,7 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
             </button>
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Link href="/login" onClick={() => setOpen(false)}>
               <button className="w-full p-2.5 rounded-lg text-sm font-medium border border-border hover:bg-muted transition-colors">
                 Sign in
