@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
@@ -14,7 +14,7 @@ import Image from 'next/image';
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
-export default function RegisterPage() {
+function RegisterPageContent() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +27,15 @@ export default function RegisterPage() {
   const { register, login, loginWithGoogle } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const emailFromUrl = searchParams.get('email');
+    if (emailFromUrl && typeof emailFromUrl === 'string') {
+      const decoded = decodeURIComponent(emailFromUrl).trim();
+      if (decoded) setEmail(decoded);
+    }
+  }, [searchParams]);
 
   const handleGoogleSuccess = async (credentialResponse) => {
     if (!credentialResponse?.credential) return;
@@ -382,5 +391,22 @@ export default function RegisterPage() {
         </main>
       </div>
     </div>
+  );
+}
+
+function RegisterPageFallback() {
+  return (
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 -z-10 bg-muted/30" />
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<RegisterPageFallback />}>
+      <RegisterPageContent />
+    </Suspense>
   );
 }

@@ -7,7 +7,8 @@ import {
   ArrowLeft, Sparkles, GraduationCap,
   Globe, AlertCircle, Users,
   BookMarked, Layers, ArrowRight,
-  Zap, Brain, PenTool, Target, Shuffle
+  Zap, Brain, PenTool, Target, Shuffle,
+  Replace, Quote, MessageCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WordDetailClient from './WordDetailClient';
@@ -308,6 +309,107 @@ export default async function WordPage({ params }) {
                 ))}
               </div>
             </div>
+
+            {/* Synonyms & Antonyms */}
+            {(() => {
+              const synonymWords = [];
+              const antonymWords = [];
+              const isId = (v) => typeof v === 'string' && /^[a-f0-9]{24}$/i.test(v);
+              word.meanings?.forEach((m) => {
+                (m.synonyms || []).forEach((s) => {
+                  const w = typeof s === 'object' && s !== null && s?.word ? s.word : (typeof s === 'string' ? s : null);
+                  if (w && typeof w === 'string' && !isId(w) && !synonymWords.includes(w)) synonymWords.push(w);
+                });
+                (m.antonyms || []).forEach((a) => {
+                  const w = typeof a === 'object' && a !== null && a?.word ? a.word : (typeof a === 'string' ? a : null);
+                  if (w && typeof w === 'string' && !isId(w) && !antonymWords.includes(w)) antonymWords.push(w);
+                });
+              });
+              const hasSynonyms = synonymWords.length > 0;
+              const hasAntonyms = antonymWords.length > 0;
+              if (!hasSynonyms && !hasAntonyms) return null;
+              return (
+                <div className="rounded-2xl border bg-card overflow-hidden">
+                  <div className="px-5 py-4 bg-muted/30 border-b flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Replace className="h-5 w-5 text-primary" />
+                    </div>
+                    <h2 className="text-xl font-bold text-foreground">Synonyms & Antonyms</h2>
+                  </div>
+                  <div className="p-5 space-y-4">
+                    {hasSynonyms && (
+                      <div>
+                        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Synonyms</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {synonymWords.map((w) => (
+                            <Link key={w} href={`/word/${encodeURIComponent(w.toLowerCase())}`} className="text-sm font-medium text-primary bg-primary/10 hover:bg-primary hover:text-primary-foreground px-3 py-1.5 rounded-xl transition-colors">
+                              {capitalizeString(w)}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {hasAntonyms && (
+                      <div>
+                        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Antonyms</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {antonymWords.map((w) => (
+                            <Link key={w} href={`/word/${encodeURIComponent(w.toLowerCase())}`} className="text-sm font-medium text-foreground bg-muted hover:bg-muted/80 px-3 py-1.5 rounded-xl border border-border transition-colors">
+                              {capitalizeString(w)}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Phrases (Phrasal verbs) */}
+            {word.PhrasalVerbs?.length > 0 && (
+              <div className="rounded-2xl border bg-card overflow-hidden">
+                <div className="px-5 py-4 bg-muted/30 border-b flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <MessageCircle className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-xl font-bold text-foreground">Phrases</h2>
+                </div>
+                <div className="p-5 space-y-4">
+                  {word.PhrasalVerbs.map((pv, i) => (
+                    <div key={pv._id || i} className="p-4 rounded-xl bg-muted/30 border border-border/50">
+                      <p className="font-semibold text-foreground">{pv.phrase}</p>
+                      {pv.meaning && <p className="text-sm text-muted-foreground mt-1">{pv.meaning}</p>}
+                      {pv.example_sentences?.[0] && <p className="text-sm text-muted-foreground/80 mt-2 italic">&quot;{pv.example_sentences[0]}&quot;</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Idioms & Expressions */}
+            {word.expressions?.length > 0 && (
+              <div className="rounded-2xl border bg-card overflow-hidden">
+                <div className="px-5 py-4 bg-muted/30 border-b flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Quote className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-xl font-bold text-foreground">Idioms & expressions</h2>
+                </div>
+                <div className="p-5 space-y-4">
+                  {word.expressions.map((ex, i) => {
+                    const meaning = ex.meanings?.[0];
+                    return (
+                      <div key={ex._id || i} className="p-4 rounded-xl bg-muted/30 border border-border/50">
+                        <p className="font-semibold text-foreground">{ex.expression}</p>
+                        {meaning?.meaning && <p className="text-sm text-muted-foreground mt-1">{meaning.meaning}</p>}
+                        {meaning?.examples?.[0] && <p className="text-sm text-muted-foreground/80 mt-2 italic">&quot;{meaning.examples[0]}&quot;</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Etymology & History - Expandable */}
             {(word.etymology || word.historical_usage) && (

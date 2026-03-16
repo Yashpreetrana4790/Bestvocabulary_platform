@@ -7,10 +7,18 @@ import { quickSearch, semanticSearchWords } from '@/services/wordapis';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
-const SmartSearchBar = ({ className }) => {
+const SmartSearchBar = ({ className, autoFocus = false }) => {
   const router = useRouter();
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Auto-focus on mount (e.g. home page hero)
+  useEffect(() => {
+    if (!autoFocus) return;
+    const t = setTimeout(() => inputRef.current?.focus(), 100);
+    return () => clearTimeout(t);
+  }, [autoFocus]);
 
   const [query, setQuery] = useState('');
   const [isAIMode, setIsAIMode] = useState(true);
@@ -55,17 +63,15 @@ const SmartSearchBar = ({ className }) => {
     return () => clearTimeout(timer);
   }, [query, isAIMode]);
 
-  // Close dropdown on outside click
+  // Close dropdown and remove focus when clicking outside the search bar
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target) &&
-        inputRef.current &&
-        !inputRef.current.contains(e.target)
-      ) {
+      const inContainer = containerRef.current?.contains(e.target);
+      const inDropdown = dropdownRef.current?.contains(e.target);
+      if (!inContainer && !inDropdown) {
         setShowDropdown(false);
         setIsFocused(false);
+        inputRef.current?.blur();
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -100,7 +106,7 @@ const SmartSearchBar = ({ className }) => {
   };
 
   return (
-    <div className={cn('relative w-full max-w-2xl mx-auto min-w-0', className)}>
+    <div ref={containerRef} className={cn('relative w-full max-w-2xl mx-auto min-w-0', className)}>
       <form onSubmit={handleSubmit}>
         <div
           className={cn(

@@ -69,7 +69,7 @@ const ScrollingWords = () => {
   const duplicatedWords = [...famousWords, ...famousWords];
 
   return (
-    <div className="relative h-[320px] sm:h-[380px] md:h-[420px] lg:h-[520px] overflow-hidden rounded-xl sm:rounded-2xl border bg-card/50 backdrop-blur-sm">
+    <div className="relative h-[340px] sm:h-[400px] md:h-[440px] lg:h-[540px] overflow-hidden rounded-xl sm:rounded-2xl border bg-card/50 backdrop-blur-sm">
       {/* Fades */}
       <div className="absolute top-0 left-0 right-0 h-10 sm:h-12 md:h-16 bg-gradient-to-b from-card to-transparent z-10 pointer-events-none rounded-t-xl sm:rounded-t-2xl" />
       <div className="absolute bottom-0 left-0 right-0 h-10 sm:h-12 md:h-16 bg-gradient-to-t from-card to-transparent z-10 pointer-events-none rounded-b-xl sm:rounded-b-2xl" />

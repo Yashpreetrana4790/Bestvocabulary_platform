@@ -218,16 +218,11 @@
   }
 }
 
-/* Word of the Day card: force definition text to wrap inside card (no overflow) */
+/* Word of the Day card: definition text wraps and clamps with ellipsis (line-clamp-3 in component) */
 .wod-definition {
-  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
-  overflow-wrap: break-word !important;
-  word-wrap: break-word !important;
-  word-break: break-word !important;
-  white-space: normal !important;
   box-sizing: border-box !important;
 }
 .wod-definition-wrapper {
