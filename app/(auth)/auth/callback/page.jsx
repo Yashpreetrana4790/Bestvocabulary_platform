@@ -1,14 +1,16 @@
 import React, { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
 import AuthCallbackClient from './AuthCallbackClient';
+import LoadingWordFact from '@/components/LoadingWordFact';
 
 /** Fallback while useSearchParams is resolving (required for static export). */
 function CallbackFallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <div className="text-center max-w-md">
         <Loader2 className="h-10 w-10 animate-spin text-primary mx-auto mb-4" />
-        <p className="text-muted-foreground">Loading...</p>
+        <p className="text-muted-foreground mb-6">Completing sign in...</p>
+        <LoadingWordFact variant="card" />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import LoadingWordFact from "@/components/LoadingWordFact";
 
 const Loading = () => {
   return (
@@ -18,6 +19,10 @@ const Loading = () => {
       <div className="flex justify-center mt-10">
         <Skeleton className="h-10 w-24 rounded-md mx-2" />
         <Skeleton className="h-10 w-24 rounded-md mx-2" />
+      </div>
+
+      <div className="mt-8 max-w-xl">
+        <LoadingWordFact variant="card" />
       </div>
     </div>
   );

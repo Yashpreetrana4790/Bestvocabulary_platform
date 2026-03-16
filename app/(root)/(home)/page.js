@@ -5,6 +5,7 @@ import Categories from "@/components/HomePageComponents/Categories"
 import NewLight from "@/components/HomePageComponents/NewLight"
 import NoMatter from "@/components/HomePageComponents/NoMatter"
 import CTASection from "@/components/HomePageComponents/CTASection"
+import LoadingWordFact from "@/components/LoadingWordFact"
 import React, { Suspense } from "react"
 
 export default function Home() {
@@ -81,6 +82,9 @@ function SectionSkeleton() {
               ))}
             </div>
           </div>
+        </div>
+        <div className="mt-10 max-w-xl mx-auto">
+          <LoadingWordFact variant="card" />
         </div>
       </div>
     </section>

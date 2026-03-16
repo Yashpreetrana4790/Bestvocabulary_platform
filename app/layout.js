@@ -9,6 +9,7 @@ import KeyboardShortcuts from '@/components/KeyboardShortcuts';
 import { AuthProvider } from '@/context/AuthContext';
 import { GoogleOAuthProviderWrapper } from '@/components/GoogleOAuthProvider';
 import { Toaster } from '@/components/ui/toaster';
+import { TooltipProviderWrapper } from '@/components/TooltipProviderWrapper';
 
 const GTM_ID = 'GTM-KXNZCTS3';
 const GA_ID = 'G-BNHRL2GJ1Y';
@@ -230,13 +231,15 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <GoogleOAuthProviderWrapper>
-            <AuthProvider>
-              <KeyboardShortcuts />
-              {children}
-              <Toaster />
-            </AuthProvider>
-          </GoogleOAuthProviderWrapper>
+          <TooltipProviderWrapper>
+            <GoogleOAuthProviderWrapper>
+              <AuthProvider>
+                <KeyboardShortcuts />
+                {children}
+                <Toaster />
+              </AuthProvider>
+            </GoogleOAuthProviderWrapper>
+          </TooltipProviderWrapper>
         </ThemeProvider>
       </body>
     </html>

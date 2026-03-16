@@ -6,35 +6,33 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery } from "@/lib/helper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const Pagination = ({ pageNumber, totalpage }) => {
+const Pagination = ({ pageNumber, totalpage, totalItems, pageSize = 12 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const total = totalpage || 1;
 
-  const handleNavigation = (direction) => {
-    const nextPageNumber = direction === "next" ? pageNumber + 1 : pageNumber - 1;
-
-    if (nextPageNumber <= 0 || nextPageNumber > total) return;
-
+  const navigate = (nextPage) => {
     const newUrl = formUrlQuery({
       params: searchParams.toString(),
       key: "page",
-      value: nextPageNumber.toString(),
+      value: nextPage.toString(),
     });
-
     router.push(newUrl, { scroll: false });
+    // Scroll to top of results for better UX
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleNavigation = (direction) => {
+    const nextPageNumber = direction === "next" ? pageNumber + 1 : pageNumber - 1;
+    if (nextPageNumber <= 0 || nextPageNumber > total) return;
+    navigate(nextPageNumber);
   };
 
   const goToPage = (page) => {
     if (page < 1 || page > total) return;
-    
-    const newUrl = formUrlQuery({
-      params: searchParams.toString(),
-      key: "page",
-      value: page.toString(),
-    });
-
-    router.push(newUrl, { scroll: false });
+    navigate(page);
   };
 
   // Generate page numbers to show
@@ -56,22 +54,30 @@ const Pagination = ({ pageNumber, totalpage }) => {
 
   if (total <= 1) return null;
 
+  const startItem = totalItems != null ? (pageNumber - 1) * pageSize + 1 : null;
+  const endItem = totalItems != null ? Math.min(pageNumber * pageSize, totalItems) : null;
+  const rangeLabel = totalItems != null && startItem != null && endItem != null
+    ? `${startItem}–${endItem} of ${totalItems.toLocaleString()}`
+    : null;
+
   return (
     <Suspense>
-      <div className="flex flex-col items-center gap-4 py-8 border-t bg-muted/20">
-        <div className="flex items-center gap-2">
-          {/* Previous Button */}
+      <nav
+        className="flex flex-col items-center gap-4 py-8 border-t bg-muted/20"
+        aria-label="Pagination"
+      >
+        <div className="flex items-center gap-2 flex-wrap justify-center">
           <Button
             variant="outline"
             size="icon"
             disabled={pageNumber === 1}
             onClick={() => handleNavigation("prev")}
             className="h-10 w-10 rounded-lg"
+            aria-label="Previous page"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
 
-          {/* First Page */}
           {getPageNumbers()[0] > 1 && (
             <>
               <Button
@@ -79,16 +85,16 @@ const Pagination = ({ pageNumber, totalpage }) => {
                 size="icon"
                 onClick={() => goToPage(1)}
                 className="h-10 w-10 rounded-lg"
+                aria-label="Go to page 1"
               >
                 1
               </Button>
               {getPageNumbers()[0] > 2 && (
-                <span className="px-2 text-muted-foreground">...</span>
+                <span className="px-2 text-muted-foreground" aria-hidden="true">...</span>
               )}
             </>
           )}
 
-          {/* Page Numbers */}
           {getPageNumbers().map((page) => (
             <Button
               key={page}
@@ -98,45 +104,46 @@ const Pagination = ({ pageNumber, totalpage }) => {
               className={`h-10 w-10 rounded-lg ${
                 pageNumber === page ? "pointer-events-none" : ""
               }`}
+              aria-label={pageNumber === page ? `Current page, page ${page}` : `Go to page ${page}`}
+              aria-current={pageNumber === page ? "page" : undefined}
             >
               {page}
             </Button>
           ))}
 
-          {/* Last Page */}
           {getPageNumbers()[getPageNumbers().length - 1] < total && (
             <>
               {getPageNumbers()[getPageNumbers().length - 1] < total - 1 && (
-                <span className="px-2 text-muted-foreground">...</span>
+                <span className="px-2 text-muted-foreground" aria-hidden="true">...</span>
               )}
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => goToPage(total)}
                 className="h-10 w-10 rounded-lg"
+                aria-label={`Go to page ${total}`}
               >
                 {total}
               </Button>
             </>
           )}
 
-          {/* Next Button */}
           <Button
             variant="outline"
             size="icon"
             disabled={pageNumber === total}
             onClick={() => handleNavigation("next")}
             className="h-10 w-10 rounded-lg"
+            aria-label="Next page"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
 
-        {/* Page Info */}
-        <p className="text-sm text-muted-foreground">
-          Page {pageNumber} of {total}
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {rangeLabel ?? `Page ${pageNumber} of ${total}`}
         </p>
-      </div>
+      </nav>
     </Suspense>
   );
 };
