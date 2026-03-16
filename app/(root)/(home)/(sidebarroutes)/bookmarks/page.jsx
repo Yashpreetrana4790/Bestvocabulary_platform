@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Bookmark,
@@ -10,25 +10,31 @@ import {
   ArrowRight,
   Volume2,
   LogIn,
+  Layers,
+  HelpCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSavedWords } from '@/hooks/useSavedWords';
+import LoadingWordFact from '@/components/LoadingWordFact';
+import SavedWordsFlashcards from './components/SavedWordsFlashcards';
+import SavedWordsQuiz from './components/SavedWordsQuiz';
 
 export default function SavedWordsPage() {
-  const { savedWords, removeSave, refetch, isLoading, isAuthenticated } = useSavedWords();
+  const { savedWords, removeSave, isLoading, isAuthenticated } = useSavedWords();
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('newest');
+  const [practiceMode, setPracticeMode] = useState(null); // null | 'flashcards' | 'quiz'
 
-  const filteredList = (savedWords || [])
-    .filter(
+  const filteredList = useMemo(() => {
+    const list = (savedWords || []).filter(
       (b) =>
         (b.word || '').toLowerCase().includes(search.toLowerCase()) ||
         (b.meaning || '').toLowerCase().includes(search.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (sortOrder === 'alphabetical') return (a.word || '').localeCompare(b.word || '');
-      return 0;
-    });
+    );
+    if (sortOrder === 'alphabetical') return [...list].sort((a, b) => (a.word || '').localeCompare(b.word || ''));
+    if (sortOrder === 'oldest') return [...list].reverse();
+    return list;
+  }, [savedWords, search, sortOrder]);
 
   const handleSpeak = (word) => {
     if ('speechSynthesis' in window) {
@@ -101,31 +107,85 @@ export default function SavedWordsPage() {
           </div>
 
           {isLoading ? (
-            <div className="text-center py-12 text-muted-foreground">Loading...</div>
+            <div className="flex flex-col items-center py-12 gap-6">
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+              <p className="text-muted-foreground">Loading your saved words...</p>
+              <div className="w-full max-w-md">
+                <LoadingWordFact variant="card" />
+              </div>
+            </div>
           ) : savedWords.length > 0 ? (
             <>
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <div className="relative flex-1">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    placeholder="Search saved words..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full h-12 pl-12 pr-4 rounded-xl border border-border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                  />
+              {/* Practice section — only when viewing list */}
+              {practiceMode === null && (
+                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:p-5 mb-6">
+                  <h2 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Layers className="h-4 w-4 text-primary" />
+                    Practice your saved words
+                  </h2>
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      onClick={() => setPracticeMode('flashcards')}
+                      className="rounded-xl gap-2"
+                    >
+                      <Layers className="h-4 w-4" />
+                      Flashcards
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => setPracticeMode('quiz')}
+                      className="rounded-xl gap-2"
+                      disabled={filteredList.length < 2}
+                      title={filteredList.length < 2 ? 'Add at least 2 words to play' : ''}
+                    >
+                      <HelpCircle className="h-4 w-4" />
+                      Quiz
+                      {filteredList.length < 2 && (
+                        <span className="text-xs opacity-80"> (need 2+ words)</span>
+                      )}
+                    </Button>
+                  </div>
                 </div>
-                <select
-                  value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value)}
-                  className="h-12 px-4 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                >
-                  <option value="newest">Newest first</option>
-                  <option value="alphabetical">A-Z</option>
-                </select>
-              </div>
+              )}
 
-              <div className="grid gap-3">
+              {practiceMode === 'flashcards' && (
+                <SavedWordsFlashcards
+                  words={filteredList}
+                  onClose={() => setPracticeMode(null)}
+                />
+              )}
+              {practiceMode === 'quiz' && (
+                <SavedWordsQuiz
+                  words={filteredList}
+                  onClose={() => setPracticeMode(null)}
+                />
+              )}
+
+              {practiceMode === null && (
+                <>
+                  <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                    <div className="relative flex-1">
+                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <input
+                        type="text"
+                        placeholder="Search saved words..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="w-full h-12 pl-12 pr-4 rounded-xl border border-border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                      />
+                    </div>
+                    <select
+                      value={sortOrder}
+                      onChange={(e) => setSortOrder(e.target.value)}
+                      className="h-12 px-4 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    >
+                      <option value="newest">Newest first</option>
+                      <option value="oldest">Oldest first</option>
+                      <option value="alphabetical">A–Z</option>
+                    </select>
+                  </div>
+
+                  <div className="grid gap-3">
                 {filteredList.map((item) => (
                   <div
                     key={item.wordId ?? item.word}
@@ -178,12 +238,17 @@ export default function SavedWordsPage() {
                   </div>
                 ))}
                 {filteredList.length === 0 && search && (
-                  <div className="text-center py-12">
-                    <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">No saved words match &quot;{search}&quot;</p>
+                    <div className="text-center py-12">
+                      <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                      <p className="text-muted-foreground">No saved words match &quot;{search}&quot;</p>
+                      <Button variant="outline" className="mt-4" onClick={() => setSearch('')}>
+                        Clear search
+                      </Button>
+                    </div>
+                  )}
                   </div>
-                )}
-              </div>
+                </>
+              )}
             </>
           ) : (
             <div className="text-center py-16">

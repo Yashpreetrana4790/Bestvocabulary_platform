@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mode-switch intro roll: visible flip when AI/Text pill changes */
+@keyframes mode-pill-flip {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-mode-pill-flip {
+  animation: mode-pill-flip 0.5s ease-in-out both;
+  transform-origin: center;
+}
+
 
 /* Example CSS for blur effect */
 .blurred {

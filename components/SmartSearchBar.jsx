@@ -6,8 +6,17 @@ import { Search, Sparkles, X, Loader2, ArrowRight } from 'lucide-react';
 import { quickSearch, semanticSearchWords } from '@/services/wordapis';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
-const SmartSearchBar = ({ className, autoFocus = false }) => {
+const INTRO_STORAGE_KEY = 'bv_smart_search_intro_done';
+const INTRO_ROLL_STEPS_MS = 800; // time between each flip in the roll
+const INTRO_START_DELAY_MS = 600; // delay before first flip so the bar is visible
+
+const SmartSearchBar = ({ className, autoFocus = false, introRoll = false }) => {
   const router = useRouter();
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
@@ -26,6 +35,42 @@ const SmartSearchBar = ({ className, autoFocus = false }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [results, setResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [introRolling, setIntroRolling] = useState(false);
+  const [showModeHint, setShowModeHint] = useState(false);
+  const [pillFlipKey, setPillFlipKey] = useState(0);
+  const introRunRef = useRef(false);
+  const introTimeoutsRef = useRef([]);
+
+  // First-load "dice roll" animation: cycle AI → Text → AI → Text → AI so users see both modes
+  useEffect(() => {
+    if (!introRoll || typeof window === 'undefined') return;
+    if (introRunRef.current) return;
+    introRunRef.current = true;
+
+    setIntroRolling(true);
+    const steps = [
+      () => { setPillFlipKey((k) => k + 1); setIsAIMode(false); },
+      () => { setPillFlipKey((k) => k + 1); setIsAIMode(true); },
+      () => { setPillFlipKey((k) => k + 1); setIsAIMode(false); },
+      () => { setPillFlipKey((k) => k + 1); setIsAIMode(true); },
+    ];
+    const timeouts = steps.map((fn, i) =>
+      setTimeout(fn, INTRO_START_DELAY_MS + (i + 1) * INTRO_ROLL_STEPS_MS)
+    );
+    const doneAt = INTRO_START_DELAY_MS + (steps.length + 0.5) * INTRO_ROLL_STEPS_MS;
+    const doneTimer = setTimeout(() => {
+      setIntroRolling(false);
+      setShowModeHint(true);
+      if (typeof sessionStorage !== 'undefined') sessionStorage.setItem(INTRO_STORAGE_KEY, '1');
+    }, doneAt);
+    const hideHintTimer = setTimeout(() => setShowModeHint(false), doneAt + 8000);
+
+    introTimeoutsRef.current = [...timeouts, doneTimer, hideHintTimer];
+    return () => {
+      introTimeoutsRef.current.forEach(clearTimeout);
+      introTimeoutsRef.current = [];
+    };
+  }, [introRoll]);
 
   // Debounced search
   useEffect(() => {
@@ -117,30 +162,50 @@ const SmartSearchBar = ({ className, autoFocus = false }) => {
             isAIMode && isFocused && 'border-violet-500 shadow-violet-500/10 ring-violet-500/5'
           )}
         >
-          {/* AI Mode Toggle */}
-          <button
-            type="button"
-            onClick={toggleMode}
-            className={cn(
-              'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all duration-200',
-              isAIMode
-                ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-md'
-                : 'bg-muted text-muted-foreground hover:bg-muted/80'
-            )}
-            title={isAIMode ? 'AI Semantic Search' : 'Keyword Search'}
-          >
-            {isAIMode ? (
-              <>
-                <Sparkles className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">AI</span>
-              </>
-            ) : (
-              <>
-                <Search className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">Text</span>
-              </>
-            )}
-          </button>
+          {/* AI / Text Mode Toggle – roll animation during intro */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                onClick={toggleMode}
+                className={cn(
+                  'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all duration-200',
+                  isAIMode
+                    ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-md'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/80',
+                  introRolling && 'ring-2 ring-primary/30 ring-offset-2 ring-offset-background'
+                )}
+                aria-label={isAIMode ? 'AI search by meaning – click to switch to exact word' : 'Exact word search – click to switch to AI by meaning'}
+              >
+                <span
+                  key={`pill-${pillFlipKey}`}
+                  className={cn(
+                    'inline-flex items-center gap-1.5',
+                    introRolling && 'animate-mode-pill-flip'
+                  )}
+                >
+                  {isAIMode ? (
+                    <>
+                      <Sparkles className="h-3.5 w-3.5" />
+                      <span className="hidden sm:inline">AI</span>
+                    </>
+                  ) : (
+                    <>
+                      <Search className="h-3.5 w-3.5" />
+                      <span className="hidden sm:inline">Text</span>
+                    </>
+                  )}
+                </span>
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="max-w-[260px]">
+              {isAIMode ? (
+                <>Search by <strong>meaning</strong> (e.g. &quot;feeling happy&quot;) — finds related words. Click to switch to exact word search.</>
+              ) : (
+                <>Search by <strong>exact word</strong> — type the word you want. Click to switch to AI meaning search.</>
+              )}
+            </TooltipContent>
+          </Tooltip>
 
           {/* Input */}
           <input
@@ -166,29 +231,45 @@ const SmartSearchBar = ({ className, autoFocus = false }) => {
               <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
             )}
             {query && !isLoading && (
-              <button
-                type="button"
-                onClick={handleClear}
-                className="rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={handleClear}
+                    className="rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                    aria-label="Clear search"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">Clear the search box</TooltipContent>
+              </Tooltip>
             )}
-            <button
-              type="submit"
-              disabled={!query.trim()}
-              className={cn(
-                'ml-1 flex items-center gap-1 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200',
-                query.trim()
-                  ? isAIMode
-                    ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white hover:opacity-90'
-                    : 'bg-primary text-primary-foreground hover:bg-primary/90'
-                  : 'bg-muted text-muted-foreground cursor-not-allowed'
-              )}
-            >
-              <span className="hidden sm:inline">Search</span>
-              <ArrowRight className="h-4 w-4" />
-            </button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="submit"
+                  disabled={!query.trim()}
+                  className={cn(
+                    'ml-1 flex items-center gap-1 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200',
+                    query.trim()
+                      ? isAIMode
+                        ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white hover:opacity-90'
+                        : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                      : 'bg-muted text-muted-foreground cursor-not-allowed'
+                  )}
+                  aria-label="Run search"
+                >
+                  <span className="hidden sm:inline">Search</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="max-w-[240px]">
+                {query.trim()
+                  ? (isAIMode ? 'Search for words that match this meaning' : 'Search for this exact word in the dictionary')
+                  : 'Type something to search (by meaning or exact word)'}
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </form>
@@ -261,7 +342,7 @@ const SmartSearchBar = ({ className, autoFocus = false }) => {
         </div>
       )}
 
-      {/* Helper text */}
+      {/* Helper text when focused */}
       {isFocused && !showDropdown && (
         <p className="mt-2 text-center text-xs text-muted-foreground animate-in fade-in-0 duration-200">
           {isAIMode ? (
@@ -270,8 +351,15 @@ const SmartSearchBar = ({ className, autoFocus = false }) => {
               AI mode searches by meaning, not just keywords
             </>
           ) : (
-            'Type at least 2 characters to search'
+            'Type at least 2 characters to search for an exact word'
           )}
+        </p>
+      )}
+
+      {/* Hint after intro roll: clarify meaning vs word */}
+      {showModeHint && !query && (
+        <p className="mt-3 px-3 py-2 rounded-lg bg-muted/50 border border-border/50 text-center text-xs text-muted-foreground animate-in fade-in-0 duration-300 max-w-md mx-auto">
+          <span className="font-medium text-foreground">Tip:</span> Use <strong>AI</strong> to find words by meaning (e.g. &quot;feeling happy&quot;). Switch to <strong>Text</strong> to find an exact word by spelling.
         </p>
       )}
     </div>

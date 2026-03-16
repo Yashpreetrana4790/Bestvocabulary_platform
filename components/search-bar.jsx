@@ -1,9 +1,10 @@
 'use client'
 import { formUrlQuery, removeKeysFromQuery } from '@/lib/helper';
-import { Search, X, SlidersHorizontal, ArrowUpDown, RotateCcw, Quote } from 'lucide-react';
+import { Search, X, SlidersHorizontal, ArrowUpDown, RotateCcw, Quote, BookOpen, BarChart3 } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { Suspense, useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import SmartSearchBar from '@/components/SmartSearchBar';
 import {
   Dialog,
   DialogContent,
@@ -13,6 +14,12 @@ import {
   DialogFooter,
   DialogClose,
 } from './ui/dialog';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from './ui/tooltip';
+import LoadingWordFact from '@/components/LoadingWordFact';
 
 const CATEGORIES = [
   'General',
@@ -41,7 +48,7 @@ const PARTS_OF_SPEECH = [
 
 const ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-export const SearchBar = ({ route }) => {
+export const SearchBar = ({ route, aiSearch = false }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -55,6 +62,8 @@ export const SearchBar = ({ route }) => {
   const pos = searchParams.get("pos");
   const length = searchParams.get("length");
   const hasPhrases = searchParams.get("hasPhrases");
+  const hasEtymology = searchParams.get("hasEtymology");
+  const frequency = searchParams.get("frequency");
   const sortBy = searchParams.get("sortBy");
   const sortOrder = searchParams.get("sortOrder");
 
@@ -103,61 +112,80 @@ export const SearchBar = ({ route }) => {
     }
   };
 
-  const activeFiltersCount = [difficulty, startsWith, category, pos, length, hasPhrases].filter(Boolean).length;
+  const activeFiltersCount = [difficulty, startsWith, category, pos, length, hasPhrases, hasEtymology, frequency].filter(Boolean).length;
 
   const clearAllFilters = () => {
     const newUrl = removeKeysFromQuery({
       params: searchParams.toString(),
-      KeysToRemove: ["difficulty", "startsWith", "length", "category", "pos", "hasPhrases", "sortBy", "sortOrder"]
+      KeysToRemove: ["difficulty", "startsWith", "length", "category", "pos", "hasPhrases", "hasEtymology", "frequency", "sortBy", "sortOrder"]
     });
     router.push(newUrl, { scroll: false });
     setIsOpen(false);
   };
 
   return (
-    <Suspense fallback={<div className="h-20 bg-muted/30 animate-pulse" />}>
-      <div className="bg-muted/30 border-b">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          {/* Search Input */}
-          <div className="flex gap-3">
-            <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <input 
-                type="text" 
-                placeholder="Search words..." 
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-11 pl-12 pr-10 rounded-xl border border-border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-              />
-              {search && (
-                <button
-                  onClick={handleClear}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
-                >
-                  <X className="h-4 w-4 text-muted-foreground" />
-                </button>
+    <Suspense fallback={
+        <div className="space-y-3">
+          <div className="h-20 bg-muted/30 animate-pulse rounded-xl" />
+          <LoadingWordFact variant="inline" className="px-1" />
+        </div>
+      }>
+      <div className={aiSearch ? 'min-w-0' : 'bg-muted/30 border-b'}>
+        <div className="max-w-6xl mx-auto py-3 md:px-3 sm:py-4 min-w-0">
+          {/* Search: AI search (dictionary) or text search */}
+          <div className="flex gap-2 sm:gap-3 items-center min-w-0">
+            <div className="flex-1 min-w-0">
+              {aiSearch ? (
+                <SmartSearchBar className="max-w-none" introRoll />
+              ) : (
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <input 
+                    type="text" 
+                    placeholder="Search words..." 
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="w-full h-11 pl-12 pr-10 rounded-xl border border-border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  />
+                  {search && (
+                    <button
+                      onClick={handleClear}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
+                    >
+                      <X className="h-4 w-4 text-muted-foreground" />
+                    </button>
+                  )}
+                </div>
               )}
             </div>
             
             {/* Filter Dialog */}
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="h-11 px-4 gap-2 rounded-xl"
-                >
-                  <SlidersHorizontal className="h-4 w-4" />
-                  <span className="hidden sm:inline">Filters</span>
-                  {activeFiltersCount > 0 && (
-                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-medium">
-                      {activeFiltersCount}
-                    </span>
-                  )}
-                </Button>
-              </DialogTrigger>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="h-11 px-4 gap-2 rounded-xl"
+                      aria-label="Open filters"
+                    >
+                      <SlidersHorizontal className="h-4 w-4" />
+                      <span className="hidden sm:inline">Filters</span>
+                      {activeFiltersCount > 0 && (
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+                          {activeFiltersCount}
+                        </span>
+                      )}
+                    </Button>
+                  </DialogTrigger>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="max-w-[260px]">
+                  Refine the word list by difficulty, length, category, part of speech, frequency, and more. Opens the filter panel.
+                </TooltipContent>
+              </Tooltip>
               
-              <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
+              <DialogContent className="w-[calc(100vw-1.5rem)] max-w-[calc(100vw-1.5rem)] p-4 max-h-[85vh] overflow-y-auto sm:max-w-lg sm:p-6 md:max-w-2xl lg:max-w-4xl xl:max-w-5xl">
                 <DialogHeader>
                   <DialogTitle className="flex items-center gap-2">
                     <SlidersHorizontal className="h-5 w-5" />
@@ -165,16 +193,51 @@ export const SearchBar = ({ route }) => {
                   </DialogTitle>
                 </DialogHeader>
 
-                <div className="space-y-5 py-4">
-                  {/* Starts With - Alphabet Grid */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-3 block">Starts with</label>
-                    <div className="grid grid-cols-9 gap-1.5">
+                <div className="py-2 sm:py-4">
+                  {/* Sort – full width at top */}
+                  <div className="pb-3 mb-4 sm:pb-4 sm:mb-6 border-b border-border/60">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3 block">Sort & order</label>
+                    <div className="flex gap-1.5 sm:gap-2 min-w-0">
+                      <select
+                        value={sortBy || "word"}
+                        onChange={(e) => handleFilterChange("sortBy", e.target.value)}
+                        className="min-w-0 flex-1 h-9 sm:h-10 px-2.5 sm:px-3 rounded-lg border border-border bg-background text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        aria-label="Sort by"
+                      >
+                        <option value="word">Alphabetical</option>
+                        <option value="frequency">Frequency</option>
+                        <option value="createdAt">Date added</option>
+                      </select>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => handleFilterChange("sortOrder", sortOrder === "desc" ? "asc" : "desc")}
+                            className="h-10 w-10 shrink-0"
+                            aria-label={sortOrder === "desc" ? "Switch to ascending" : "Switch to descending"}
+                          >
+                            <ArrowUpDown className={`h-4 w-4 transition-transform ${sortOrder === "desc" ? "rotate-180" : ""}`} />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom">
+                          {sortOrder === "desc" ? "Descending (Z→A). Click for ascending (A→Z)." : "Ascending (A→Z). Click for descending (Z→A)."}
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </div>
+
+                  {/* Filter sections: stacked on small, horizontal grid on larger */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                  {/* Quick filters */}
+                  <div className="md:col-span-2 lg:col-span-2 min-w-0">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3 block">Starts with</label>
+                    <div className="grid grid-cols-9 gap-1 sm:gap-1.5">
                       {ALPHABETS.map(letter => (
                         <button
                           key={letter}
                           onClick={() => handleFilterChange("startsWith", startsWith === letter ? "" : letter)}
-                          className={`h-8 rounded-md text-sm font-medium transition-all ${
+                          className={`h-7 w-full min-w-0 rounded-md text-xs sm:text-sm font-medium transition-all ${
                             startsWith === letter 
                               ? 'bg-primary text-primary-foreground' 
                               : 'bg-muted/50 hover:bg-muted text-foreground'
@@ -186,10 +249,9 @@ export const SearchBar = ({ route }) => {
                     </div>
                   </div>
 
-                  {/* Difficulty */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-3 block">Difficulty</label>
-                    <div className="flex gap-2">
+                  <div className="min-w-0">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3 block">Difficulty</label>
+                    <div className="flex gap-1.5 sm:gap-2">
                       {[
                         { value: 'Beginner', label: 'Beginner', color: 'bg-emerald-500' },
                         { value: 'Intermediate', label: 'Intermediate', color: 'bg-amber-500' },
@@ -198,7 +260,7 @@ export const SearchBar = ({ route }) => {
                         <button
                           key={level.value}
                           onClick={() => handleFilterChange("difficulty", difficulty === level.value ? "" : level.value)}
-                          className={`flex-1 h-10 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                          className={`flex-1 min-w-0 h-9 sm:h-10 rounded-lg text-xs sm:text-sm font-medium transition-all flex items-center justify-center gap-1.5 sm:gap-2 ${
                             difficulty === level.value 
                               ? 'bg-primary text-primary-foreground' 
                               : 'bg-muted/50 hover:bg-muted text-foreground border border-border'
@@ -211,10 +273,9 @@ export const SearchBar = ({ route }) => {
                     </div>
                   </div>
 
-                  {/* Word Length */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-3 block">Word Length</label>
-                    <div className="flex gap-2">
+                  <div className="min-w-0">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3 block">Word length</label>
+                    <div className="flex gap-1.5 sm:gap-2">
                       {[
                         { value: 'short', label: 'Short', sub: '1-4' },
                         { value: 'medium', label: 'Medium', sub: '5-8' },
@@ -223,28 +284,27 @@ export const SearchBar = ({ route }) => {
                         <button
                           key={len.value}
                           onClick={() => handleFilterChange("length", length === len.value ? "" : len.value)}
-                          className={`flex-1 h-12 rounded-lg text-sm font-medium transition-all flex flex-col items-center justify-center ${
+                          className={`flex-1 min-w-0 h-11 sm:h-12 rounded-lg text-xs sm:text-sm font-medium transition-all flex flex-col items-center justify-center ${
                             length === len.value 
                               ? 'bg-primary text-primary-foreground' 
                               : 'bg-muted/50 hover:bg-muted text-foreground border border-border'
                           }`}
                         >
                           <span>{len.label}</span>
-                          <span className={`text-xs ${length === len.value ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>{len.sub} letters</span>
+                          <span className={`text-[10px] sm:text-xs ${length === len.value ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>{len.sub} letters</span>
                         </button>
                       ))}
                     </div>
                   </div>
 
-                  {/* Category */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-3 block">Category</label>
-                    <div className="flex flex-wrap gap-2">
+                  <div className="min-w-0">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3 block">Category</label>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {CATEGORIES.map(cat => (
                         <button
                           key={cat}
                           onClick={() => handleFilterChange("category", category === cat ? "" : cat)}
-                          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                          className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
                             category === cat 
                               ? 'bg-primary text-primary-foreground' 
                               : 'bg-muted/50 hover:bg-muted text-foreground border border-border'
@@ -256,15 +316,14 @@ export const SearchBar = ({ route }) => {
                     </div>
                   </div>
 
-                  {/* Part of Speech */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-3 block">Part of Speech</label>
-                    <div className="flex flex-wrap gap-2">
+                  <div className="min-w-0">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3 block">Part of speech</label>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {PARTS_OF_SPEECH.map(p => (
                         <button
                           key={p.value}
                           onClick={() => handleFilterChange("pos", pos === p.value ? "" : p.value)}
-                          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                          className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
                             pos === p.value 
                               ? 'bg-primary text-primary-foreground' 
                               : 'bg-muted/50 hover:bg-muted text-foreground border border-border'
@@ -276,64 +335,71 @@ export const SearchBar = ({ route }) => {
                     </div>
                   </div>
 
-                  {/* Has phrases & expressions */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-3 block">Has phrases or expressions</label>
-                    <button
-                      onClick={() => handleFilterChange("hasPhrases", hasPhrases === "true" ? "" : "true")}
-                      className={`w-full h-10 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
-                        hasPhrases === "true"
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted/50 hover:bg-muted text-foreground border border-border"
-                      }`}
-                    >
-                      <Quote className="h-4 w-4" />
-                      {hasPhrases === "true" ? "Words with phrases / idioms" : "Show only words with phrases or idioms"}
-                    </button>
-                  </div>
-
-                  {/* Sort By */}
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-3 block">Sort by</label>
-                    <div className="flex gap-2">
-                      <select
-                        value={sortBy || "word"}
-                        onChange={(e) => handleFilterChange("sortBy", e.target.value)}
-                        className="flex-1 h-10 px-3 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  {/* Usage & content */}
+                  <div className="min-w-0">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3 block">Usage & content</label>
+                    <div className="space-y-2 sm:space-y-3">
+                      {/* Frequency */}
+                      <div>
+                        <span className="text-xs sm:text-sm text-muted-foreground block mb-1 sm:mb-1.5">Frequency</span>
+                        <div className="flex gap-1.5 sm:gap-2 flex-wrap">
+                          {[
+                            { value: 'high', label: 'Common', icon: BarChart3 },
+                            { value: 'medium', label: 'Moderate' },
+                            { value: 'low', label: 'Rare' },
+                          ].map(({ value, label, icon: Icon }) => (
+                            <button
+                              key={value}
+                              type="button"
+                              onClick={() => handleFilterChange("frequency", frequency === value ? "" : value)}
+                              className={`flex-1 min-w-0 basis-20 sm:basis-auto sm:min-w-[80px] h-8 sm:h-9 rounded-lg text-xs sm:text-sm font-medium transition-all flex items-center justify-center gap-1 sm:gap-1.5 ${
+                                frequency === value
+                                  ? "bg-primary text-primary-foreground shadow-sm"
+                                  : "bg-muted/50 hover:bg-muted text-foreground border border-border"
+                              }`}
+                            >
+                              {Icon && <Icon className="h-3.5 w-3.5" />}
+                              {label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      {/* Has phrases */}
+                      <button
+                        type="button"
+                        onClick={() => handleFilterChange("hasPhrases", hasPhrases === "true" ? "" : "true")}
+                        className={`w-full min-w-0 h-9 sm:h-10 rounded-lg text-xs sm:text-sm font-medium transition-all flex items-center justify-center gap-1.5 sm:gap-2 px-2 ${
+                          hasPhrases === "true"
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted/50 hover:bg-muted text-foreground border border-border"
+                        }`}
                       >
-                        <option value="word">Alphabetical</option>
-                        <option value="frequency">Frequency</option>
-                        <option value="createdAt">Date Added</option>
-                      </select>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => handleFilterChange("sortOrder", sortOrder === "desc" ? "asc" : "desc")}
-                        className="h-10 w-10 shrink-0"
-                        title={sortOrder === "desc" ? "Descending" : "Ascending"}
-                      >
-                        <ArrowUpDown className={`h-4 w-4 transition-transform ${sortOrder === "desc" ? "rotate-180" : ""}`} />
-                      </Button>
+                        <Quote className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                        <span className="truncate">{hasPhrases === "true" ? "With phrases / idioms" : "Words with phrases or idioms"}</span>
+                      </button>
+                 
                     </div>
+                  </div>
                   </div>
                 </div>
 
-                <DialogFooter className="flex gap-2 sm:gap-2">
+                <DialogFooter className="flex flex-wrap gap-2 pt-2 sm:pt-4">
                   {activeFiltersCount > 0 && (
                     <Button
                       variant="ghost"
+                      size="sm"
                       onClick={clearAllFilters}
-                      className="gap-2"
+                      className="gap-1.5 text-xs sm:text-sm h-8 sm:h-9"
                     >
-                      <RotateCcw className="h-4 w-4" />
+                      <RotateCcw className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       Reset all
                     </Button>
                   )}
                   <DialogClose asChild>
-                    <Button className="flex-1 sm:flex-none">
-                      Apply Filters
+                    <Button className="flex-1 min-w-0 h-8 sm:h-9 sm:flex-none text-xs sm:text-sm">
+                     Done
                       {activeFiltersCount > 0 && (
-                        <span className="ml-2 bg-primary-foreground/20 px-2 py-0.5 rounded-full text-xs">
+                        <span className="ml-1.5 sm:ml-2 bg-primary-foreground/20 px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs">
                           {activeFiltersCount}
                         </span>
                       )}
@@ -346,8 +412,8 @@ export const SearchBar = ({ route }) => {
 
           {/* Active Filters Pills */}
           {activeFiltersCount > 0 && (
-            <div className="flex items-center gap-2 mt-3 flex-wrap">
-              <span className="text-xs text-muted-foreground">Active:</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 mt-2 sm:mt-3 flex-wrap min-w-0">
+              <span className="text-[10px] sm:text-xs text-muted-foreground shrink-0">Active:</span>
               {difficulty && (
                 <FilterPill 
                   label={difficulty} 
@@ -380,8 +446,20 @@ export const SearchBar = ({ route }) => {
               )}
               {hasPhrases && (
                 <FilterPill 
-                  label="Has phrases / idioms" 
+                  label="Phrases / idioms" 
                   onRemove={() => handleFilterChange("hasPhrases", "")} 
+                />
+              )}
+              {hasEtymology && (
+                <FilterPill 
+                  label="Has etymology" 
+                  onRemove={() => handleFilterChange("hasEtymology", "")} 
+                />
+              )}
+              {frequency && (
+                <FilterPill 
+                  label={frequency === "high" ? "Common" : frequency === "medium" ? "Moderate" : "Rare"} 
+                  onRemove={() => handleFilterChange("frequency", "")} 
                 />
               )}
               <button
