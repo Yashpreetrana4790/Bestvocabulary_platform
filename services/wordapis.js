@@ -10,6 +10,7 @@ export async function getWords(params = {}) {
     pos,
     tone,
     hasEtymology,
+    hasPhrases,
     sortBy,
     sortOrder
   } = params;
@@ -34,6 +35,7 @@ export async function getWords(params = {}) {
     if (pos) queryParams.append("pos", pos);
     if (tone) queryParams.append("tone", tone);
     if (hasEtymology) queryParams.append("hasEtymology", hasEtymology);
+    if (hasPhrases) queryParams.append("hasPhrases", hasPhrases);
     if (sortBy) queryParams.append("sortBy", sortBy);
     if (sortOrder) queryParams.append("sortOrder", sortOrder);
 

@@ -53,7 +53,7 @@ const Features = () => {
         {/* Bento Grid */}
         <div className="grid md:grid-cols-3 gap-3 sm:gap-4">
           {/* AI Search - Large Card */}
-          <Link 
+          <Link
             href="/search"
             className="md:col-span-2 group relative p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border bg-gradient-to-br from-primary/5 via-card to-card hover:from-primary/10 transition-all duration-500 overflow-hidden"
           >
@@ -100,7 +100,7 @@ const Features = () => {
 
           {/* Word Networks - Wide Card */}
           <div className="md:col-span-2 group p-6 rounded-3xl border bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+            <div className="flex flex-col sm:items-start gap-5">
               <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
                 <Network className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
               </div>

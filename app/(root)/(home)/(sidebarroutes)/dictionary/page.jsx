@@ -27,6 +27,7 @@ const Page = async ({ searchParams }) => {
     startsWith: searchParams.startsWith,
     category: searchParams.category,
     pos: searchParams.pos,
+    hasPhrases: searchParams.hasPhrases,
     sortBy: searchParams.sortBy,
     sortOrder: searchParams.sortOrder,
   });
@@ -35,7 +36,7 @@ const Page = async ({ searchParams }) => {
   const currentPage = searchParams.page ? +searchParams.page : 1;
   const totalPages = wordslist?.data?.pagination?.totalPages || 1;
   const wordsOnPage = wordslist?.data?.words?.length || 0;
-  const hasFilters = searchParams.search || searchParams.difficulty || searchParams.startsWith || searchParams.category || searchParams.pos || searchParams.length;
+  const hasFilters = searchParams.search || searchParams.difficulty || searchParams.startsWith || searchParams.category || searchParams.pos || searchParams.length || searchParams.hasPhrases;
 
   return (
     <Suspense fallback={<DictionaryLoading />}>

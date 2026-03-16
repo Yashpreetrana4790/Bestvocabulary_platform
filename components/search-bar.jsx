@@ -1,6 +1,6 @@
 'use client'
 import { formUrlQuery, removeKeysFromQuery } from '@/lib/helper';
-import { Search, X, SlidersHorizontal, ArrowUpDown, RotateCcw } from 'lucide-react';
+import { Search, X, SlidersHorizontal, ArrowUpDown, RotateCcw, Quote } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { Suspense, useEffect, useState } from 'react';
 import { Button } from './ui/button';
@@ -54,6 +54,7 @@ export const SearchBar = ({ route }) => {
   const category = searchParams.get("category");
   const pos = searchParams.get("pos");
   const length = searchParams.get("length");
+  const hasPhrases = searchParams.get("hasPhrases");
   const sortBy = searchParams.get("sortBy");
   const sortOrder = searchParams.get("sortOrder");
 
@@ -102,12 +103,12 @@ export const SearchBar = ({ route }) => {
     }
   };
 
-  const activeFiltersCount = [difficulty, startsWith, category, pos, length].filter(Boolean).length;
+  const activeFiltersCount = [difficulty, startsWith, category, pos, length, hasPhrases].filter(Boolean).length;
 
   const clearAllFilters = () => {
     const newUrl = removeKeysFromQuery({
       params: searchParams.toString(),
-      KeysToRemove: ["difficulty", "startsWith", "length", "category", "pos", "sortBy", "sortOrder"]
+      KeysToRemove: ["difficulty", "startsWith", "length", "category", "pos", "hasPhrases", "sortBy", "sortOrder"]
     });
     router.push(newUrl, { scroll: false });
     setIsOpen(false);
@@ -275,6 +276,22 @@ export const SearchBar = ({ route }) => {
                     </div>
                   </div>
 
+                  {/* Has phrases & expressions */}
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-3 block">Has phrases or expressions</label>
+                    <button
+                      onClick={() => handleFilterChange("hasPhrases", hasPhrases === "true" ? "" : "true")}
+                      className={`w-full h-10 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                        hasPhrases === "true"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted/50 hover:bg-muted text-foreground border border-border"
+                      }`}
+                    >
+                      <Quote className="h-4 w-4" />
+                      {hasPhrases === "true" ? "Words with phrases / idioms" : "Show only words with phrases or idioms"}
+                    </button>
+                  </div>
+
                   {/* Sort By */}
                   <div>
                     <label className="text-sm font-medium text-foreground mb-3 block">Sort by</label>
@@ -359,6 +376,12 @@ export const SearchBar = ({ route }) => {
                 <FilterPill 
                   label={PARTS_OF_SPEECH.find(p => p.value === pos)?.label || pos} 
                   onRemove={() => handleFilterChange("pos", "")} 
+                />
+              )}
+              {hasPhrases && (
+                <FilterPill 
+                  label="Has phrases / idioms" 
+                  onRemove={() => handleFilterChange("hasPhrases", "")} 
                 />
               )}
               <button

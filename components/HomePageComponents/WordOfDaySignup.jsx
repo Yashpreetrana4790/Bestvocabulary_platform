@@ -24,11 +24,11 @@ export default function WordOfDaySignup({ compact = false }) {
 
   if (compact) {
     return (
-      <div className="min-w-0 w-full rounded-xl bg-muted/30 border border-border/50 p-4 sm:p-5">
-        <p className="text-xs sm:text-sm text-muted-foreground mb-3 break-words min-w-0 leading-snug">
+      <div className="min-w-0 w-full space-y-3">
+        <p className="text-xs sm:text-sm text-muted-foreground break-words min-w-0 leading-snug">
           Get one word in your inbox every day
         </p>
-        <form onSubmit={handleSubmit} className="w-full max-w-full min-w-0 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2">
+        <form onSubmit={handleSubmit} className="w-full max-w-full min-w-0 flex flex-col sm:flex-row sm:items-stretch sm:gap-0 gap-2 rounded-xl border-2 border-border bg-muted/20 overflow-hidden sm:[&_button]:rounded-l-none sm:[&_button]:rounded-r-xl sm:[&_button]:border-l">
           <div className="relative w-full min-w-0 flex-1">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
             <Input
@@ -36,23 +36,24 @@ export default function WordOfDaySignup({ compact = false }) {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-9 h-9 rounded-lg border border-border/80 bg-background/90 text-sm focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary/50"
+              className="w-full h-9 sm:h-10 pl-9 pr-3 rounded-xl sm:rounded-none sm:rounded-l-xl border-0 bg-background/60 text-sm focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/30"
               aria-label="Email for daily word"
             />
           </div>
           <Button
             type="submit"
-            className="w-full sm:w-auto rounded-lg h-9 px-4 text-sm font-medium shrink-0"
+            variant="outline"
+            className="w-full sm:w-auto h-9 sm:h-10 rounded-xl sm:rounded-l-none sm:rounded-r-xl px-4 sm:px-5 text-sm font-medium border-2 border-border hover:bg-muted/80 hover:border-primary/40 shrink-0 transition-all bg-background/40"
           >
             Get daily word
             <ArrowRight className="h-3.5 w-3.5 ml-1.5 shrink-0" />
           </Button>
         </form>
-        <p className="mt-2.5 text-[11px] sm:text-xs text-muted-foreground/90">
+        <p className="text-[11px] sm:text-xs text-muted-foreground">
           Prefer a full account?{' '}
           <Link
             href="/register"
-            className="text-primary/90 hover:text-primary font-medium hover:underline underline-offset-2"
+            className="text-primary hover:text-primary/90 font-medium hover:underline underline-offset-2"
           >
             Register for free
           </Link>
