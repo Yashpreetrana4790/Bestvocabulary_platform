@@ -4,7 +4,6 @@ import { ArrowRight, Sparkles, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ScrollingWords from './ScrollingWords';
 import PronunciationButton from './PronunciationButton';
-import WordOfDaySignup from './WordOfDaySignup';
 import { getWordOfDay } from '@/services/wordOfDay';
 import { capitalizeString } from '@/lib/otherutil';
 
@@ -102,10 +101,7 @@ const FeaturedWords = async () => {
                 </>
               )}
 
-              {/* Get one word in your inbox – inside same card */}
-              <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-border min-w-0 w-full">
-                <WordOfDaySignup compact />
-              </div>
+
             </div>
           </div>
 
