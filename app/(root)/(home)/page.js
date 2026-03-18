@@ -17,11 +17,11 @@ export default function Home() {
         <FeaturedWords />
       </Suspense>
 
-      <Features />
+      <NewLight />
 
       <Categories />
 
-      <NewLight />
+      <Features />
 
       <NoMatter />
 
