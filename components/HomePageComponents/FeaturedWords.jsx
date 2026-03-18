@@ -38,8 +38,8 @@ const FeaturedWords = async () => {
 
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6 sm:gap-8 lg:gap-10 min-w-0 w-full">
           {/* Word of the Day Card (includes email signup at bottom) */}
-          <div className="group relative min-w-0 w-full max-w-full">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl sm:rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          <div className="group relative min-w-0 w-full max-w-full flex flex-col">
+            <div className="absolute inset-x-4 bottom-0 h-1/2 bg-gradient-to-t from-primary/10 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             <div
               className="relative flex flex-col flex-1 min-h-0 rounded-xl sm:rounded-2xl md:rounded-3xl border bg-card/80 backdrop-blur-sm p-3 sm:p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-lg transition-all duration-300 overflow-x-hidden"
               style={{ minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
@@ -78,7 +78,7 @@ const FeaturedWords = async () => {
                     </p>
                   </div>
                   <Link href={`/search?q=${encodeURIComponent(wordOfTheDay.word)}`} className="inline-block min-w-0">
-                    <Button className="rounded-full px-3 sm:px-5 md:px-6 h-9 sm:h-10 md:h-11 text-xs sm:text-sm md:text-base shadow-md hover:shadow-lg transition-all w-full sm:w-auto">
+                    <Button className="rounded-full px-3 sm:px-5 md:px-6 h-11 sm:h-11 md:h-11 text-xs sm:text-sm md:text-base shadow-md hover:shadow-lg transition-all w-full sm:w-auto">
                       Learn this word
                       <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1.5 sm:ml-2 shrink-0" />
                     </Button>
@@ -93,7 +93,7 @@ const FeaturedWords = async () => {
                     Learn a new word every day. Expand your vocabulary and express yourself with precision.
                   </p>
                   <Link href="/wordofday" className="inline-block min-w-0">
-                    <Button className="rounded-full px-3 sm:px-5 md:px-6 h-9 sm:h-10 md:h-11 text-xs sm:text-sm md:text-base shadow-md hover:shadow-lg transition-all w-full sm:w-auto">
+                    <Button className="rounded-full px-3 sm:px-5 md:px-6 h-11 sm:h-11 md:h-11 text-xs sm:text-sm md:text-base shadow-md hover:shadow-lg transition-all w-full sm:w-auto">
                       Explore words
                       <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1.5 sm:ml-2 shrink-0" />
                     </Button>
