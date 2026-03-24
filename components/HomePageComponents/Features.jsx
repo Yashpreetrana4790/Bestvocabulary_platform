@@ -39,7 +39,7 @@ const Features = () => {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section header — large mascot banner (animated GIF) */}
-        <div className="mb-14 sm:mb-20 md:mb-24 rounded-[1.75rem] sm:rounded-3xl border border-primary/15 bg-gradient-to-br from-customBlue/[0.14] via-card/90 to-muted/50 dark:from-customBlue/[0.08] dark:via-card/80 dark:to-background/60 p-6 sm:p-8 md:p-10 lg:p-12 shadow-[0_20px_50px_-24px_hsl(var(--primary)/0.2)] overflow-hidden relative">
+        <div className="rounded-[1.75rem] sm:rounded-3xl border border-primary/15 bg-gradient-to-br from-customBlue/[0.14] via-card/90 to-muted/50 dark:from-customBlue/[0.08] dark:via-card/80 dark:to-background/60 p-6 sm:p-8 md:p-10 lg:p-12 shadow-[0_20px_50px_-24px_hsl(var(--primary)/0.2)] overflow-hidden relative">
           {/* Soft blobs — echo hero + mascot palette */}
           <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-customBlue/25 blur-3xl dark:bg-customBlue/10" />
           <div className="pointer-events-none absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
