@@ -1,8 +1,9 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Search } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import SmartSearchBar from "@/components/SmartSearchBar"
+import HeroCatMascot from "@/components/HomePageComponents/HeroCatMascot"
 
 const Herobanner = () => {
   return (
@@ -42,6 +43,10 @@ const Herobanner = () => {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
           </span>
           10,000+ words with rich definitions
+        </div>
+
+        <div className="mt-2 mb-4 sm:mt-3 sm:mb-6">
+          <HeroCatMascot />
         </div>
 
         {/* Headline */}

@@ -109,18 +109,38 @@ module.exports = {
     					height: 'var(--radix-accordion-content-height)'
     				}
     			},
-    			'accordion-up': {
+    		'accordion-up': {
     				from: {
     					height: 'var(--radix-accordion-content-height)'
     				},
     				to: {
     					height: '0'
     				}
-    			}
+    			},
+    			'hero-mascot-float': {
+    				'0%, 100%': { transform: 'translateY(0)' },
+    				'50%': { transform: 'translateY(-7px)' },
+    			},
+    			'hero-mascot-sway': {
+    				'0%, 100%': { transform: 'rotate(-1.5deg)' },
+    				'50%': { transform: 'rotate(1.5deg)' },
+    			},
+    			'hero-mascot-tail': {
+    				'0%, 100%': { transform: 'rotate(-5deg)' },
+    				'50%': { transform: 'rotate(8deg)' },
+    			},
+    			'hero-mascot-blink': {
+    				'0%, 88%, 100%': { transform: 'scaleY(1)' },
+    				'90%, 94%': { transform: 'scaleY(0.08)' },
+    			},
     		},
     		animation: {
     			'accordion-down': 'accordion-down 0.2s ease-out',
-    			'accordion-up': 'accordion-up 0.2s ease-out'
+    			'accordion-up': 'accordion-up 0.2s ease-out',
+    			'hero-mascot-float': 'hero-mascot-float 5s ease-in-out infinite',
+    			'hero-mascot-sway': 'hero-mascot-sway 6s ease-in-out infinite',
+    			'hero-mascot-tail': 'hero-mascot-tail 2.8s ease-in-out infinite',
+    			'hero-mascot-blink': 'hero-mascot-blink 4.5s ease-in-out infinite',
     		}
     	}
     },

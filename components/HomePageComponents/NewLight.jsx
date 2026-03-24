@@ -36,7 +36,7 @@ const NewLight = () => {
 
           {/* Image */}
           <div className="relative order-first lg:order-last">
-            <div className="absolute inset-0 rounded-3xl" />
+            <div className="absolute inset-0 rounded-3xl" />  
             <Image
               width={600}
               height={400}

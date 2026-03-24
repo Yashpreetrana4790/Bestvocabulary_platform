@@ -11,7 +11,10 @@ import React, { Suspense } from "react"
 export default function Home() {
   return (
     <main className="overflow-x-hidden min-w-0">
-      <Herobanner />
+      {/* SmartSearchBar uses useSearchParams — Suspense required for static generation */}
+      <Suspense fallback={<HeroBannerSkeleton />}>
+        <Herobanner />
+      </Suspense>
 
       <Suspense fallback={<SectionSkeleton />}>
         <FeaturedWords />
@@ -27,6 +30,20 @@ export default function Home() {
 
       <CTASection />
     </main>
+  )
+}
+
+function HeroBannerSkeleton() {
+  return (
+    <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center px-3 sm:px-4 py-12 sm:py-16 md:py-24 overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+      <div className="max-w-4xl mx-auto text-center w-full space-y-8 animate-pulse">
+        <div className="h-8 w-48 bg-muted rounded-full mx-auto" />
+        <div className="h-12 sm:h-16 md:h-20 bg-muted rounded-lg mx-auto max-w-2xl" />
+        <div className="h-20 max-w-xl mx-auto bg-muted rounded-xl" />
+        <div className="h-11 max-w-md mx-auto bg-muted rounded-full" />
+      </div>
+    </section>
   )
 }
 

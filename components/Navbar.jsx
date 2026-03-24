@@ -135,7 +135,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger className={cn(
-                  "h-9 px-3 text-sm font-medium",
+                  "h-9 px-3 text-sm font-medium bg-transparent hover:bg-muted hover:text-foreground data-[state=open]:bg-muted",
                   isCategoryActive ? "bg-primary/10 text-primary" : "text-muted-foreground"
                 )}>
                   Categories
@@ -173,7 +173,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger className={cn(
-                  "h-9 px-3 text-sm font-medium",
+                  "h-9 px-3 text-sm font-medium bg-transparent hover:bg-muted hover:text-foreground data-[state=open]:bg-muted",
                   isLearnActive ? "bg-primary/10 text-primary" : "text-muted-foreground"
                 )}>
                   Learn
@@ -210,11 +210,11 @@ export function Navbar() {
           </NavigationMenu>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-0.5 sm:gap-2">
             {/* AI Search */}
             <Link href="/search">
-              <Button variant="outline" size="sm" className="h-8 sm:h-9 px-2 sm:px-3 gap-1.5 text-xs sm:text-sm">
-                <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
+              <Button variant="outline" size="sm" className="h-8 sm:h-9 px-1.5 sm:px-3 gap-1 sm:gap-1.5 text-xs sm:text-sm border-none sm:border-input">
+                <Sparkles className="h-4 w-4 text-primary" />
                 <span className="hidden sm:inline">Search</span>
                 <kbd className="hidden lg:inline-flex h-5 items-center rounded border bg-muted px-1 text-[10px] font-mono">
                   <Command className="h-2.5 w-2.5" />K
@@ -258,14 +258,14 @@ export function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2">
                 <Link href="/login">
-                  <Button variant="ghost" size="sm" className="h-8 sm:h-9 px-3 text-sm hidden sm:inline-flex">
+                  <Button variant="ghost" size="sm" className="h-8 sm:h-9 px-2 sm:px-3 text-sm hidden sm:inline-flex">
                     Sign in
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button size="sm" className="h-8 sm:h-9 px-3 text-sm">
+                  <Button size="sm" className="h-8 sm:h-9 px-2 sm:px-3 text-sm">
                     <span className="hidden sm:inline">Get started</span>
                     <span className="sm:hidden">Sign up</span>
                   </Button>
@@ -276,7 +276,7 @@ export function Navbar() {
             {/* Mobile Menu Button (right side on mobile) */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="xl:hidden h-12 w-12 shrink-0 [&_svg]:!h-7 [&_svg]:!w-7 sm:h-14 sm:w-14 sm:[&_svg]:!h-8 sm:[&_svg]:!w-8">
+                <Button variant="ghost" size="icon" className="xl:hidden h-9 w-9 sm:h-12 sm:w-12 shrink-0 [&_svg]:!h-6 [&_svg]:!w-6 sm:[&_svg]:!h-7 sm:[&_svg]:!w-7">
                   <Menu />
                   <span className="sr-only">Menu</span>
                 </Button>

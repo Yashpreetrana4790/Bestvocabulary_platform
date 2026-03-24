@@ -11,6 +11,11 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from '@/components/ui/tooltip';
+import {
+  getCommonUsage,
+  getExampleSentenceStrings,
+  getKidDefinition,
+} from '@/lib/wordShape';
 
 const iconMap = {
   history: History,
@@ -38,10 +43,13 @@ function speakWord(wordText) {
 export function DefinitionCard({ meaning, index, word, difficultyConfig, isFirst }) {
   const [expanded, setExpanded] = useState(false);
   const currentDifficulty = difficultyConfig[meaning.difficulty] || difficultyConfig.Beginner;
+  const exampleLines = getExampleSentenceStrings(meaning);
+  const commonUsage = getCommonUsage(meaning);
+  const kidDef = getKidDefinition(meaning);
 
-  const hasMoreContent = meaning.easyMeaning || meaning.kiddefinition ||
-    (meaning.example_sentences?.length > 1) ||
-    meaning.common_usage?.length > 0 ||
+  const hasMoreContent = meaning.easyMeaning || kidDef ||
+    (exampleLines.length > 1) ||
+    commonUsage.length > 0 ||
     (meaning.mnemonic && !isFirst);
 
   return (
@@ -132,10 +140,10 @@ export function DefinitionCard({ meaning, index, word, difficultyConfig, isFirst
           <p className="text-sm font-medium text-foreground/90 mb-3">{meaning.subtitle}</p>
         )}
 
-        {meaning.example_sentences?.[0] && (
+        {exampleLines[0] && (
           <div className="flex gap-3">
             <Quote className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-            <p className="text-sm text-muted-foreground italic">{meaning.example_sentences[0]}</p>
+            <p className="text-sm text-muted-foreground italic">{exampleLines[0]}</p>
           </div>
         )}
       </div>
@@ -157,26 +165,26 @@ export function DefinitionCard({ meaning, index, word, difficultyConfig, isFirst
             )}
 
             {/* Kid Definition */}
-            {meaning.kiddefinition && (
+            {kidDef && (
               <div className="px-5 pb-4">
                 <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
                   <p className="text-sm">
                     <span className="font-semibold text-blue-600 dark:text-blue-400">👶 For kids:</span>{' '}
-                    <span className="text-foreground/80">{meaning.kiddefinition}</span>
+                    <span className="text-foreground/80">{kidDef}</span>
                   </p>
                 </div>
               </div>
             )}
 
             {/* More Examples */}
-            {meaning.example_sentences?.length > 1 && (
+            {exampleLines.length > 1 && (
               <div className="border-t bg-muted/30 p-5">
                 <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                   <Quote className="h-4 w-4 text-primary" />
                   More Examples
                 </h4>
                 <div className="space-y-3">
-                  {meaning.example_sentences.slice(1, 4).map((example, i) => (
+                  {exampleLines.slice(1, 4).map((example, i) => (
                     <div key={i} className="flex gap-3">
                       <span className="shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-medium text-primary">
                         {i + 2}
@@ -189,14 +197,14 @@ export function DefinitionCard({ meaning, index, word, difficultyConfig, isFirst
             )}
 
             {/* Common Usage */}
-            {meaning.common_usage?.length > 0 && (
+            {commonUsage.length > 0 && (
               <div className="border-t p-5">
                 <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                   <MessageSquare className="h-4 w-4 text-primary" />
                   How It&apos;s Used
                 </h4>
                 <div className="grid gap-3">
-                  {meaning.common_usage.map((usage, i) => (
+                  {commonUsage.map((usage, i) => (
                     <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-muted/50">
                       <span className="shrink-0 text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-lg">
                         {usage.context}
