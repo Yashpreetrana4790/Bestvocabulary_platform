@@ -28,8 +28,8 @@ export default function HeroCatMascot({
   const videoRef = useRef(null)
   /* Assume reduced motion until client reads mq — avoids autoplay flash for a11y. */
   const [reduceMotion, setReduceMotion] = useState(true)
-  /** Muted is required for autoplay; user can unmute after a click (browser policy). */
-  const [muted, setMuted] = useState(true)
+  /** Default unmuted; browsers often block unmuted autoplay — we fall back to muted + play. */
+  const [muted, setMuted] = useState(false)
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -49,16 +49,19 @@ export default function HeroCatMascot({
       } catch {
         /* ignore */
       }
-    } else {
-      void el.play().catch(() => {})
+      setMuted(true)
+      el.muted = true
+      return
     }
-  }, [reduceMotion])
-
-  useEffect(() => {
-    if (!reduceMotion) return
-    setMuted(true)
-    const el = videoRef.current
-    if (el) el.muted = true
+    setMuted(false)
+    el.muted = false
+    void el.play().catch(() => {
+      if (!el.muted) {
+        el.muted = true
+        setMuted(true)
+        void el.play().catch(() => {})
+      }
+    })
   }, [reduceMotion])
 
   function toggleSound() {
