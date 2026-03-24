@@ -132,60 +132,84 @@ export const SearchBar = ({ route, aiSearch = false }) => {
       }>
       <div className={aiSearch ? 'min-w-0' : 'bg-muted/30 border-b'}>
         <div className="max-w-6xl mx-auto py-3 md:px-3 sm:py-4 min-w-0">
-          {/* Search: AI search (dictionary) or text search */}
-          <div className="flex gap-2 sm:gap-3 items-center min-w-0">
-            <div className="flex-1 min-w-0">
-              {aiSearch ? (
-                <SmartSearchBar className="max-w-none" introRoll />
-              ) : (
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <input 
-                    type="text" 
-                    placeholder="Search words..." 
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full h-11 pl-12 pr-10 rounded-xl border border-border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+          {/* Search + Filter Dialog */}
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <div className="flex gap-2 sm:gap-3 items-center min-w-0">
+              <div className="flex-1 min-w-0">
+                {aiSearch ? (
+                  <SmartSearchBar
+                    className="max-w-none"
+                    introRoll
+                    endSlot={(
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <DialogTrigger asChild>
+                            <button
+                              type="button"
+                              className="h-8 w-8 sm:h-9 sm:w-9 inline-flex items-center justify-center rounded-lg border border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                              aria-label="Open filters"
+                            >
+                              <SlidersHorizontal className="h-4 w-4" />
+                            </button>
+                          </DialogTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom" className="max-w-[260px]">
+                          Refine results by difficulty, category, part of speech, frequency, and more.
+                        </TooltipContent>
+                      </Tooltip>
+                    )}
                   />
-                  {search && (
-                    <button
-                      onClick={handleClear}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
-                    >
-                      <X className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                  )}
-                </div>
+                ) : (
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <input 
+                      type="text" 
+                      placeholder="Search words..." 
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      className="w-full h-11 pl-12 pr-10 rounded-xl border border-border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    />
+                    {search && (
+                      <button
+                        onClick={handleClear}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
+                      >
+                        <X className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {!aiSearch && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="h-11 px-4 gap-2 rounded-xl"
+                        aria-label="Open filters"
+                      >
+                        <SlidersHorizontal className="h-4 w-4" />
+                        <span className="hidden sm:inline">Filters</span>
+                        {activeFiltersCount > 0 && (
+                          <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+                            {activeFiltersCount}
+                          </span>
+                        )}
+                      </Button>
+                    </DialogTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="max-w-[260px]">
+                    Refine the word list by difficulty, length, category, part of speech, frequency, and more. Opens the filter panel.
+                  </TooltipContent>
+                </Tooltip>
               )}
             </div>
-            
-            {/* Filter Dialog */}
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="h-11 px-4 gap-2 rounded-xl"
-                      aria-label="Open filters"
-                    >
-                      <SlidersHorizontal className="h-4 w-4" />
-                      <span className="hidden sm:inline">Filters</span>
-                      {activeFiltersCount > 0 && (
-                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-medium">
-                          {activeFiltersCount}
-                        </span>
-                      )}
-                    </Button>
-                  </DialogTrigger>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="max-w-[260px]">
-                  Refine the word list by difficulty, length, category, part of speech, frequency, and more. Opens the filter panel.
-                </TooltipContent>
-              </Tooltip>
-              
-              <DialogContent className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] p-0 max-h-[90vh] overflow-hidden flex flex-col sm:max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-6xl rounded-3xl border-none shadow-2xl">
+
+            {/* Filter Dialog Content */}
+            <DialogContent className="w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] p-0 max-h-[90vh] overflow-hidden flex flex-col sm:max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-6xl rounded-3xl border-none shadow-2xl">
                 <DialogHeader className="p-5 sm:p-6 border-b bg-muted/20">
                   <DialogTitle className="flex items-center gap-2.5 text-xl">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
@@ -493,7 +517,6 @@ export const SearchBar = ({ route, aiSearch = false }) => {
             </div>
           )}
         </div>
-      </div>
     </Suspense>
   );
 };

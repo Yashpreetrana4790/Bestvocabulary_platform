@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WordActions from '@/components/WordActions';
+import { getCommonUsage } from '@/lib/wordShape';
 
 export default function RandomWordPage() {
   const [word, setWord] = useState(null);
@@ -38,6 +39,7 @@ export default function RandomWordPage() {
   }, [fetchRandomWord]);
 
   const meaning = word?.meanings?.[0];
+  const firstCommonUsage = meaning ? getCommonUsage(meaning)[0] : null;
 
   return (
     <div className="min-h-screen">
@@ -132,11 +134,11 @@ export default function RandomWordPage() {
                   )}
 
                   {/* Example */}
-                  {meaning?.common_usage?.[0]?.example && (
+                  {firstCommonUsage?.example && (
                     <div className="mb-8">
                       <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">Example</h3>
                       <p className="text-foreground italic">
-                        &quot;{meaning.common_usage[0].example}&quot;
+                        &quot;{firstCommonUsage.example}&quot;
                       </p>
                     </div>
                   )}

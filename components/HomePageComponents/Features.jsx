@@ -3,6 +3,8 @@ import { Sparkles, BookOpen, Brain, Network, Zap, ArrowRight, BookMarked, Refres
 import Link from 'next/link';
 import CountUp from '@/components/CountUp';
 
+const FEATURES_MASCOT_GIF = '/maskot/maskot.gif';
+
 const Features = () => {
   const stats = [
     { value: '10K+', label: 'Words', icon: BookMarked },
@@ -36,86 +38,67 @@ const Features = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-            <Zap className="h-4 w-4" />
-            Features
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Built for word lovers
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Everything you need to discover, learn, and master new vocabulary
-          </p>
-        </div>
+        {/* Section header — large mascot banner (animated GIF) */}
+        <div className="mb-14 sm:mb-20 md:mb-24 rounded-[1.75rem] sm:rounded-3xl border border-primary/15 bg-gradient-to-br from-customBlue/[0.14] via-card/90 to-muted/50 dark:from-customBlue/[0.08] dark:via-card/80 dark:to-background/60 p-6 sm:p-8 md:p-10 lg:p-12 shadow-[0_20px_50px_-24px_hsl(var(--primary)/0.2)] overflow-hidden relative">
+          {/* Soft blobs — echo hero + mascot palette */}
+          <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-customBlue/25 blur-3xl dark:bg-customBlue/10" />
+          <div className="pointer-events-none absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.2]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(128, 128, 128, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(128, 128, 128, 0.12) 1px, transparent 1px)`,
+              backgroundSize: '48px 48px',
+            }}
+          />
 
-        {/* Bento Grid */}
-        <div className="grid md:grid-cols-3 gap-3 sm:gap-4">
-          {/* AI Search - Large Card */}
-          <Link
-            href="/search"
-            className="md:col-span-2 group relative p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border bg-gradient-to-br from-primary/5 via-card to-card hover:from-primary/10 transition-all duration-500 overflow-hidden"
-          >
-            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-primary text-primary-foreground text-[10px] sm:text-xs font-medium">
-              Try it now
-            </div>
-            <div className="flex flex-col h-full min-w-0">
-              <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm shrink-0">
-                <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
+          <div className="relative grid items-center gap-10 lg:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(320px,1.05fr)] xl:grid-cols-[minmax(0,1fr)_minmax(360px,1.15fr)]">
+            <div className="text-center lg:text-left order-2 lg:order-1 min-w-0 max-w-xl mx-auto lg:mx-0 lg:max-w-none">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-5">
+                <Zap className="h-4 w-4 shrink-0" />
+                Features
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">AI-Powered Search</h3>
-              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 w-full min-w-0">
-                When you look for a word, you’re really looking for a situation—that moment when you think, &quot;What’s the exact word for this?&quot; Describe the action, feeling, or situation; our AI and enriched database of word relations find the word that fits.
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4 leading-[1.12]">
+                Built for word lovers
+              </h2>
+              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0 mb-6">
+                Everything you need to discover, learn, and master new vocabulary — from crisp definitions to the exact word for the moment you have in mind.
               </p>
-              <div className="mt-auto flex items-center gap-2 text-primary font-medium">
-                <span>Search by meaning</span>
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <div className="flex flex-wrap justify-center lg:justify-start gap-2 text-xs sm:text-sm text-muted-foreground">
+                <span className="rounded-full border border-border/80 bg-background/60 px-3 py-1.5 backdrop-blur-sm">
+                  Rich definitions
+                </span>
+                <span className="rounded-full border border-border/80 bg-background/60 px-3 py-1.5 backdrop-blur-sm">
+                  AI-powered search
+                </span>
+                <span className="rounded-full border border-border/80 bg-background/60 px-3 py-1.5 backdrop-blur-sm">
+                  Word networks
+                </span>
               </div>
             </div>
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-colors" />
-          </Link>
 
-          {/* Rich Definitions - Tall Card */}
-          <div className="group p-6 rounded-3xl border bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-              <BookOpen className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
-            </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">Rich Definitions</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Multiple meanings, real examples, etymology, and usage notes for deeper understanding.
-            </p>
-          </div>
-
-          {/* Memory Aids */}
-          <div className="group p-6 rounded-3xl border bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-              <Brain className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
-            </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">Memory Aids</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Clever mnemonics and visual associations to make vocabulary stick.
-            </p>
-          </div>
-
-          {/* Word Networks - Wide Card */}
-          <div className="md:col-span-2 group p-6 rounded-3xl border bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
-            <div className="flex flex-col sm:items-start gap-5">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                <Network className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={1.5} />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Word Networks</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Explore synonyms, antonyms, and word families to build meaningful connections and expand your vocabulary naturally.
-                </p>
+            <div className="order-1 lg:order-2 flex justify-center lg:justify-end w-full min-w-0">
+              <div className="relative w-full max-w-[20rem] sm:max-w-[24rem] md:max-w-[28rem] lg:max-w-none lg:w-full">
+                <div className="absolute inset-0 -m-3 rounded-[2rem] bg-customBlue/20 blur-2xl dark:bg-customBlue/10 scale-95" aria-hidden />
+                <div className="relative rounded-2xl sm:rounded-3xl border border-primary/20 bg-background/70 dark:bg-background/50 backdrop-blur-md shadow-[0_25px_60px_-20px_rgba(25,33,61,0.25)] p-2 sm:p-3 md:p-4 ring-1 ring-customBlue-dark/5">
+                  {/* Native img keeps GIF animation reliable (Next/Image optimize often flattens GIFs). */}
+                  <img
+                    src={FEATURES_MASCOT_GIF}
+                    alt=""
+                    width={640}
+                    height={640}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-auto max-h-[min(58vh,560px)] lg:max-h-[min(62vh,640px)] object-contain rounded-xl sm:rounded-2xl"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Stats Row */}
-        <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-1.5 sm:gap-4">
+
+      {/* Stats Row */}
+      {/* <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-1.5 sm:gap-4">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
@@ -130,9 +113,9 @@ const Features = () => {
               </div>
             );
           })}
-        </div>
-      </div>
-    </section>
+        </div> */}
+    </div>
+    </section >
   );
 };
 

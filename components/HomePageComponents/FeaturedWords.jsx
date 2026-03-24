@@ -47,7 +47,7 @@ const FeaturedWords = async () => {
               {/* Header */}
               <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6 md:mb-8 min-w-0">
                 <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                  <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider truncate">Word of the Day</p>
@@ -59,7 +59,7 @@ const FeaturedWords = async () => {
               {wordOfTheDay && wordOfTheDay.word ? (
                 <>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 md:mb-4 min-w-0">
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground tracking-tight min-w-0 truncate" title={capitalizeString(wordOfTheDay.word)}>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground tracking-tight min-w-0 truncate py-1" title={capitalizeString(wordOfTheDay.word)}>
                       {capitalizeString(wordOfTheDay.word)}
                     </h3>
                     <PronunciationButton word={wordOfTheDay.word} className="shrink-0 mt-1 sm:mt-2" />
@@ -86,7 +86,7 @@ const FeaturedWords = async () => {
                 </>
               ) : (
                 <>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-3 sm:mb-5 md:mb-6 tracking-tight min-w-0 truncate">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-3 sm:mb-5 md:mb-6 tracking-tight min-w-0 truncate py-1">
                     Discover Today
                   </h3>
                   <p className="text-sm sm:text-base md:text-lg text-foreground/80 leading-relaxed mb-5 sm:mb-8 md:mb-10 min-w-0 line-clamp-3">

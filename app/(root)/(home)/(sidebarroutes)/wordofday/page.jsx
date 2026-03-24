@@ -4,6 +4,7 @@ import { CalendarDays, Volume2, BookOpen, Lightbulb, MessageSquareQuote, ArrowRi
 import { Button } from "@/components/ui/button";
 import { capitalizeString } from "@/lib/otherutil";
 import { getWordOfDay, getWodHistory } from "@/services/wordOfDay";
+import { getCommonUsage } from "@/lib/wordShape";
 
 export const metadata = {
   title: 'Word of the Day',
@@ -72,24 +73,26 @@ const Page = async () => {
         </div>
 
         <div className="max-w-4xl mx-auto px-4 py-16 md:py-24">
-          {/* Date Badge */}
-          <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-2 text-sm font-medium text-primary">
-              <CalendarDays className="h-4 w-4" />
-              <span>Word of the Day</span>
-              <span className="w-1 h-1 rounded-full bg-primary/50" />
-              <span className="text-primary/80">{formattedDate}</span>
+          {/* Header Section */}
+          <div className="flex flex-col items-center text-center space-y-4 mb-2">
+            <div className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 rounded-2xl sm:rounded-full bg-muted/50 border text-xs sm:text-sm text-muted-foreground font-medium max-w-full">
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <CalendarDays className="h-4 w-4 shrink-0" />
+                <span>Word of the Day</span>
+              </div>
+              <span className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
+              <span className="whitespace-nowrap">{formattedDate}</span>
             </div>
           </div>
 
           {/* Word Display */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <h1 className="text-5xl md:text-7xl font-bold text-foreground tracking-tight">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl font-bold text-foreground tracking-tight break-words max-w-full">
                 {capitalizeString(oneWord?.word || "Loading...")}
               </h1>
-              <button className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors" title="Listen to pronunciation">
-                <Volume2 className="h-6 w-6 text-muted-foreground" />
+              <button className="p-2 sm:p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors shrink-0" title="Listen to pronunciation">
+                <Volume2 className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
               </button>
             </div>
             
@@ -100,25 +103,27 @@ const Page = async () => {
             )}
 
             {/* Quick Definition */}
-            <div className="inline-block max-w-2xl">
-              <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed">
+            <div className="inline-block max-w-2xl px-2">
+              <p className="text-lg sm:text-xl md:text-2xl text-foreground/80 leading-relaxed">
                 {oneWord?.meanings?.[0]?.subtitle || oneWord?.meanings?.[0]?.easyMeaning || "Loading..."}
               </p>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-center gap-3">
-            <Button variant="outline" size="lg" className="rounded-full gap-2">
-              <Bookmark className="h-4 w-4" />
-              Save
-            </Button>
-            <Button variant="outline" size="lg" className="rounded-full gap-2">
-              <Share2 className="h-4 w-4" />
-              Share
-            </Button>
-            <Link href={`/word/${oneWord?.word}`}>
-              <Button size="lg" className="rounded-full gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 max-w-xs sm:max-w-none mx-auto">
+            <div className="flex gap-3">
+              <Button variant="outline" size="lg" className="flex-1 sm:flex-none rounded-full gap-2 h-11 sm:h-12">
+                <Bookmark className="h-4 w-4" />
+                Save
+              </Button>
+              <Button variant="outline" size="lg" className="flex-1 sm:flex-none rounded-full gap-2 h-11 sm:h-12">
+                <Share2 className="h-4 w-4" />
+                Share
+              </Button>
+            </div>
+            <Link href={`/word/${oneWord?.word}`} className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto rounded-full gap-2 h-11 sm:h-12">
                 Full Details
                 <ArrowRight className="h-4 w-4" />
               </Button>
@@ -145,7 +150,7 @@ const Page = async () => {
         )}
 
         {/* Common Usage Section */}
-        {oneWord?.meanings?.some(m => m.common_usage?.length > 0) && (
+        {oneWord?.meanings?.some((m) => getCommonUsage(m).length > 0) && (
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
@@ -155,8 +160,8 @@ const Page = async () => {
             </div>
             
             <div className="space-y-4">
-              {oneWord.meanings.map((meaning, index) => (
-                meaning.common_usage?.map((usage, idx) => (
+              {oneWord.meanings.map((meaning, index) =>
+                getCommonUsage(meaning).map((usage, idx) => (
                   <div 
                     key={`${index}-${idx}`} 
                     className="p-5 rounded-2xl border bg-card hover:shadow-md transition-shadow"
@@ -165,7 +170,7 @@ const Page = async () => {
                     <p className="text-muted-foreground italic">&quot;{usage?.example}&quot;</p>
                   </div>
                 ))
-              ))}
+              )}
             </div>
           </div>
         )}
@@ -211,20 +216,20 @@ const Page = async () => {
                   <Link 
                     key={item._id || idx} 
                     href={`/word/${wordData.word}`}
-                    className="flex items-center justify-between p-4 rounded-2xl border bg-card hover:bg-muted/50 hover:border-primary/20 transition-all group"
+                    className="flex items-center justify-between p-3 sm:p-4 rounded-2xl border bg-card hover:bg-muted/50 hover:border-primary/20 transition-all group gap-3"
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm text-muted-foreground min-w-[80px]">{formattedHistoryDate}</span>
-                      <div>
-                        <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 min-w-0">
+                      <span className="text-xs sm:text-sm text-muted-foreground sm:min-w-[80px]">{formattedHistoryDate}</span>
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                           {capitalizeString(wordData.word)}
                         </span>
                         {wordData.pronunciation && (
-                          <span className="text-sm text-muted-foreground ml-2 font-mono">{wordData.pronunciation}</span>
+                          <span className="text-xs sm:text-sm text-muted-foreground font-mono truncate hidden min-[400px]:inline">{wordData.pronunciation}</span>
                         )}
                       </div>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
                   </Link>
                 );
               })}
@@ -241,14 +246,14 @@ const Page = async () => {
           <p className="text-muted-foreground mb-6">
             Discover thousands of words with rich definitions and AI-powered search.
           </p>
-          <div className="flex items-center justify-center gap-3">
-            <Link href="/dictionary">
-              <Button variant="outline" className="rounded-full">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link href="/dictionary" className="w-full sm:w-auto">
+              <Button variant="outline" className="rounded-full w-full sm:w-auto h-11">
                 Browse Dictionary
               </Button>
             </Link>
-            <Link href="/search">
-              <Button className="rounded-full gap-2">
+            <Link href="/search" className="w-full sm:w-auto">
+              <Button className="rounded-full gap-2 w-full sm:w-auto h-11">
                 <Sparkles className="h-4 w-4" />
                 AI Search
               </Button>

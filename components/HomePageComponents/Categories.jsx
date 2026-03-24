@@ -1,17 +1,35 @@
-import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, FolderOpen, Briefcase, Stethoscope, Scale, Atom, Palette, BookMarked } from 'lucide-react';
 
 const categories = [
-  { name: 'Business', count: '500+', icon: Briefcase },
-  { name: 'Medical', count: '400+', icon: Stethoscope },
-  { name: 'Legal', count: '350+', icon: Scale },
-  { name: 'Science', count: '600+', icon: Atom },
-  { name: 'Arts', count: '300+', icon: Palette },
-  { name: 'Literature', count: '450+', icon: BookMarked },
+  { name: 'Business', icon: Briefcase },
+  { name: 'Medical', icon: Stethoscope },
+  { name: 'Legal', icon: Scale },
+  { name: 'Science', icon: Atom },
+  { name: 'Arts', icon: Palette },
+  { name: 'Literature', icon: BookMarked },
 ];
 
-const Categories = () => {
+export default async function Categories() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASEURL_BACKEND;
+  let countsByCategory = new Map();
+
+  if (baseUrl) {
+    try {
+      const names = categories.map((c) => c.name).join(',');
+      const res = await fetch(
+        `${baseUrl}/api/v1/words/category-counts?names=${encodeURIComponent(names)}`,
+        { cache: 'no-store' }
+      );
+      const json = await res.json();
+      const counts = json?.data || [];
+      countsByCategory = new Map(counts.map((c) => [String(c.category).toLowerCase(), c.count]));
+    } catch (_) {
+      // If backend fails, fall back to showing 0.
+      countsByCategory = new Map();
+    }
+  }
+
   return (
     <section className="py-12 sm:py-24 md:py-28 px-3 sm:px-4 relative overflow-hidden">
       {/* Background */}
@@ -38,6 +56,7 @@ const Categories = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
           {categories.map((category, index) => {
             const Icon = category.icon;
+            const count = countsByCategory.get(category.name.toLowerCase()) || 0;
             return (
               <Link
                 key={index}
@@ -50,7 +69,7 @@ const Categories = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-foreground mb-0.5 sm:mb-1 group-hover:text-primary transition-colors">{category.name}</h3>
-                    <p className="text-sm text-muted-foreground">{category.count} words</p>
+                    <p className="text-sm text-muted-foreground">{count.toLocaleString()} words</p>
                   </div>
                   <ArrowUpRight className="h-5 w-5 text-muted-foreground/50 group-hover:text-primary opacity-0 group-hover:opacity-100 transition-all shrink-0 -translate-y-1 group-hover:translate-y-0" />
                 </div>
@@ -72,6 +91,4 @@ const Categories = () => {
       </div>
     </section>
   );
-};
-
-export default Categories;
+}

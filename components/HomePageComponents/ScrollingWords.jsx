@@ -83,10 +83,10 @@ const ScrollingWords = () => {
               className="group flex items-center justify-between gap-2 sm:gap-3 md:gap-4 p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl hover:bg-muted/80 transition-all duration-200"
             >
               <div className="min-w-0 flex-1">
-                <h4 className="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors truncate">
+                <h4 className="font-semibold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors truncate py-0.5">
                   {item.word}
                 </h4>
-                <p className="text-xs sm:text-sm text-muted-foreground truncate mt-0.5">{item.meaning}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate mt-0.5 py-0.5">{item.meaning}</p>
               </div>
               <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <span className="text-[10px] sm:text-xs font-medium px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-muted text-muted-foreground">
