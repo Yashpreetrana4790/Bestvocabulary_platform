@@ -349,8 +349,8 @@ export default async function WordPage({ params }) {
                     Definitions
                   </h2>
                   {word.meanings?.length > 1 && (
-                    <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-xl">
-                      {word.meanings.length} meanings
+                    <span className="text-[10px] font-medium tabular-nums text-muted-foreground bg-muted/50 border border-border/60 px-2 py-0.5 rounded-md">
+                      {(word.meanings.length >= 8 ? '8+' : word.meanings.length)} meanings
                     </span>
                   )}
                 </div>

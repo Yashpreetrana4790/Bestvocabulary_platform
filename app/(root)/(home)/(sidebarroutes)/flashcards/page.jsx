@@ -1,204 +1,19 @@
-'use client';
-
-import React, { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
-import { 
-  Layers, 
-  ChevronLeft, 
-  ChevronRight, 
-  RotateCcw, 
-  Shuffle, 
-  Volume2,
-  CheckCircle,
-  XCircle,
-  Brain,
-  ArrowRight,
-  Sparkles
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useSavedWords } from '@/hooks/useSavedWords';
-
-const DEFAULT_CARDS = [
-  {
-    word: 'Ephemeral',
-    pronunciation: '/ɪˈfem(ə)rəl/',
-    meaning: 'Lasting for a very short time',
-    example: 'Fame in the modern world is often ephemeral.',
-  },
-  {
-    word: 'Ubiquitous',
-    pronunciation: '/juːˈbɪkwɪtəs/',
-    meaning: 'Present, appearing, or found everywhere',
-    example: 'Smartphones have become ubiquitous in modern society.',
-  },
-  {
-    word: 'Serendipity',
-    pronunciation: '/ˌserənˈdɪpɪti/',
-    meaning: 'The occurrence of events by chance in a happy way',
-    example: 'Meeting her was pure serendipity.',
-  },
-  {
-    word: 'Eloquent',
-    pronunciation: '/ˈeləkwənt/',
-    meaning: 'Fluent or persuasive in speaking or writing',
-    example: 'She gave an eloquent speech at the conference.',
-  },
-  {
-    word: 'Resilient',
-    pronunciation: '/rɪˈzɪliənt/',
-    meaning: 'Able to recover quickly from difficulties',
-    example: 'Children are often more resilient than we give them credit for.',
-  },
-  {
-    word: 'Pragmatic',
-    pronunciation: '/praɡˈmatɪk/',
-    meaning: 'Dealing with things sensibly and realistically',
-    example: 'We need a pragmatic approach to solve this problem.',
-  },
-  {
-    word: 'Melancholy',
-    pronunciation: '/ˈmelənkəli/',
-    meaning: 'A deep, pensive sadness',
-    example: 'There was a melancholy beauty to the abandoned house.',
-  },
-  {
-    word: 'Tenacious',
-    pronunciation: '/təˈneɪʃəs/',
-    meaning: 'Holding firmly to something; persistent',
-    example: 'Her tenacious spirit helped her overcome every obstacle.',
-  },
-  {
-    word: 'Ambivalent',
-    pronunciation: '/amˈbɪvələnt/',
-    meaning: 'Having mixed feelings about something',
-    example: 'I feel ambivalent about accepting the job offer.',
-  },
-  {
-    word: 'Meticulous',
-    pronunciation: '/məˈtɪkjʊləs/',
-    meaning: 'Showing great attention to detail',
-    example: 'The artist was meticulous in her brushwork.',
-  },
-];
+import ProtectedRoute from '@/components/Auth/ProtectedRoute';
 
 export default function FlashcardsPage() {
   const [cards, setCards] = useState(DEFAULT_CARDS);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [known, setKnown] = useState([]);
-  const [learning, setLearning] = useState([]);
-  const [useSavedCards, setUseSavedCards] = useState(false);
-  const { savedWords, isAuthenticated } = useSavedWords();
+// ... existing state ...
+  const { savedWords } = useSavedWords();
 
-  const shuffleCards = useCallback(() => {
-    const shuffled = [...cards];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    setCards(shuffled);
-    setCurrentIndex(0);
-    setIsFlipped(false);
-    setKnown([]);
-    setLearning([]);
-  }, [cards]);
-
-  const handleSpeak = (word) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(word);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
-  const goToNext = () => {
-    if (currentIndex < cards.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setIsFlipped(false);
-    }
-  };
-
-  const goToPrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-      setIsFlipped(false);
-    }
-  };
-
-  const markAsKnown = () => {
-    const currentWord = cards[currentIndex].word;
-    if (!known.includes(currentWord)) {
-      setKnown([...known, currentWord]);
-      setLearning(learning.filter(w => w !== currentWord));
-    }
-    goToNext();
-  };
-
-  const markAsLearning = () => {
-    const currentWord = cards[currentIndex].word;
-    if (!learning.includes(currentWord)) {
-      setLearning([...learning, currentWord]);
-      setKnown(known.filter(w => w !== currentWord));
-    }
-    goToNext();
-  };
-
-  const resetProgress = () => {
-    setCurrentIndex(0);
-    setIsFlipped(false);
-    setKnown([]);
-    setLearning([]);
-  };
-
-  const switchToSavedWords = () => {
-    if (savedWords.length > 0) {
-      const savedCards = savedWords.map((b) => ({
-        word: b.word || '',
-        pronunciation: b.pronunciation || '',
-        meaning: b.meaning || 'No definition available',
-        example: '',
-      }));
-      setCards(savedCards);
-      setCurrentIndex(0);
-      setIsFlipped(false);
-      setKnown([]);
-      setLearning([]);
-      setUseSavedCards(true);
-    }
-  };
-
-  const switchToDefault = () => {
-    setCards(DEFAULT_CARDS);
-    setCurrentIndex(0);
-    setIsFlipped(false);
-    setKnown([]);
-    setLearning([]);
-    setUseSavedCards(false);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        setIsFlipped(!isFlipped);
-      } else if (e.key === 'ArrowRight') {
-        goToNext();
-      } else if (e.key === 'ArrowLeft') {
-        goToPrev();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isFlipped, currentIndex]);
+  // ... existing functions ...
 
   const currentCard = cards[currentIndex];
   const progress = ((currentIndex + 1) / cards.length) * 100;
 
   return (
-    <div className="min-h-screen">
+    <ProtectedRoute>
+      <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative py-16 px-4 overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -229,16 +44,14 @@ export default function FlashcardsPage() {
             >
               Default Cards ({DEFAULT_CARDS.length})
             </Button>
-            {isAuthenticated && (
-              <Button
-                variant={useSavedCards ? 'default' : 'outline'}
-                onClick={switchToSavedWords}
-                disabled={savedWords.length === 0}
-                className="rounded-full"
-              >
-                My Saved Words ({savedWords.length})
-              </Button>
-            )}
+            <Button
+              variant={useSavedCards ? 'default' : 'outline'}
+              onClick={switchToSavedWords}
+              disabled={savedWords.length === 0}
+              className="rounded-full"
+            >
+              My Saved Words ({savedWords.length})
+            </Button>
           </div>
 
           {/* Progress */}
@@ -399,5 +212,6 @@ export default function FlashcardsPage() {
         </div>
       </section>
     </div>
+    </ProtectedRoute>
   );
 }

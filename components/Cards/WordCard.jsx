@@ -7,7 +7,6 @@ import {
   Bookmark,
   Share2,
   BookOpen,
-  Quote,
   Heart,
   FlaskConical,
   Cpu,
@@ -22,6 +21,7 @@ import Link from 'next/link';
 import React from 'react';
 import { useSavedWords } from '@/hooks/useSavedWords';
 import { getPhrasalVerbs } from '@/lib/wordShape';
+import WordStatPills from '@/components/Cards/WordStatPills';
 
 // Category → icon for quick scan (word lover UX)
 const CATEGORY_ICONS = {
@@ -66,10 +66,10 @@ const WordCard = ({ wordsdata }) => {
   const pronunciation = wordsdata?.pronunciation || '';
   const meanings = wordsdata?.meanings || [];
   const firstMeaning = meanings[0];
-  const definition = firstMeaning?.subtitle || firstMeaning?.meaning || '';
-  const meaningCount = meanings.length;
-  const pos = firstMeaning?.pos || '';
-  const category = firstMeaning?.category || '';
+  const definition = firstMeaning?.subtitle || firstMeaning?.meaning || wordsdata?.meaning || '';
+  const meaningCount = meanings.length > 0 ? meanings.length : (wordsdata?.meaning ? 1 : 0);
+  const pos = firstMeaning?.pos || wordsdata?.pos || '';
+  const category = firstMeaning?.category || wordsdata?.category || '';
   const frequency = wordsdata?.frequency || '';
   const expressionsCount = (wordsdata?.expressions?.length ?? 0) + getPhrasalVerbs(wordsdata).length; // idioms + phrases
 
@@ -116,7 +116,7 @@ const WordCard = ({ wordsdata }) => {
     }
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (!isAuthenticated) {
@@ -125,7 +125,11 @@ const WordCard = ({ wordsdata }) => {
       }
       return;
     }
-    toggleSave(wordsdata);
+    try {
+      await toggleSave(wordsdata);
+    } catch {
+      /* Auth expiry handled in hook (logout); other errors are logged there */
+    }
   };
 
   const handleShare = async (e) => {
@@ -220,29 +224,18 @@ const WordCard = ({ wordsdata }) => {
           </p>
         </div>
 
-        {/* Footer: counts + arrow */}
-        <div className="px-4 py-3 bg-muted/30 border-t border-border/50 flex items-center justify-between gap-2">
+        {/* Footer: stat pills + meta + arrow */}
+        <div className="bg-muted/30 border-t border-border/50">
+          {(meaningCount > 0 || expressionsCount > 0) && (
+            <WordStatPills
+              idiomCount={expressionsCount}
+              meaningCount={meaningCount}
+              variant="compact"
+              className="mx-3 sm:mx-4 mt-2"
+            />
+          )}
+          <div className="px-4 py-3 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0 overflow-hidden flex-wrap">
-            {/* Meanings count */}
-            {meaningCount > 0 && (
-              <span
-                className="inline-flex items-center gap-1 text-[10px] text-muted-foreground whitespace-nowrap"
-                title={`${meaningCount} meaning${meaningCount !== 1 ? 's' : ''}`}
-              >
-                <BookOpen className="h-3 w-3 shrink-0 text-primary/70" />
-                <span>{meaningCount} {meaningCount === 1 ? 'meaning' : 'meanings'}</span>
-              </span>
-            )}
-            {/* Idioms / phrases count */}
-            {expressionsCount > 0 && (
-              <span
-                className="inline-flex items-center gap-1 text-[10px] text-muted-foreground whitespace-nowrap"
-                title={`${expressionsCount} idiom${expressionsCount !== 1 ? 's' : ''} or phrase${expressionsCount !== 1 ? 's' : ''}`}
-              >
-                <Quote className="h-3 w-3 shrink-0 text-amber-600 dark:text-amber-400" />
-                <span>{expressionsCount}</span>
-              </span>
-            )}
             {/* Difficulty breakdown when multiple meanings */}
             {meaningCount > 1 && (difficultyCounts.easy > 0 || difficultyCounts.medium > 0 || difficultyCounts.hard > 0) && (
               <span className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground">
@@ -286,6 +279,7 @@ const WordCard = ({ wordsdata }) => {
           <div className="w-6 h-6 rounded-full bg-primary/10 group-hover:bg-primary flex items-center justify-center transition-all shrink-0">
             <ArrowUpRight className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
           </div>
+        </div>
         </div>
       </div>
     </Link>
