@@ -63,77 +63,77 @@ const Pagination = ({ pageNumber, totalpage, totalItems, pageSize = 12 }) => {
   return (
     <Suspense>
       <nav
-        className="flex flex-col items-center gap-4 py-8 border-t bg-muted/20"
+        className="flex flex-col items-center gap-3 py-6 border-t bg-muted/20"
         aria-label="Pagination"
       >
-        <div className="flex items-center gap-2 flex-wrap justify-center">
+        <div className="flex items-center gap-1.5">
           <Button
             variant="outline"
             size="icon"
             disabled={pageNumber === 1}
             onClick={() => handleNavigation("prev")}
-            className="h-10 w-10 rounded-lg"
+            className="h-9 w-9 rounded-lg shrink-0"
             aria-label="Previous page"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
 
-          {getPageNumbers()[0] > 1 && (
-            <>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => goToPage(1)}
-                className="h-10 w-10 rounded-lg"
-                aria-label="Go to page 1"
-              >
-                1
-              </Button>
-              {getPageNumbers()[0] > 2 && (
-                <span className="px-2 text-muted-foreground" aria-hidden="true">...</span>
-              )}
-            </>
-          )}
+          <div className="flex items-center gap-1 flex-wrap justify-center max-w-[min(100%,420px)] sm:max-w-none">
+            {getPageNumbers()[0] > 1 && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => goToPage(1)}
+                  className="h-9 w-9 rounded-lg"
+                  aria-label="Go to page 1"
+                >
+                  1
+                </Button>
+                {getPageNumbers()[0] > 2 && (
+                  <span className="px-1 text-muted-foreground text-sm" aria-hidden="true">…</span>
+                )}
+              </>
+            )}
 
-          {getPageNumbers().map((page) => (
-            <Button
-              key={page}
-              variant={pageNumber === page ? "default" : "ghost"}
-              size="icon"
-              onClick={() => goToPage(page)}
-              className={`h-10 w-10 rounded-lg ${
-                pageNumber === page ? "pointer-events-none" : ""
-              }`}
-              aria-label={pageNumber === page ? `Current page, page ${page}` : `Go to page ${page}`}
-              aria-current={pageNumber === page ? "page" : undefined}
-            >
-              {page}
-            </Button>
-          ))}
-
-          {getPageNumbers()[getPageNumbers().length - 1] < total && (
-            <>
-              {getPageNumbers()[getPageNumbers().length - 1] < total - 1 && (
-                <span className="px-2 text-muted-foreground" aria-hidden="true">...</span>
-              )}
+            {getPageNumbers().map((page) => (
               <Button
-                variant="ghost"
+                key={page}
+                variant={pageNumber === page ? "default" : "ghost"}
                 size="icon"
-                onClick={() => goToPage(total)}
-                className="h-10 w-10 rounded-lg"
-                aria-label={`Go to page ${total}`}
+                onClick={() => goToPage(page)}
+                className={`h-9 w-9 rounded-lg ${pageNumber === page ? "pointer-events-none" : ""}`}
+                aria-label={pageNumber === page ? `Current page, page ${page}` : `Go to page ${page}`}
+                aria-current={pageNumber === page ? "page" : undefined}
               >
-                {total}
+                {page}
               </Button>
-            </>
-          )}
+            ))}
+
+            {getPageNumbers()[getPageNumbers().length - 1] < total && (
+              <>
+                {getPageNumbers()[getPageNumbers().length - 1] < total - 1 && (
+                  <span className="px-1 text-muted-foreground text-sm" aria-hidden="true">…</span>
+                )}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => goToPage(total)}
+                  className="h-9 w-9 rounded-lg"
+                  aria-label={`Go to page ${total}`}
+                >
+                  {total}
+                </Button>
+              </>
+            )}
+          </div>
 
           <Button
             variant="outline"
             size="icon"
             disabled={pageNumber === total}
             onClick={() => handleNavigation("next")}
-            className="h-10 w-10 rounded-lg"
+            className="h-9 w-9 rounded-lg shrink-0"
             aria-label="Next page"
           >
             <ChevronRight className="h-4 w-4" />

@@ -88,10 +88,7 @@ const ScrollingWords = () => {
                 </h4>
                 <p className="text-xs sm:text-sm text-muted-foreground truncate mt-0.5 py-0.5">{item.meaning}</p>
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <span className="text-[10px] sm:text-xs font-medium px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-muted text-muted-foreground">
-                  {difficultyLabels[item.difficulty]}
-                </span>
+              <div className="flex items-center shrink-0">
                 <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block" />
               </div>
             </Link>
