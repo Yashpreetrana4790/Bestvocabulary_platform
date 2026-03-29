@@ -87,7 +87,7 @@ export function NavUser({ user }) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className="text-red-600 dark:text-red-400 focus:text-red-600 dark:focus:text-red-400 focus:bg-red-50 dark:focus:bg-red-950/30 [&_svg]:text-red-600 dark:[&_svg]:text-red-400">
           <LogOut />
           Log out
         </DropdownMenuItem>
