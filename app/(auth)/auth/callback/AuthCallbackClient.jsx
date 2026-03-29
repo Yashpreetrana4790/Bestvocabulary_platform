@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
-const TOKEN_KEY = 'bv_auth_token';
-const USER_KEY = 'bv_user';
+import { TOKEN_KEY, USER_KEY, REFRESH_TOKEN_KEY } from '@/lib/authStorageKeys';
 
 /**
  * OAuth callback content: reads ?token=...&user=... from URL, stores in localStorage, redirects home.
@@ -19,6 +18,7 @@ export default function AuthCallbackClient() {
 
   useEffect(() => {
     const token = searchParams.get('token');
+    const refreshToken = searchParams.get('refreshToken');
     const userParam = searchParams.get('user');
     const newUserFlag = searchParams.get('isNewUser');
 
@@ -38,6 +38,11 @@ export default function AuthCallbackClient() {
       }
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem(TOKEN_KEY, token);
+        if (refreshToken) {
+          localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+        } else {
+          localStorage.removeItem(REFRESH_TOKEN_KEY);
+        }
         if (user) localStorage.setItem(USER_KEY, JSON.stringify(user));
       }
       setIsNewUser(newUserFlag === '1' || newUserFlag === 'true');
