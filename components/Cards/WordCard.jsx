@@ -194,11 +194,6 @@ const WordCard = ({ wordsdata }) => {
                   className={`h-3.5 w-3.5 ${saved ? 'fill-primary text-primary' : 'text-muted-foreground'}`}
                 />
               </button>
-              <span
-                className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${difficultyStyles[difficulty] || difficultyStyles.Beginner}`}
-              >
-                {difficulty}
-              </span>
             </div>
           </div>
 

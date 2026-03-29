@@ -1,4 +1,22 @@
-import ProtectedRoute from '@/components/Auth/ProtectedRoute';
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import {
+  Brain,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Layers,
+  RotateCcw,
+  Shuffle,
+  Sparkles,
+  Volume2,
+  XCircle,
+} from "lucide-react";
+import ProtectedRoute from "@/components/Auth/ProtectedRoute";
+import { Button } from "@/components/ui/button";
+import { useSavedWords } from "@/hooks/useSavedWords";
 
 export default function FlashcardsPage() {
   const [cards, setCards] = useState(DEFAULT_CARDS);
