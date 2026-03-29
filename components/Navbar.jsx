@@ -10,7 +10,7 @@ import {
   User, Search, Sparkles, Command, ChevronDown,
   BookOpen, Brain, Layers, Calendar, Shuffle, Bookmark,
   FolderOpen, Briefcase, Stethoscope, Scale, Atom, Palette,
-  Globe, Heart, Lightbulb, Map, ArrowRight, Menu, LogOut, Settings
+  Globe, Heart, Lightbulb, Map, ArrowRight, Menu, LogOut, Settings, LayoutDashboard
 } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
 import { ModeToggle } from "./modetoggler"
@@ -224,6 +224,26 @@ export function Navbar() {
 
             <ModeToggle />
 
+            {isAuthenticated && (
+              <Link
+                href="/dashboard"
+                title="Dashboard"
+                aria-current={pathname?.startsWith("/dashboard") ? "page" : undefined}
+                className={cn(
+                  "shrink-0 inline-flex items-center justify-center gap-1.5 rounded-md border transition-colors duration-200",
+                  "h-8 sm:h-9 px-2 sm:px-2.5",
+                  "text-xs sm:text-sm font-medium",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  pathname?.startsWith("/dashboard")
+                    ? "border-primary/35 bg-primary/10 text-primary"
+                    : "border-border/80 bg-background text-muted-foreground hover:border-primary/25 hover:bg-muted/40 hover:text-foreground",
+                )}
+              >
+                <LayoutDashboard className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 opacity-90" strokeWidth={2} aria-hidden />
+                <span className="hidden sm:inline leading-none">Dashboard</span>
+              </Link>
+            )}
+
             {/* User Menu */}
             {isAuthenticated ? (
               <DropdownMenu>
@@ -244,15 +264,24 @@ export function Navbar() {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem asChild className="cursor-pointer">
+                    <Link href="/dashboard"><LayoutDashboard className="h-4 w-4 mr-2" />Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="cursor-pointer">
                     <Link href="/bookmarks"><Bookmark className="h-4 w-4 mr-2" />Saved Words</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem asChild className="cursor-pointer">
+                    <Link href="/flashcards"><Layers className="h-4 w-4 mr-2" />Flashcards</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="cursor-pointer">
                     <Link href="/quiz"><Brain className="h-4 w-4 mr-2" />Take Quiz</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={logout} className="text-red-600 dark:text-red-400">
-                    <LogOut className="h-4 w-4 mr-2" />
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="cursor-pointer text-red-600 dark:text-red-400 focus:text-red-600 dark:focus:text-red-400 focus:bg-red-50 dark:focus:bg-red-950/30 [&_svg]:text-red-600 dark:[&_svg]:text-red-400"
+                  >
+                    <LogOut className="h-4 w-4 mr-2 shrink-0" aria-hidden />
                     Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -339,6 +368,11 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
       <ScrollArea className="flex-1">
         <nav className="p-3 space-y-1">
           <MobileNavLink href="/" active={pathname === "/"} onClick={() => setOpen(false)}>Home</MobileNavLink>
+          {isAuthenticated && (
+            <MobileNavLink href="/dashboard" active={pathname?.startsWith("/dashboard")} onClick={() => setOpen(false)}>
+              Dashboard
+            </MobileNavLink>
+          )}
           <MobileNavLink href="/dictionary" active={pathname?.startsWith("/dictionary") && !pathname?.includes("category=")} onClick={() => setOpen(false)}>Dictionary</MobileNavLink>
 
           {/* Categories */}
@@ -409,6 +443,18 @@ function MobileNavContent({ pathname, setOpen, learnExpanded, setLearnExpanded, 
                 <p className="text-sm font-medium truncate">{user?.fullName}</p>
                 <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
               </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Link href="/dashboard" onClick={() => setOpen(false)}>
+                <button className="w-full p-2.5 rounded-lg text-sm font-medium border border-border hover:bg-muted transition-colors">
+                  Dashboard
+                </button>
+              </Link>
+              <Link href="/bookmarks" onClick={() => setOpen(false)}>
+                <button className="w-full p-2.5 rounded-lg text-sm font-medium border border-border hover:bg-muted transition-colors">
+                  Saved
+                </button>
+              </Link>
             </div>
             <button
               onClick={() => { logout(); setOpen(false); }}

@@ -48,7 +48,7 @@ const Page = async ({ searchParams }) => {
       <div className="min-h-screen bg-background">
         {/* Hero + Search block */}
         <div className="border-b bg-gradient-to-b from-muted/20 to-background">
-          <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
+          <div className="container py-6 md:py-8">
             <div className="flex items-center gap-3 mb-5 md:mb-6">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                 <BookOpen className="h-5 w-5 text-primary" />
@@ -67,7 +67,7 @@ const Page = async ({ searchParams }) => {
         </div>
 
         {/* Content Area */}
-        <div className="max-w-6xl mx-auto px-4 py-6">
+        <div className="container mx-auto p-4 ">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -88,7 +88,7 @@ const Page = async ({ searchParams }) => {
 
           {/* Words Grid */}
           {wordsOnPage > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {wordslist.data.words.map((word) => (
                 <WordCard key={word?.id ?? word?._id} wordsdata={word} />
               ))}
@@ -140,7 +140,7 @@ const EmptyState = ({ hasFilters }) => (
 const DictionaryLoading = () => (
   <div className="min-h-screen bg-background">
     <div className="border-b bg-gradient-to-b from-muted/20 to-background">
-      <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
+        <div className="container py-6 md:py-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 rounded-xl bg-muted animate-pulse shrink-0" />
           <div>
@@ -153,7 +153,7 @@ const DictionaryLoading = () => (
     </div>
     <div className="max-w-6xl mx-auto px-4 py-6">
       <div className="h-5 w-48 bg-muted/30 rounded animate-pulse mb-5" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="h-40 rounded-xl bg-muted/30 animate-pulse" />
         ))}

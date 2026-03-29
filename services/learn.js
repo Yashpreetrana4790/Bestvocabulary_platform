@@ -13,7 +13,6 @@ export async function fetchLearn(params = {}) {
         "Content-Type": "application/json",
       },
     });
-    console.log(response, "rr")
     if (response.ok) {
       const data = await response.json();
       return data;

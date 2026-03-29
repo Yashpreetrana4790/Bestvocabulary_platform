@@ -342,15 +342,15 @@ export default async function WordPage({ params }) {
               {/* Definitions */}
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3 sm:mb-5">
-                  <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2 sm:gap-3">
+                  <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2 sm:gap-3 font-inter">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                       <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                     </div>
                     Definitions
                   </h2>
                   {word.meanings?.length > 1 && (
-                    <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-xl">
-                      {word.meanings.length} meanings
+                    <span className="text-[10px] font-medium tabular-nums text-muted-foreground bg-muted/50 border border-border/60 px-2 py-0.5 rounded-md">
+                      {(word.meanings.length >= 8 ? '8+' : word.meanings.length)} meanings
                     </span>
                   )}
                 </div>
@@ -465,7 +465,7 @@ export default async function WordPage({ params }) {
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                       <MessageCircle className="h-5 w-5 text-primary" />
                     </div>
-                    <h2 className="text-xl font-bold text-foreground">Phrases</h2>
+                    <h2 className="text-xl font-bold text-foreground font-inter">Phrases</h2>
                   </div>
                   <div className="p-5 space-y-4">
                     {phrasalVerbsList.map((pv, i) => (
@@ -488,7 +488,7 @@ export default async function WordPage({ params }) {
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Quote className="h-5 w-5 text-primary" />
                     </div>
-                    <h2 className="text-xl font-bold text-foreground">Idioms & expressions</h2>
+                    <h2 className="text-xl font-bold text-foreground font-inter">Idioms & expressions</h2>
                   </div>
                   <div className="p-5 space-y-4">
                     {word.expressions.map((ex, i) => {
@@ -533,7 +533,7 @@ export default async function WordPage({ params }) {
                       <Lightbulb className="h-5 w-5 text-primary" />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="font-bold text-foreground mb-1">Memory tip</h3>
+                      <h3 className="font-bold text-foreground mb-1 font-inter">Memory tip</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">{firstMeaning.mnemonic}</p>
                     </div>
                   </div>
@@ -542,7 +542,7 @@ export default async function WordPage({ params }) {
 
               {/* Practice */}
               <div className="rounded-2xl border bg-card p-5 border-primary/20">
-                <h3 className="font-bold text-foreground mb-4 flex items-center gap-3">
+                <h3 className="font-bold text-foreground mb-4 flex items-center gap-3 font-inter">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Zap className="h-5 w-5 text-primary" />
                   </div>
@@ -573,7 +573,7 @@ export default async function WordPage({ params }) {
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Globe className="h-5 w-5 text-primary" />
                     </div>
-                    <h3 className="font-bold text-foreground">Word Origin</h3>
+                    <h3 className="font-bold text-foreground font-inter">Word Origin</h3>
                   </div>
                   {rootAnalysis.origin_language && (
                     <div className="flex items-center justify-between py-2 border-b">

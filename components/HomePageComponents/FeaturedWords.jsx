@@ -59,7 +59,7 @@ const FeaturedWords = async () => {
               {wordOfTheDay && wordOfTheDay.word ? (
                 <>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 md:mb-4 min-w-0">
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground tracking-tight min-w-0 truncate py-1" title={capitalizeString(wordOfTheDay.word)}>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground tracking-loose min-w-0 truncate py-1" title={capitalizeString(wordOfTheDay.word)}>
                       {capitalizeString(wordOfTheDay.word)}
                     </h3>
                     <PronunciationButton word={wordOfTheDay.word} className="shrink-0 mt-1 sm:mt-2" />

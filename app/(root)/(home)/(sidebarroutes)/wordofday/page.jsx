@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { CalendarDays, Volume2, BookOpen, Lightbulb, MessageSquareQuote, ArrowRight, Sparkles, Share2, Bookmark, History, ChevronRight } from "lucide-react";
+import { CalendarDays, Volume2, BookOpen, Lightbulb, MessageSquareQuote, ArrowRight, Sparkles, Share2, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { capitalizeString } from "@/lib/otherutil";
 import { getWordOfDay, getWodHistory } from "@/services/wordOfDay";
 import { getCommonUsage } from "@/lib/wordShape";
+import { normalizeWodHistoryList, mergeTodayIntoWodHistory } from "@/lib/wodHistoryNormalize";
+import WordOfDayPreviousSection from "@/components/WordOfDay/WordOfDayPreviousSection";
 
 export const metadata = {
   title: 'Word of the Day',
@@ -47,12 +49,16 @@ const staticWordOfDay = {
 const Page = async () => {
   const [oneWordResult, historyResult] = await Promise.all([
     getWordOfDay(),
-    getWodHistory(7)
+    getWodHistory(120)
   ]);
   
   // Use static data if API returns nothing
   const oneWord = (oneWordResult && oneWordResult.word) ? oneWordResult : staticWordOfDay;
-  const history = historyResult || [];
+  const rawHistory = Array.isArray(historyResult) ? historyResult : [];
+  const normalizedEntries = normalizeWodHistoryList(rawHistory);
+  const mergedTimeline = mergeTodayIntoWodHistory(normalizedEntries, oneWord).sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
   
   const today = new Date();
   const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -134,6 +140,8 @@ const Page = async () => {
 
       {/* Content Section */}
       <div className="max-w-4xl mx-auto px-4 py-12">
+        <WordOfDayPreviousSection history={mergedTimeline} />
+
         {/* Meaning Card */}
         {oneWord?.meanings?.[0]?.easyMeaning && (
           <div className="mb-8 p-6 md:p-8 rounded-3xl border bg-card">
@@ -187,53 +195,6 @@ const Page = async () => {
             <p className="text-muted-foreground leading-relaxed">
               {oneWord.etymology}
             </p>
-          </div>
-        )}
-
-        {/* History Section */}
-        {history.length > 1 && (
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-                <History className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-              </div>
-              <h2 className="text-xl font-semibold text-foreground">Previous Words</h2>
-            </div>
-            
-            <div className="grid gap-3">
-              {history.slice(1, 8).map((item, idx) => {
-                const wordData = item.word;
-                if (!wordData) return null;
-                
-                const date = new Date(item.date);
-                const formattedHistoryDate = new Intl.DateTimeFormat('en-US', {
-                  weekday: 'short',
-                  day: 'numeric',
-                  month: 'short'
-                }).format(date);
-                
-                return (
-                  <Link 
-                    key={item._id || idx} 
-                    href={`/word/${wordData.word}`}
-                    className="flex items-center justify-between p-3 sm:p-4 rounded-2xl border bg-card hover:bg-muted/50 hover:border-primary/20 transition-all group gap-3"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 min-w-0">
-                      <span className="text-xs sm:text-sm text-muted-foreground sm:min-w-[80px]">{formattedHistoryDate}</span>
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                          {capitalizeString(wordData.word)}
-                        </span>
-                        {wordData.pronunciation && (
-                          <span className="text-xs sm:text-sm text-muted-foreground font-mono truncate hidden min-[400px]:inline">{wordData.pronunciation}</span>
-                        )}
-                      </div>
-                    </div>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
-                  </Link>
-                );
-              })}
-            </div>
           </div>
         )}
 

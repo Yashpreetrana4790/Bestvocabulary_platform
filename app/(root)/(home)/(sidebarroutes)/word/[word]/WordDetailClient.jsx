@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Bookmark, Share2, Copy, Check, BookOpen, Quote, HelpCircle } from 'lucide-react';
+import { Bookmark, Share2, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSavedWords } from '@/hooks/useSavedWords';
 import {
@@ -10,6 +10,8 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { getExampleSentenceStrings, getPhrasalVerbs } from '@/lib/wordShape';
+import WordStatPills from '@/components/Cards/WordStatPills';
+import { SAVED_WORDS_AUTH_ERROR } from '@/services/savedWordsApi';
 
 export default function WordDetailClient({ word, embeddedInCard, actionsOnly = false, inline = false }) {
   const [copied, setCopied] = useState(false);
@@ -76,7 +78,11 @@ export default function WordDetailClient({ word, embeddedInCard, actionsOnly = f
       setSaved(!saved);
       showNotification(saved ? 'Removed from saved words' : 'Saved word!');
     } catch (e) {
-      showNotification('Could not update saved word');
+      if (e?.code === SAVED_WORDS_AUTH_ERROR) {
+        showNotification(e.message || 'Session expired. Please sign in again.');
+      } else {
+        showNotification('Could not update saved word');
+      }
     }
   };
 
@@ -167,44 +173,11 @@ export default function WordDetailClient({ word, embeddedInCard, actionsOnly = f
         {/* Includes / stats */}
         {!actionsOnly && (meaningsCount > 0 || phrasesTotal > 0 || questionsCount > 0) && (
           <div className="px-2.5 sm:px-3 pb-2.5 sm:pb-3 pt-2 border-t border-border/50">
-            <div className="grid grid-cols-3 gap-1.5">
-              {meaningsCount > 0 && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex flex-col items-center justify-center gap-0.5 min-h-12 px-1.5 py-1.5 rounded-md bg-background/80 border border-border/60 text-foreground">
-                      <BookOpen className="h-3.5 w-3.5 text-primary/80" />
-                      <span className="text-[11px] font-semibold tabular-nums leading-none">{meaningsCount}</span>
-                      <span className="text-[10px] text-muted-foreground leading-none">Meanings</span>
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">Definitions for this word</TooltipContent>
-                </Tooltip>
-              )}
-              {phrasesTotal > 0 && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex flex-col items-center justify-center gap-0.5 min-h-12 px-1.5 py-1.5 rounded-md bg-background/80 border border-border/60 text-foreground">
-                      <Quote className="h-3.5 w-3.5 text-amber-600/80 dark:text-amber-400/80" />
-                      <span className="text-[11px] font-semibold tabular-nums leading-none">{phrasesTotal}</span>
-                      <span className="text-[10px] text-muted-foreground leading-none">Phrases</span>
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">Idioms & expressions</TooltipContent>
-                </Tooltip>
-              )}
-              {questionsCount > 0 && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex flex-col items-center justify-center gap-0.5 min-h-12 px-1.5 py-1.5 rounded-md bg-background/80 border border-border/60 text-foreground">
-                      <HelpCircle className="h-3.5 w-3.5 text-primary/80" />
-                      <span className="text-[11px] font-semibold tabular-nums leading-none">{questionsCount}</span>
-                      <span className="text-[10px] text-muted-foreground leading-none">Questions</span>
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">Related questions</TooltipContent>
-                </Tooltip>
-              )}
-            </div>
+            <WordStatPills
+              idiomCount={phrasesTotal}
+              meaningCount={meaningsCount}
+              questionsCount={questionsCount}
+            />
           </div>
         )}
       </div>
