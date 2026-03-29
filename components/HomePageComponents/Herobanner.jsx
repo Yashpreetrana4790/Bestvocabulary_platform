@@ -1,11 +1,14 @@
+"use client"
 import React from 'react'
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, LayoutDashboard } from "lucide-react"
 import Link from "next/link"
 import SmartSearchBar from "@/components/SmartSearchBar"
 import HeroCatMascot from "@/components/HomePageComponents/HeroCatMascot"
+import { useAuth } from "@/context/AuthContext"
 
 const Herobanner = () => {
+  const { isAuthenticated } = useAuth()
   return (
     <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center px-3 sm:px-4 py-12 sm:py-16 md:py-24 overflow-hidden">
       {/* Animated Background */}
@@ -71,14 +74,22 @@ const Herobanner = () => {
           <SmartSearchBar autoFocus />
         </div>
 
-        {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-4 w-full max-w-sm sm:max-w-none mx-auto">
-          <Link href="/dictionary" className="w-full sm:w-auto min-w-0">
-            <Button size="lg" className="w-full sm:w-auto rounded-full px-5 sm:px-8 h-11 sm:h-12 text-sm sm:text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
-              Explore Dictionary
-              <ArrowRight className="h-4 w-4 ml-2" />
-            </Button>
-          </Link>
+          {isAuthenticated ? (
+            <Link href="/dashboard" className="w-full sm:w-auto min-w-0">
+              <Button size="lg" className="w-full sm:w-auto rounded-full px-5 sm:px-8 h-11 sm:h-12 text-sm sm:text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
+                <LayoutDashboard className="h-4 w-4 mr-2" />
+                Go to Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/dictionary" className="w-full sm:w-auto min-w-0">
+              <Button size="lg" className="w-full sm:w-auto rounded-full px-5 sm:px-8 h-11 sm:h-12 text-sm sm:text-base font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
+                Explore Dictionary
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </Link>
+          )}
           <Link href="/wordofday" className="w-full sm:w-auto min-w-0">
             <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-5 sm:px-8 h-11 sm:h-12 text-sm sm:text-base font-medium hover:bg-primary/5 transition-all">
               Word of the Day

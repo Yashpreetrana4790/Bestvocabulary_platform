@@ -2,14 +2,19 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { getSavedWords, addSavedWord, removeSavedWord } from '@/services/savedWordsApi';
+import {
+  getSavedWords,
+  addSavedWord,
+  removeSavedWord,
+  SAVED_WORDS_AUTH_ERROR,
+} from '@/services/savedWordsApi';
 
 /**
  * Saved words tied to the logged-in user (backend). When not logged in, save UI should be hidden.
  * Returns: savedWords (list), isSaved(wordId), toggleSave(word), addSave(wordId), removeSave(wordId), isLoading, isAuthenticated.
  */
 export function useSavedWords() {
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, logout } = useAuth();
   const [savedWords, setSavedWords] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,12 +28,17 @@ export function useSavedWords() {
       const list = await getSavedWords(token);
       setSavedWords(Array.isArray(list) ? list : []);
     } catch (e) {
-      console.error('Failed to fetch saved words:', e);
-      setSavedWords([]);
+      if (e?.code === SAVED_WORDS_AUTH_ERROR) {
+        logout();
+        setSavedWords([]);
+      } else {
+        console.error('Failed to fetch saved words:', e);
+        setSavedWords([]);
+      }
     } finally {
       setIsLoading(false);
     }
-  }, [token]);
+  }, [token, logout]);
 
   useEffect(() => {
     fetchList();
@@ -57,11 +67,15 @@ export function useSavedWords() {
         await addSavedWord(token, String(wordId));
         await fetchList();
       } catch (e) {
-        console.error('Failed to add saved word:', e);
+        if (e?.code === SAVED_WORDS_AUTH_ERROR) {
+          logout();
+        } else {
+          console.error('Failed to add saved word:', e);
+        }
         throw e;
       }
     },
-    [token, fetchList]
+    [token, fetchList, logout]
   );
 
   const removeSave = useCallback(
@@ -71,11 +85,15 @@ export function useSavedWords() {
         await removeSavedWord(token, String(wordId));
         await fetchList();
       } catch (e) {
-        console.error('Failed to remove saved word:', e);
+        if (e?.code === SAVED_WORDS_AUTH_ERROR) {
+          logout();
+        } else {
+          console.error('Failed to remove saved word:', e);
+        }
         throw e;
       }
     },
-    [token, fetchList]
+    [token, fetchList, logout]
   );
 
   const toggleSave = useCallback(
