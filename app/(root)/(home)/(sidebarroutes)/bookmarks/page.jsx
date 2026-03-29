@@ -4,280 +4,170 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Bookmark,
-  BookmarkCheck,
-  Trash2,
   Search,
   ArrowRight,
-  Volume2,
-  LogIn,
-  Layers,
-  HelpCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSavedWords } from '@/hooks/useSavedWords';
 import LoadingWordFact from '@/components/LoadingWordFact';
 import SavedWordsFlashcards from './components/SavedWordsFlashcards';
 import SavedWordsQuiz from './components/SavedWordsQuiz';
+import UserDashboardLayout from '@/components/UserDashboard/UserDashboardLayout';
+import WorkspacePageHeader from '@/components/UserDashboard/WorkspacePageHeader';
+import PracticeTrainingBanner from '@/components/UserDashboard/PracticeTrainingBanner';
+import WordCard from '@/components/Cards/WordCard';
+import ProtectedRoute from '@/components/Auth/ProtectedRoute';
 
 export default function SavedWordsPage() {
-  const { savedWords, removeSave, isLoading, isAuthenticated } = useSavedWords();
-  const [search, setSearch] = useState('');
-  const [sortOrder, setSortOrder] = useState('newest');
+  const { savedWords, isLoading } = useSavedWords();
   const [practiceMode, setPracticeMode] = useState(null); // null | 'flashcards' | 'quiz'
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState('newest');
 
   const filteredList = useMemo(() => {
     const list = (savedWords || []).filter(
       (b) =>
-        (b.word || '').toLowerCase().includes(search.toLowerCase()) ||
-        (b.meaning || '').toLowerCase().includes(search.toLowerCase())
+        (b.word || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (b.meaning || '').toLowerCase().includes(searchQuery.toLowerCase())
     );
     if (sortOrder === 'alphabetical') return [...list].sort((a, b) => (a.word || '').localeCompare(b.word || ''));
     if (sortOrder === 'oldest') return [...list].reverse();
     return list;
-  }, [savedWords, search, sortOrder]);
-
-  const handleSpeak = (word) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(word);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
-  const handleRemove = async (wordId) => {
-    try {
-      await removeSave(wordId);
-    } catch (e) {
-      console.error('Failed to remove saved word', e);
-    }
-  };
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen">
-        <section className="relative py-16 px-4 overflow-hidden">
-          <div className="absolute inset-0 -z-10">
-            <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px]" />
-          </div>
-          <div className="max-w-5xl mx-auto text-center py-16">
-            <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-6">
-              <BookmarkCheck className="h-10 w-10 text-muted-foreground" />
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Saved Words
-            </h1>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              Sign in to save words and see them here. Your saved words will be synced to your account.
-            </p>
-            <Link href="/login">
-              <Button className="rounded-full px-6 gap-2">
-                <LogIn className="h-4 w-4" />
-                Sign in
-              </Button>
-            </Link>
-          </div>
-        </section>
-      </div>
-    );
-  }
+  }, [savedWords, searchQuery, sortOrder]);
 
   return (
-    <div className="min-h-screen">
-      <section className="relative py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px]" />
-        </div>
-
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-              <BookmarkCheck className="h-4 w-4" />
-              My Saved Words
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Saved Words
-            </h1>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              {savedWords.length > 0
-                ? `You have ${savedWords.length} word${savedWords.length === 1 ? '' : 's'} saved`
-                : 'Save words from the dictionary to build your personal list.'}
-            </p>
-          </div>
+    <ProtectedRoute>
+      <UserDashboardLayout activeKey="saved">
+        <div className="max-w-6xl mx-auto w-full">
+          <WorkspacePageHeader
+            kicker="Collection"
+            title="Saved words"
+            description={
+              savedWords.length > 0
+                ? `${savedWords.length} word${savedWords.length === 1 ? '' : 's'} in your library. Search, sort, and practice below.`
+                : 'Words you save from the dictionary appear here for review, flashcards, and quizzes.'
+            }
+            className="mb-8 sm:mb-10"
+          />
 
           {isLoading ? (
             <div className="flex flex-col items-center py-12 gap-6">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-              <p className="text-muted-foreground">Loading your saved words...</p>
+              <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent mx-auto" />
+              <p className="text-muted-foreground animate-pulse">Loading your collection...</p>
               <div className="w-full max-w-md">
                 <LoadingWordFact variant="card" />
               </div>
             </div>
           ) : savedWords.length > 0 ? (
-            <>
-              {/* Practice section — only when viewing list */}
+            <div className="space-y-8">
+              {/* Practice Banner */}
               {practiceMode === null && (
-                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:p-5 mb-6">
-                  <h2 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <Layers className="h-4 w-4 text-primary" />
-                    Practice your saved words
-                  </h2>
-                  <div className="flex flex-wrap gap-3">
-                    <Button
-                      onClick={() => setPracticeMode('flashcards')}
-                      className="rounded-xl gap-2"
-                    >
-                      <Layers className="h-4 w-4" />
-                      Flashcards
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setPracticeMode('quiz')}
-                      className="rounded-xl gap-2"
-                      disabled={filteredList.length < 2}
-                      title={filteredList.length < 2 ? 'Add at least 2 words to play' : ''}
-                    >
-                      <HelpCircle className="h-4 w-4" />
-                      Quiz
-                      {filteredList.length < 2 && (
-                        <span className="text-xs opacity-80"> (need 2+ words)</span>
-                      )}
-                    </Button>
-                  </div>
+                <PracticeTrainingBanner
+                  className="mb-10"
+                  savedWordCount={filteredList.length}
+                  onStartFlashcards={() => setPracticeMode('flashcards')}
+                  onStartQuiz={() => setPracticeMode('quiz')}
+                  quizDisabled={filteredList.length < 2}
+                  quizDisabledHint={filteredList.length < 2 ? 'Add at least 2 words to play' : undefined}
+                />
+              )}
+
+              {/* Interaction Modes */}
+              {practiceMode === 'flashcards' && (
+                <div className="mb-12">
+                  <SavedWordsFlashcards
+                    words={filteredList}
+                    onClose={() => setPracticeMode(null)}
+                  />
+                </div>
+              )}
+              {practiceMode === 'quiz' && (
+                <div className="mb-12">
+                  <SavedWordsQuiz
+                    words={filteredList}
+                    onClose={() => setPracticeMode(null)}
+                  />
                 </div>
               )}
 
-              {practiceMode === 'flashcards' && (
-                <SavedWordsFlashcards
-                  words={filteredList}
-                  onClose={() => setPracticeMode(null)}
-                />
-              )}
-              {practiceMode === 'quiz' && (
-                <SavedWordsQuiz
-                  words={filteredList}
-                  onClose={() => setPracticeMode(null)}
-                />
-              )}
-
+              {/* Filtering and List - Only when not in full practice mode */}
               {practiceMode === null && (
-                <>
-                  <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                    <div className="relative flex-1">
-                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-1 min-w-0 items-center gap-3 h-14 px-4 rounded-2xl border border-border bg-background shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-shadow">
+                      <Search
+                        className="h-5 w-5 shrink-0 text-muted-foreground pointer-events-none"
+                        strokeWidth={2}
+                        aria-hidden
+                      />
                       <input
                         type="text"
-                        placeholder="Search saved words..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="w-full h-12 pl-12 pr-4 rounded-xl border border-border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                        placeholder="Search your collection..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="min-w-0 flex-1 h-full bg-transparent border-0 p-0 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-0"
                       />
                     </div>
                     <select
                       value={sortOrder}
                       onChange={(e) => setSortOrder(e.target.value)}
-                      className="h-12 px-4 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="h-14 px-4 rounded-2xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm font-medium text-foreground min-w-[10.5rem]"
                     >
-                      <option value="newest">Newest first</option>
-                      <option value="oldest">Oldest first</option>
-                      <option value="alphabetical">A–Z</option>
+                      <option value="newest">Newest First</option>
+                      <option value="oldest">Oldest First</option>
+                      <option value="alphabetical">A – Z</option>
                     </select>
                   </div>
 
-                  <div className="grid gap-3">
-                {filteredList.map((item) => (
-                  <div
-                    key={item.wordId ?? item.word}
-                    className="group flex items-center justify-between gap-4 p-5 rounded-2xl border bg-card/80 backdrop-blur-sm hover:shadow-md transition-all"
-                  >
-                    <Link
-                      href={`/word/${(item.word || '').toLowerCase()}`}
-                      className="flex-1 min-w-0"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                          <span className="text-xl font-bold text-primary">
-                            {(item.word || '').charAt(0).toUpperCase()}
-                          </span>
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
-                            {item.word}
-                          </h3>
-                          {item.meaning && (
-                            <p className="text-sm text-muted-foreground truncate mt-1">
-                              {item.meaning}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <button
-                        onClick={() => handleSpeak(item.word)}
-                        className="w-10 h-10 rounded-full bg-muted/80 hover:bg-primary/10 flex items-center justify-center transition-colors"
-                        title="Listen"
-                      >
-                        <Volume2 className="h-4 w-4 text-muted-foreground" />
-                      </button>
-                      <button
-                        onClick={() => handleRemove(item.wordId)}
-                        className="w-10 h-10 rounded-full bg-muted/80 hover:bg-destructive/10 flex items-center justify-center transition-colors"
-                        title="Remove from saved"
-                      >
-                        <Trash2 className="h-4 w-4 text-muted-foreground hover:text-destructive" />
-                      </button>
-                      <Link
-                        href={`/word/${(item.word || '').toLowerCase()}`}
-                        className="w-10 h-10 rounded-full bg-muted/80 hover:bg-primary/10 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
-                      >
-                        <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                      </Link>
+                  {filteredList.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                      {filteredList.map((item) => (
+                        <WordCard
+                          key={item.wordId ?? item._id ?? item.word}
+                          wordsdata={item}
+                        />
+                      ))}
                     </div>
-                  </div>
-                ))}
-                {filteredList.length === 0 && search && (
-                    <div className="text-center py-12">
-                      <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-muted-foreground">No saved words match &quot;{search}&quot;</p>
-                      <Button variant="outline" className="mt-4" onClick={() => setSearch('')}>
+                  ) : (
+                    <div className="text-center py-20 bg-muted/20 rounded-[2.5rem] border border-dashed border-border/60">
+                      <Search className="h-16 w-16 text-muted-foreground/30 mx-auto mb-6" />
+                      <p className="text-xl font-medium text-muted-foreground">No matches found for &quot;{searchQuery}&quot;</p>
+                      <Button variant="outline" className="mt-6 rounded-full px-8" onClick={() => setSearchQuery('')}>
                         Clear search
                       </Button>
                     </div>
                   )}
-                  </div>
-                </>
+                </div>
               )}
-            </>
+            </div>
           ) : (
-            <div className="text-center py-16">
-              <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-6">
-                <Bookmark className="h-10 w-10 text-muted-foreground" />
+            <div className="text-center py-20 animate-in fade-in zoom-in duration-500">
+              <div className="w-24 h-24 rounded-[2rem] bg-muted/30 flex items-center justify-center mx-auto mb-8">
+                <Bookmark className="h-12 w-12 text-muted-foreground/40" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">
+              <h3 className="text-xl font-semibold text-foreground mb-2 tracking-tight">
                 No saved words yet
               </h3>
-              <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                Click the save icon on any word page to add it here.
+              <p className="text-sm sm:text-base text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
+                Click the save icon on any word page to build your own personal training list.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/dictionary">
-                  <Button className="rounded-full px-6 gap-2">
+                  <Button size="lg" className="rounded-full px-10 h-14 font-bold shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 transition-all">
                     Browse Dictionary
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link href="/random">
-                  <Button variant="outline" className="rounded-full px-6">
-                    Discover Random Word
+                  <Button size="lg" variant="outline" className="rounded-full px-10 h-14 font-bold border-primary/20 bg-background/50 backdrop-blur-sm hover:bg-primary/5 transition-all">
+                    Discover Random
                   </Button>
                 </Link>
               </div>
             </div>
           )}
         </div>
-      </section>
-    </div>
+      </UserDashboardLayout>
+    </ProtectedRoute>
   );
 }

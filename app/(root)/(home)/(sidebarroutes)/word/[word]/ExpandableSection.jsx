@@ -62,7 +62,7 @@ export function DefinitionCard({ meaning, index, word, difficultyConfig, isFirst
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-2">
-              <h3 className="text-base sm:text-lg font-bold text-foreground leading-snug flex-1 min-w-0">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground leading-snug flex-1 min-w-0 font-Merriweather">
                 {meaning.meaning}
               </h3>
               <TooltipProvider delayDuration={200}>
@@ -258,7 +258,7 @@ export function ExpandableInfoCard({ title, iconName, children, defaultOpen = fa
           <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
             <Icon className="h-4 w-4 text-primary" />
           </div>
-          <h3 className="font-semibold text-foreground text-sm">{title}</h3>
+          <h3 className="font-semibold text-foreground text-sm font-inter">{title}</h3>
         </div>
         <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-300 shrink-0 ${expanded ? 'rotate-180' : ''}`} />
       </button>
